@@ -1,23 +1,17 @@
-# HORIZON App Icon · v1
+# 图标设计稿
 
-使用内置 imagegen 生成并局部修订。设计延续应用的黑底、白色线框砖墙与粒子地球：墙顶形成地平线，地球从墙后升起，保持真实海陆辨识度。不加入文字。
+以下为设计迭代资源，实际打包图标以 `Horizon/Assets.xcassets/AppIcon.appiconset/Contents.json` 为准。
 
-最终设计稿：`horizon-app-icon-v1.png`。这是完整、不预裁圆角的正方形图像，供图标设计评审与后续资产导出使用。
+| 设计稿 | 方向 |
+| --- | --- |
+| [v1](horizon-app-icon-v1.png) | 粒子地球与线框砖墙 |
+| [v2](horizon-app-icon-v2.png) | 黑底白色单线地球与墙沿 |
+| [v3](horizon-app-icon-v3.png) | 保留厚度、透视和前后遮挡 |
+| [v4](horizon-app-icon-v4.png) | 白色地球轮廓与简化陆地 |
+| [v5](horizon-app-icon-v5.png) | 桌面地球仪与曲线支架 |
+| [v6](horizon-app-icon-v6.png) | 水平线与升起的圆弧 |
+| [v7](horizon-app-icon-v7.png) | 近地轨道的浅弧地平线 |
+| [v8](horizon-app-icon-v8.png) | 左侧局部受光与大气泛光 |
+| [v9](horizon-app-icon-v9.png) | 居中、左右对称的大气泛光 |
 
-## 生成提示词
-
-### 初始生成
-
-```text
-Use case: logo-brand.
-Asset type: one finished native iOS app icon for HORIZON, square 1024 x 1024 opaque artwork.
-Brand story: step above the wall and see the world. The app's actual visual language is pure black, restrained white wireframe masonry, real geographic particle Earth, cinematic depth, minimal science-fiction elegance.
-Create a premium, exceptionally composed single icon, not a mockup or a sheet of options. An almost black full-bleed background. A large luminous monochrome particle Earth dominates the upper center, with accurate recognizable Europe/Africa and a little Asia geography, round spherical silhouette, softly shaded rear hemisphere. Fine white and cool silver particles form the geographic continents, with enough visual density to read as Earth at small sizes; oceans are dark, with only very subtle sparse spherical structure, no latitude/longitude grid. The Earth rises behind a low foreground brick wall occupying roughly the bottom quarter of the icon, with the lowest fifth of the globe occluded by the wall. A delicate but crisp near-white wall crest creates the horizon. The black masonry wall has real subtle 3D thickness and a gently visible top plane, with only two or three staggered courses of horizontal rectangular bricks outlined in restrained silver-white, a few clean lines, not a busy mesh. A quiet central composition and disciplined negative space; globe is approximately 68 percent of image width, softly luminous rim, no heavy bloom. A very small handful of drifting particles around the globe suggests formation and motion. The mark must remain strong, clean, and legible at 60px, avoiding microscopic visual noise and moire. Details disappear gracefully at small sizes. Convey depth through occlusion and a slightly elevated camera, not dramatic skew. Museum-grade minimal polished 3D point-cloud render and architectural linework, high contrast, precision, mysterious and calm.
-Constraints: strictly black/white/silver grayscale, no orange, blue, green, gradients of color, no words or letters, no H monogram, no shields, padlocks, VPN symbols, extraneous rings, lens flares, light rays, starscape, sparkles, bevelled app tile, border or drop shadow. No pre-rounded corners: the artwork fills a complete square and the operating system applies its own icon mask. Do not draw a device or interface. One icon only. Opaque black background.
-```
-
-### 线框墙修订
-
-```text
-Edit the provided HORIZON iOS app icon. Keep the exact globe, correct geographic orientation, sphere size, composition, black background, and monochrome palette. Change ONLY the foreground wall rendering: remove ALL stone texture, roughness, grain, surface highlights and photographic material. The brick faces must become completely flat, smooth, nearly pure black, like the app's minimalist 3D black wireframe wall. Outline the same staggered rectangular brick structure using clean, crisp, subtle silver-white lines with consistent weight and restrained brightness, and retain a narrow smooth dark top plane to convey real thickness and occlusion. The wall should feel like a precision architectural line drawing rendered in 3D, not a photograph of bricks. Its top horizontal horizon edge remains slightly brighter. No extra geometry, no extra decoration, no text. Keep full-bleed opaque square, no rounded corners, no tile border, one finished icon only. The particle Earth stays the dominant luminous element. Prioritize a calm, legible app icon at small size.
-```
+这些图稿由 imagegen 生成或编辑。涉及系统符号参考的草稿不构成 App Icon、Logo 或商标的使用许可证明；使用前核对 [Apple SF Symbols 说明](https://developer.apple.com/design/human-interface-guidelines/sf-symbols)。
