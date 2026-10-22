@@ -1,0 +1,22 @@
+# Fictional structural fixture. Never use for real connectivity.
+# All names, endpoint values, bandwidth values and credentials are synthetic.
+# DNS and TUN are intentionally absent, matching the inspected input's shape.
+mode: rule
+proxies:
+  - name: TEST-HY2
+    type: hysteria2
+    server: node.example.invalid
+    port: 443
+    password: TEST-ONLY-NOT-A-REAL-PASSWORD
+    sni: tls.example.invalid
+    obfs: salamander
+    obfs-password: TEST-ONLY-NOT-A-REAL-OBFS-SECRET
+    up: "10 Mbps"
+    down: "50 Mbps"
+proxy-groups:
+  - name: TEST-SELECT
+    type: select
+    proxies:
+      - TEST-HY2
+rules:
+  - MATCH,TEST-SELECT

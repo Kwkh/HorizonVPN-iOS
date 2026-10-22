@@ -1,0 +1,56 @@
+{
+  "status": "experimental-packet-tunnel-integration",
+  "go": {
+    "version": "go1.26.6",
+    "archive": "go1.26.6.darwin-arm64.tar.gz",
+    "sha256": "2dc95ce4675829f2df0e86b28bcef3283635902062a5f0580ca659bf570f3204",
+    "url": "https://go.dev/dl/go1.26.6.darwin-arm64.tar.gz"
+  },
+  "gomobile": "github.com/sagernet/gomobile/cmd/gomobile@v0.1.13",
+  "gobind": "github.com/sagernet/gomobile/cmd/gobind@v0.1.13",
+  "sources": [
+    {
+      "name": "Hako",
+      "url": "https://github.com/TokenPLS/Hako.git",
+      "revision": "9437767346a63957c60bf027b6d9fb27e51d89c4",
+      "license": "GPL-3.0"
+    },
+    {
+      "name": "Hako-Adapter",
+      "url": "https://github.com/TokenPLS/Hako-Adapter.git",
+      "revision": "6a47cf91350ab80024e9bb4003264dd01100bdbd",
+      "license": "GPL-3.0"
+    }
+  ],
+  "slices": "ios",
+  "buildTags": [
+    "with_gvisor",
+    "cmfa",
+    "with_quic",
+    "with_low_memory",
+    "no_easytier"
+  ],
+  "validatedXcode": "26.5 (17F42) \u2014 iOS SDK build and three-architecture Swift linkage verified; runtime unverified",
+  "patches": [
+    {
+      "path": "Configuration/Patches/hako-private-diagnostics.patch",
+      "sha256": "a5ad8f51fba611524d87ee5043a0cc1c91d97754526fc3173fa25a4e5028f103"
+    },
+    {
+      "path": "Configuration/Patches/hako-selection-policy.patch",
+      "sha256": "3031e3e748d512c93e1c11d9326eba9b7de9e6878fa5df218276c0b1d2bbe7f3"
+    },
+    {
+      "path": "Configuration/Patches/hako-standalone-probe.patch",
+      "sha256": "09a58b6ccc516bb2fa77795ad8f91db1770303c8b9138bd5a987623125cd8dbf"
+    },
+    {
+      "path": "Configuration/Patches/hako-dns-policy-order.patch",
+      "sha256": "b8691e1cec7fd3c978cb1177f3b6194e075d6bdaad34e7df75a7a4fe8c4f50cd"
+    },
+    {
+      "path": "Configuration/Patches/hako-shutdown-cancellation.patch",
+      "sha256": "debe6b7942c565e1133426d885f92df6799b666ea1ed5b57673aad5eb2eb4cf4"
+    }
+  ]
+}

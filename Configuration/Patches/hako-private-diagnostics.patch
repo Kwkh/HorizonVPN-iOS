@@ -1,0 +1,380 @@
+--- a/bind/hako/setup.go
++++ b/bind/hako/setup.go
+@@ -28,6 +28,11 @@
+ )
+ 
+ type SetupOptions struct {
++	PrivateDiagnostics bool
++	// Opt-in service mode; unlike App-only preflight, it arms NE memory monitors.
++	EphemeralPacketTunnel bool
++	// Native consumers can use the bridge and NE messages without a Unix HTTP API.
++	DisableClashAPISocket bool
+ 	IPQueryMode string
+ 	TunIPv6Mode string
+ 	BasePath    string
+@@ -48,6 +53,9 @@
+ }
+ 
+ var (
++	setupPrivateDiagnostics atomic.Bool
++	setupEphemeralPacketTunnel bool
++	setupDisableClashAPISocket atomic.Bool
+ 	setupMu                    sync.Mutex
+ 	setupDone                  bool
+ 	setupCacheDisabled         bool
+@@ -86,6 +94,8 @@
+ 	if options == nil {
+ 		return bridgeSafeError(errors.New("hako: Setup called with nil options"))
+ 	}
++	setupPrivateDiagnostics.Store(options.PrivateDiagnostics)
++	if options.PrivateDiagnostics { logrus.SetOutput(io.Discard) }
+ 	if options.BasePath == "" || options.WorkingPath == "" || options.TempPath == "" {
+ 		return bridgeSafeError(errors.New("hako: SetupOptions.BasePath, WorkingPath and TempPath are required"))
+ 	}
+@@ -100,6 +110,10 @@
+ 	if err != nil {
+ 		return bridgeSafeError(err)
+ 	}
++	if options.EphemeralPacketTunnel && (!options.PrivateDiagnostics || !options.DisablePersistentCache || requestedRuntimeProfile != runtimeProfileIOSPacketTunnel) {
++		return bridgeSafeError(errors.New("hako: ephemeral packet tunnel requires private diagnostics, disabled persistent cache and iosPacketTunnel profile"))
++	}
++
+ 	systemResolvers, err := parseSystemDNSServerLines(options.SystemDNSServerLines)
+ 	if err != nil {
+ 		return bridgeSafeError(fmt.Errorf("hako: SetupOptions.SystemDNSServerLines: %w", err))
+@@ -118,6 +132,10 @@
+ 			options.IncludeAllNetworks,
+ 		))
+ 	}
++	if activeCoreCount.Load() > 0 && options.DisableClashAPISocket != setupDisableClashAPISocket.Load() {
++		return bridgeSafeError(errors.New("hako: changing DisableClashAPISocket requires restart"))
++	}
++	setupDisableClashAPISocket.Store(options.DisableClashAPISocket)
+ 	includeAllNetworksRequested.Store(options.IncludeAllNetworks)
+ 	sing_tun.IncludeAllNetworks = options.IncludeAllNetworks
+ 	systemDNSSubstitutes.Store(&systemResolvers)
+@@ -187,6 +205,7 @@
+ 	if phaseLogPath == "" {
+ 		phaseLogPath = filepath.Join(options.WorkingPath, "hako-core-phases.log")
+ 	}
++	if options.PrivateDiagnostics { phaseLogPath = "" }
+ 	configureStartupPhaseLogPath(phaseLogPath)
+ 	setupClashAPIPath = filepath.Join(options.BasePath, clashAPISocketName)
+ 	setupOOMEvidencePath = filepath.Join(options.BasePath, oomEvidenceFileName)
+@@ -210,7 +229,9 @@
+ 	}
+ 
+ 	startupPhase("setup:dirs-probed")
+-	if err := armGoCrashOutputAt(options.BasePath); err != nil {
++	if options.PrivateDiagnostics {
++		_ = disarmGoCrashOutput()
++	} else if err := armGoCrashOutputAt(options.BasePath); err != nil {
+ 		logrus.Warnf("[iOS] Go crash output unavailable, a panic will leave no readable traceback: %v", err)
+ 	}
+ 
+@@ -226,17 +247,18 @@
+ 	setupRuntimeProfile.Store(uint32(requestedRuntimeProfile))
+ 	armMemoryPressureMonitorForRuntime(
+ 		requestedRuntimeProfile,
+-		options.DisablePersistentCache,
++		options.DisablePersistentCache && !options.EphemeralPacketTunnel,
+ 		startMemoryPressureMonitor,
+ 	)
+ 	armMemoryPressureMonitorForRuntime(
+ 		requestedRuntimeProfile,
+-		options.DisablePersistentCache,
++		options.DisablePersistentCache && !options.EphemeralPacketTunnel,
+ 		func() {
+ 			startPressureThresholdMonitor(options.MemoryLimit, true)
+ 		},
+ 	)
+ 	startupPhase("setup:monitors-armed")
++	setupEphemeralPacketTunnel = options.EphemeralPacketTunnel
+ 	setupDone = true
+ 	return nil
+ }
+@@ -316,6 +338,7 @@
+ }
+ 
+ func (w *platformLogWriter) Write(p []byte) (int, error) {
++	if setupPrivateDiagnostics.Load() { return len(p), nil }
+ 	if msg := strings.TrimRight(string(p), "\n"); msg != "" {
+ 		recentLogs.add(msg)
+ 		select {
+--- a/bind/hako/service.go
++++ b/bind/hako/service.go
+@@ -80,11 +80,12 @@
+ 	setupMu.Lock()
+ 	ok := setupDone
+ 	cacheDisabled := setupCacheDisabled
++	ephemeralPacketTunnel := setupEphemeralPacketTunnel
+ 	setupMu.Unlock()
+ 	if !ok {
+ 		return nil, bridgeSafeError(errors.New("hako: call Setup before NewService"))
+ 	}
+-	if cacheDisabled {
++	if cacheDisabled && !(ephemeralPacketTunnel && platform.UnderNetworkExtension()) {
+ 		return nil, bridgeSafeError(errors.New("hako: NewService is unavailable after App-only DisablePersistentCache Setup"))
+ 	}
+ 	platform = bridgeSafePlatform(platform)
+--- a/bind/hako/clash_api.go
++++ b/bind/hako/clash_api.go
+@@ -28,7 +28,7 @@
+ }
+ 
+ func bindingSocketPathFor(path string) string {
+-	if !currentRuntimePolicy(true).bindsUnixControlSocket {
++	if setupDisableClashAPISocket.Load() || !currentRuntimePolicy(true).bindsUnixControlSocket {
+ 		return ""
+ 	}
+ 	return path
+--- a/bind/hako/startup_breadcrumb.go
++++ b/bind/hako/startup_breadcrumb.go
+@@ -35,6 +35,7 @@
+ }
+ 
+ func breadcrumbPath() string {
++	if setupPrivateDiagnostics.Load() { return "" }
+ 	directory := breadcrumbDirectory
+ 	if directory == "" {
+ 		directory = homeDirectoryForBreadcrumb()
+--- a/bind/hako/startup_phase.go
++++ b/bind/hako/startup_phase.go
+@@ -139,6 +139,7 @@
+ }
+ 
+ func startupPhaseLine(name string, peakBytes int64, count int64) {
++	if setupPrivateDiagnostics.Load() { return }
+ 	line := fmt.Sprintf("%s  go-phase=%-24s fp=%.1fMiB",
+ 		time.Now().Format("15:04:05.000"),
+ 		name, float64(MemoryFootprint())/(1024*1024))
+--- a/bind/hako/control.go
++++ b/bind/hako/control.go
+@@ -3,6 +3,9 @@
+ import (
+ 	"context"
+ 	"fmt"
++ "net"
++ "strings"
++ "github.com/TokenPLS/Hako/component/resolver"
+ 	"time"
+ 
+ 	"github.com/TokenPLS/Hako/adapter"
+@@ -121,3 +124,124 @@
+ 		return true
+ 	})
+ }
++
++// PrivateNodeProbeJSON returns only allowlisted outcomes, never error text,
++// proxy identities, resolved addresses, response headers or bodies.
++// It is opt-in and is never called by tunnel startup.
++func PrivateNodeProbeJSON(name string) string {
++    result := map[string]any{"bootstrap":"unavailable", "https":"not-run", "delay":int32(-1)}
++    if !setupPrivateDiagnostics.Load() { return mustJSON(result) }
++    proxy, ok := tunnel.Proxies()[name]
++    if !ok { proxy, ok = proxyFromProviders(name) }
++    if !ok { return mustJSON(result) }
++    host, _, err := net.SplitHostPort(proxy.Addr())
++    if err != nil { return mustJSON(result) }
++    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
++    ips, err := resolver.LookupIPWithResolver(ctx, host, resolver.ProxyServerHostResolver)
++    cancel()
++    if err != nil { result["bootstrap"] = privateProbeReason(err); return mustJSON(result) }
++    if len(ips) == 0 { result["bootstrap"] = "no-answer"; return mustJSON(result) }
++    result["bootstrap"] = "resolved"
++    ctx, cancel = context.WithTimeout(context.Background(), 5*time.Second)
++    defer cancel()
++    if tester, ok := proxy.(adapter.URLTestOutcomeProvider); ok {
++        outcome, err := tester.URLTestOutcome(ctx, "https://1.1.1.1/cdn-cgi/trace", urlTestExpectedStatus)
++        if err != nil { result["https"] = privateProbeReason(err) } else if !outcome.Satisfied {
++            result["https"] = "http-status"
++        } else { result["https"] = "success"; result["delay"] = int32(outcome.Delay) }
++    }
++    return mustJSON(result)
++}
++
++func privateProbeReason(err error) string {
++    if err == nil { return "success" }
++    text := strings.ToLower(err.Error())
++    for _, pair := range [][2]string{
++        {"certificate", "tls"}, {"tls:", "tls"},
++        {"authentication", "authentication"}, {"auth failed", "authentication"},
++        {"no such host", "dns-name"}, {"network is unreachable", "network"},
++        {"operation not permitted", "permission"}, {"permission denied", "permission"},
++        {"connection refused", "refused"}, {"timeout", "timeout"},
++        {"deadline exceeded", "timeout"},
++    } { if strings.Contains(text, pair[0]) { return pair[1] } }
++    return "failed"
++}
++
++// URLTestWithTimeout keeps URLTest's numeric-only result and 2xx requirement,
++// while allowing native clients to match their desktop measurement deadline.
++func URLTestWithTimeout(name, url string, timeoutMillis int32) int32 {
++	if timeoutMillis < 1 || timeoutMillis > 60000 {
++		return -1
++	}
++	proxy, ok := tunnel.Proxies()[name]
++	if !ok {
++		proxy, ok = proxyFromProviders(name)
++		if !ok {
++			return -1
++		}
++	}
++	return urlTestDelayWithTimeout(proxy, url, timeoutMillis)
++}
++
++func urlTestDelayWithTimeout(proxy C.Proxy, url string, timeoutMillis int32) int32 {
++	if timeoutMillis < 1 || timeoutMillis > 60000 {
++		return -1
++	}
++	if url == "" {
++		url = defaultURLTestURL
++	}
++	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeoutMillis)*time.Millisecond)
++	defer cancel()
++	if outcomes, ok := proxy.(adapter.URLTestOutcomeProvider); ok {
++		result, err := outcomes.URLTestOutcome(ctx, url, urlTestExpectedStatus)
++		if err != nil || !result.Satisfied || ctx.Err() != nil {
++			return -1
++		}
++		return int32(result.Delay)
++	}
++	delay, err := proxy.URLTest(ctx, url, urlTestExpectedStatus)
++	if err != nil || ctx.Err() != nil {
++		return -1
++	}
++	return int32(delay)
++}
++
++// CancellableURLTests scopes native requests to one user initiated batch.
++// Numeric results only: -1 failed, -2 cancelled, -3 timed out.
++// Shared admission prevents cancelled/restarted batches from exceeding 5 dials.
++var privateBatchSlots = make(chan struct{}, 5)
++
++type CancellableURLTests struct {
++    ctx context.Context
++    cancel context.CancelFunc
++}
++
++func NewCancellableURLTests(concurrency int) *CancellableURLTests {
++    if concurrency != 5 { return nil }
++    ctx, cancel := context.WithCancel(context.Background())
++    return &CancellableURLTests{ctx: ctx, cancel: cancel}
++}
++
++func (b *CancellableURLTests) Cancel() { b.cancel() }
++
++func (b *CancellableURLTests) Test(name, url string, timeoutMillis int32) int32 {
++    if timeoutMillis < 1 || timeoutMillis > 10000 { return -1 }
++    select {
++    case <-b.ctx.Done(): return -2
++    case privateBatchSlots <- struct{}{}:
++    }
++    defer func() { <-privateBatchSlots }()
++    if b.ctx.Err() != nil { return -2 }
++    proxy, ok := tunnel.Proxies()[name]
++    if !ok { proxy, ok = proxyFromProviders(name) }
++    if !ok { return -1 }
++    ctx, cancel := context.WithTimeout(b.ctx, time.Duration(timeoutMillis)*time.Millisecond)
++    defer cancel()
++    tester, ok := proxy.(adapter.URLTestOutcomeProvider)
++    if !ok { return -1 }
++    outcome, err := tester.URLTestOutcome(ctx, url, urlTestExpectedStatus)
++    if b.ctx.Err() != nil { return -2 }
++    if ctx.Err() == context.DeadlineExceeded { return -3 }
++    if err != nil || ctx.Err() != nil || !outcome.Satisfied || outcome.Delay == 0 { return -1 }
++    return int32(outcome.Delay)
++}
+--- a/bind/hako/yaml_json.go
++++ b/bind/hako/yaml_json.go
+@@ -19,6 +19,12 @@
+ 	}
+ 	if len(document.Content) != 1 || document.Content[0].Kind != yaml.MappingNode {
+ 		return nil, bridgeSafeError(fmt.Errorf("hako: YAML configuration root must be an object"))
++	}
++
++	// A legal leading --- is allowed, but a second document is never ignored.
++	var trailing yaml.Node
++	if err := decoder.Decode(&trailing); err != io.EOF {
++		return nil, bridgeSafeError(fmt.Errorf("hako: expected exactly one YAML document"))
+ 	}
+ 
+ 	var safety any
+--- a/adapter/adapter.go
++++ b/adapter/adapter.go
+@@ -18,6 +18,7 @@
+ 	"github.com/TokenPLS/Hako/component/ca"
+ 	C "github.com/TokenPLS/Hako/constant"
+ 	"github.com/TokenPLS/Hako/log"
++	"github.com/TokenPLS/Hako/tunnel/statistic"
+ 
+ 	"github.com/metacubex/http"
+ )
+@@ -283,9 +284,12 @@
+ 		return
+ 	}
+ 
++	// Count the actual probe stream once, including both unified-delay requests.
++	// This path bypasses tunnel trackers. Do not create connection metadata or logs.
++	counted := &urlTestCountingConn{Conn: instance, manager: statistic.DefaultManager, outbound: instance.Chains().Last()}
+ 	transport := &http.Transport{
+ 		DialContext: func(context.Context, string, string) (net.Conn, error) {
+-			return instance, nil
++			return counted, nil
+ 		},
+ 		// from http.DefaultTransport
+ 		MaxIdleConns:          100,
+@@ -342,6 +346,26 @@
+ 	return
+ }
+ 
++// Count successful bytes even when Read/Write also returns an error. Capturing
++// the manager keeps an in-flight probe tied to its original statistics owner.
++type urlTestCountingConn struct {
++	net.Conn
++	manager *statistic.Manager
++	outbound string
++}
++
++func (c *urlTestCountingConn) Read(b []byte) (int, error) {
++	n, err := c.Conn.Read(b)
++	if n > 0 { c.manager.PushDownloaded(c.outbound, int64(n)) }
++	return n, err
++}
++
++func (c *urlTestCountingConn) Write(b []byte) (int, error) {
++	n, err := c.Conn.Write(b)
++	if n > 0 { c.manager.PushUploaded(c.outbound, int64(n)) }
++	return n, err
++}
++
+ func NewProxy(adapter C.ProxyAdapter) *Proxy {
+ 	return &Proxy{
+ 		ProxyAdapter: adapter,
+--- a/component/mmdb/mmdb.go
++++ b/component/mmdb/mmdb.go
+@@ -61,6 +61,10 @@
+ 	}
+ }
+ 
++// ReopenIP replaces the runtime reader after an app-managed snapshot update.
++// Return failures to the caller instead of silently keeping a previous version.
++func ReopenIP() error { return ipPublisher.Reopen() }
++
+ func ReloadIP() {
+ 	reloadFromDisk(ipPublisher, "MMDB", "GEOIP rules")
+ }
+--- a/bind/hako/geoip_cache.go
++++ b/bind/hako/geoip_cache.go
+@@ -119,7 +119,10 @@
+ 	appParseMu.Lock()
+ 	defer appParseMu.Unlock()
+ 	if !geodataMode {
+-		return "geoip: skipped, tunnel reads geoip.metadb", nil
++		if err := mmdb.ReopenIP(); err != nil {
++			return "", bridgeSafeError(err)
++		}
++		return "geoip: mmdb reloaded", nil
+ 	}
+ 	countries := GeoIPCountriesIn(content)
+ 	if len(countries) == 0 {

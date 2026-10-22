@@ -1,0 +1,9 @@
+proxies:
+  - {name: EXAMPLE, type: hysteria2, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY, skip-cert-verify: true}
+proxy-groups:
+  - {name: SELECT, type: select, proxies: [EXAMPLE]}
+rules:
+  - PROCESS-NAME,ExampleDesktop,DIRECT
+  - IP-CIDR,2001:db8::/32,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,例子.测试,DIRECT
+  - MATCH,SELECT

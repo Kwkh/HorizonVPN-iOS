@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIBackgroundModes</key>
+	<array><string>remote-notification</string></array>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>zh-Hans</string>
+	</array>
+	<key>CFBundleDisplayName</key>
+	<string>Horizon</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Device tilt adds subtle depth to the introduction. Motion data is never saved or uploaded.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Scan subscription QR codes on this device without uploading camera images.</string>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>LaunchBackground</string>
+	</dict>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>SharedKeychainGroup</key>
+	<string>$(AppIdentifierPrefix)Kenote.Clash</string>
+</dict>
+</plist>

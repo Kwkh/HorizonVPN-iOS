@@ -1,0 +1,16 @@
+proxy-providers:
+  example:
+    type: inline
+    filter: '^(US|JP)-'
+    exclude-filter: 'low$'
+    override:
+      additional-prefix: 'P-'
+      udp: true
+      skip-cert-verify: false
+    payload:
+      - {name: US-example, type: trojan, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+      - {name: JP-example, type: trojan, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+      - {name: US-low, type: trojan, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+proxy-groups:
+  - {name: SELECT, type: select, proxies: [DIRECT], include-all-providers: true, filter: '^P-US', exclude-type: Shadowsocks}
+rules: ['MATCH,SELECT']

@@ -1,0 +1,29 @@
+# Design fixture only. Not a working node; not yet supported by this app.
+# Enter real credentials through a future secure on-device import flow.
+# iOS routing / TUN settings will be supplied by the bridge, with an adaptation report.
+mode: rule
+log-level: warning
+ipv6: false
+allow-lan: false
+proxies:
+  - name: TEST-NODE
+    type: trojan
+    server: node.example.invalid
+    port: 443
+    password: REDACTED-NOT-A-REAL-PASSWORD
+    sni: node.example.invalid
+    skip-cert-verify: false
+    udp: true
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies: [TEST-NODE]
+rules:
+  - MATCH,PROXY
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - https://1.1.1.1/dns-query

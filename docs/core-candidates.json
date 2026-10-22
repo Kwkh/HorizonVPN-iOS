@@ -1,0 +1,54 @@
+{
+  "checkedOn": "2026-10-01",
+  "status": "research-only; no third-party dependency linked",
+  "candidates": [
+    {
+      "repo": "MetaCubeX/mihomo",
+      "branch": "Meta",
+      "sha": "88dcbf7f1614a67c3b36b848ee3592dfa92ada36",
+      "date": "2026-09-30T14:35:49Z",
+      "archived": false,
+      "sourceURL": "https://github.com/MetaCubeX/mihomo/tree/88dcbf7f1614a67c3b36b848ee3592dfa92ada36"
+    },
+    {
+      "repo": "TokenPLS/Hako",
+      "branch": "main",
+      "sha": "9437767346a63957c60bf027b6d9fb27e51d89c4",
+      "date": "2026-09-24T18:42:03Z",
+      "archived": false,
+      "sourceURL": "https://github.com/TokenPLS/Hako/tree/9437767346a63957c60bf027b6d9fb27e51d89c4"
+    },
+    {
+      "repo": "TokenPLS/Hako-Adapter",
+      "branch": "main",
+      "sha": "6a47cf91350ab80024e9bb4003264dd01100bdbd",
+      "date": "2026-09-24T03:51:53Z",
+      "archived": false,
+      "sourceURL": "https://github.com/TokenPLS/Hako-Adapter/tree/6a47cf91350ab80024e9bb4003264dd01100bdbd"
+    },
+    {
+      "repo": "MMitsuha/proxycat",
+      "branch": "main",
+      "sha": "fd302ed10a76c4f81a5fcddf91a00200eaf6623e",
+      "date": "2026-05-17T00:29:59Z",
+      "archived": false,
+      "sourceURL": "https://github.com/MMitsuha/proxycat/tree/fd302ed10a76c4f81a5fcddf91a00200eaf6623e"
+    },
+    {
+      "repo": "SagerNet/sing-box",
+      "branch": "testing",
+      "sha": "927770c29f3e3698c711fc150e1066a4a78793a2",
+      "date": "2026-09-30T04:43:41Z",
+      "archived": false,
+      "sourceURL": "https://github.com/SagerNet/sing-box/tree/927770c29f3e3698c711fc150e1066a4a78793a2"
+    },
+    {
+      "repo": "SagerNet/sing-box-for-apple",
+      "branch": "dev",
+      "sha": "e1bc3629ee78fa824176c6be157ee2be7795c5c0",
+      "date": "2026-09-29T04:10:56Z",
+      "archived": false,
+      "sourceURL": "https://github.com/SagerNet/sing-box-for-apple/tree/e1bc3629ee78fa824176c6be157ee2be7795c5c0"
+    }
+  ]
+}

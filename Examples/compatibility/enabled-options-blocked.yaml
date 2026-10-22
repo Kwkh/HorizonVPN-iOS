@@ -1,0 +1,19 @@
+mode: rule
+proxies:
+  - name: TEST-HY2
+    type: hysteria2
+    server: node.example.invalid
+    port: 443
+    password: TEST-ONLY-PASSWORD
+    sni: tls.example.invalid
+    obfs: salamander
+    obfs-password: TEST-ONLY-OBFS
+    up: 10
+    down: 50
+proxy-groups:
+  - name: TEST-SELECT
+    type: select
+    proxies: [TEST-HY2]
+rules: ["MATCH,TEST-SELECT"]
+tun: {enable: true}
+sniffer: {enable: true}

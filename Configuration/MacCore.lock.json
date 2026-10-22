@@ -1,0 +1,10 @@
+{
+  "baseLock": "Configuration/Core.lock.json",
+  "baseLockSHA256": "23a6771f2907996d98b28afa0ad52835610c0251a7b31aae63f7ce9496285344",
+  "patches": [
+    {
+      "path": "Configuration/Patches/hako-macos-private-tunnel.patch",
+      "sha256": "0dd775826ae3b50b99d9e0785caef3a5c5a135369c8f40d8e65465aaf2d5b5b1"
+    }
+  ]
+}

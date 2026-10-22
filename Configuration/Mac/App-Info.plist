@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>Horizon</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>zh-Hans</string>
+	</array>
+	<key>HorizonOfflinePreview</key>
+	<string>$(HORIZON_OFFLINE_PREVIEW)</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2026 Horizon. All rights reserved.</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>SharedKeychainGroup</key>
+	<string>$(AppIdentifierPrefix)Kenote.Horizon.Mac</string>
+</dict>
+</plist>

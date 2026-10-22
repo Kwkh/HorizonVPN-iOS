@@ -1,0 +1,8 @@
+proxies:
+  - {name: EXAMPLE-A, type: hysteria2, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+  - {name: EXAMPLE-B, type: hysteria2, server: backup.example.invalid, port: 443, password: FICTIONAL-ONLY}
+proxy-groups:
+  - {name: SELECT, type: select, proxies: [AUTO, BACKUP, EXAMPLE-A]}
+  - {name: AUTO, type: url-test, proxies: [EXAMPLE-A, EXAMPLE-B], interval: 300, tolerance: 50, lazy: true}
+  - {name: BACKUP, type: fallback, proxies: [EXAMPLE-A, EXAMPLE-B], interval: 300, lazy: true}
+rules: ['NETWORK,UDP,SELECT', 'DST-PORT,80/443,SELECT', 'MATCH,SELECT']

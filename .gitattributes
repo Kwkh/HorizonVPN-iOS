@@ -1,0 +1,5 @@
+# Preserve pinned GeoData bytes and suppress text diffs for these binary formats.
+Clash/Resources/GeoData/*.dat binary
+Clash/Resources/GeoData/*.metadb binary
+Horizon/Resources/GeoData/*.dat binary
+Horizon/Resources/GeoData/*.metadb binary

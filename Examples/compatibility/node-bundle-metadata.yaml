@@ -1,0 +1,5 @@
+proxies:
+  - {name: EXAMPLE, type: hysteria2, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+ipv6: false
+log-level: info
+dns: {nameserver: ['9.9.9.9'], default-nameserver: ['1.1.1.1']}

@@ -1,0 +1,13 @@
+--- a/bind/hako/setup.go
++++ b/bind/hako/setup.go
+@@ -110,8 +110,8 @@
+ 	if err != nil {
+ 		return bridgeSafeError(err)
+ 	}
+-	if options.EphemeralPacketTunnel && (!options.PrivateDiagnostics || !options.DisablePersistentCache || requestedRuntimeProfile != runtimeProfileIOSPacketTunnel) {
+-		return bridgeSafeError(errors.New("hako: ephemeral packet tunnel requires private diagnostics, disabled persistent cache and iosPacketTunnel profile"))
++	if options.EphemeralPacketTunnel && (!options.PrivateDiagnostics || !options.DisablePersistentCache || (requestedRuntimeProfile != runtimeProfileIOSPacketTunnel && requestedRuntimeProfile != runtimeProfileMacOSPacketTunnel)) {
++		return bridgeSafeError(errors.New("hako: ephemeral packet tunnel requires private diagnostics, disabled persistent cache and an iOS or macOS packet tunnel profile"))
+ 	}
+ 
+ 	systemResolvers, err := parseSystemDNSServerLines(options.SystemDNSServerLines)

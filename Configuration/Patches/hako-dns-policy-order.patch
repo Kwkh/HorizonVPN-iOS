@@ -1,0 +1,46 @@
+--- a/bind/hako/config_document.go
++++ b/bind/hako/config_document.go
+@@ -4,6 +4,8 @@
+ 	"encoding/json"
+ 	"fmt"
+ 	"runtime"
++	"strings"
++	"github.com/TokenPLS/Hako/common/orderedmap"
+ 	"sync/atomic"
+ 
+ 	"github.com/TokenPLS/Hako/config"
+@@ -80,3 +82,34 @@
+ 	}
+ 	return WrapString(string(payload)), nil
+ }
++
++// PreserveDNSPolicyOrderForIOS restores the native ordered-map precedence after
++// the Swift adapter has validated and normalized resolver values. No network.
++func PreserveDNSPolicyOrderForIOS(source, runtime string) (*StringBox, error) {
++ fail:=fmt.Errorf("invalid DNS policy order")
++ if len(source)>1024*1024 || len(runtime)>8*1024*1024 {return nil,fail}
++ var original struct {DNS struct {
++  Main *orderedmap.OrderedMap[string,any] `yaml:"nameserver-policy" json:"nameserver-policy"`
++  Proxy *orderedmap.OrderedMap[string,any] `yaml:"proxy-server-nameserver-policy" json:"proxy-server-nameserver-policy"`
++ } `yaml:"dns" json:"dns"`}
++ var err error
++ if strings.HasPrefix(strings.TrimSpace(source),"{") {err=json.Unmarshal([]byte(source),&original)} else {err=yaml.Unmarshal([]byte(source),&original)}
++ if err!=nil {return nil,fail}
++ var root map[string]json.RawMessage
++ if json.Unmarshal([]byte(runtime),&root)!=nil {return nil,fail}
++ var dns map[string]json.RawMessage
++ if json.Unmarshal(root["dns"],&dns)!=nil {return nil,fail}
++ for key, order:=range map[string]*orderedmap.OrderedMap[string,any]{"nameserver-policy":original.DNS.Main,"proxy-server-nameserver-policy":original.DNS.Proxy} {
++  if order==nil {continue}
++  var normalized map[string]json.RawMessage
++  if json.Unmarshal(dns[key],&normalized)!=nil || len(normalized)!=order.Len() {return nil,fail}
++  result:=orderedmap.New[string,json.RawMessage]()
++  for entry:=order.Oldest();entry!=nil;entry=entry.Next() {
++   value,ok:=normalized[entry.Key];if !ok {return nil,fail};result.Set(entry.Key,value)
++  }
++  dns[key],err=json.Marshal(result);if err!=nil {return nil,fail}
++ }
++ root["dns"],err=json.Marshal(dns);if err!=nil {return nil,fail}
++ output,err:=json.Marshal(root);if err!=nil {return nil,fail}
++ return &StringBox{Value:string(output)},nil
++}

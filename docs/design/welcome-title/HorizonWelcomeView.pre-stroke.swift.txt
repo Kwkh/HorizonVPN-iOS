@@ -1,0 +1,151 @@
+import SwiftUI
+
+/// Welcome typography owns its local choreography; the parent owns navigation.
+struct HorizonWelcomeView: View {
+    static let departureDuration = 1.5
+    static let departureStagger = 0.04
+    static var departureAnimation: Animation {
+        .timingCurve(0.42,0,0.58,1,duration:departureDuration)
+    }
+    let active: Bool
+    let beginNext: () -> Void
+    let next: () -> Void
+    let skip: () -> Void
+    @Environment(AppSettings.self) private var settings
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.scenePhase) private var scenePhase
+    @ScaledMetric(relativeTo: .largeTitle) private var brandSize: CGFloat = 46
+    @ScaledMetric(relativeTo: .title2) private var welcomeSize: CGFloat = 24
+    @ScaledMetric(relativeTo: .body) private var captionSize: CGFloat = 19
+    @AccessibilityFocusState private var titleFocused: Bool
+    @State private var revealedRows = 0
+    @State private var exitRoute: ExitRoute?
+    private enum ExitRoute { case next, skip }
+
+    var body: some View {
+        GeometryReader { geometry in
+            VStack(spacing:0) {
+                HStack {
+                    Spacer()
+                    Button(settings.text("跳过指南", "Skip guide")) { beginExit(.skip) }
+                        .font(.callout).buttonStyle(.plain)
+                        .frame(minWidth:44,minHeight:44)
+                        .accessibilityIdentifier("welcome.skip")
+                }
+                .padding(.horizontal,26).padding(.top,8)
+                .opacity(exitRoute == nil ? 1 : 0)
+                .animation(.easeOut(duration:0.2),value:exitRoute)
+                ScrollView {
+                    VStack(spacing:20) {
+                        VStack(spacing:10) {
+                            line(settings.text("欢迎来到", "Welcome to"),index:0,size:welcomeSize,
+                                 tracking:1,width:geometry.size.width)
+                            line("H O R I Z O N",index:1,size:brandSize,tracking:1.5,width:geometry.size.width)
+                                .accessibilityLabel("HORIZON")
+                        }
+                        .accessibilityElement(children:.combine)
+                        .accessibilityAddTraits(.isHeader)
+                        .accessibilityFocused($titleFocused)
+                        divider(width:geometry.size.width)
+                        line(settings.text("在这里，你可以……", "Here, you can…"),index:2,
+                             size:captionSize,tracking:0,width:geometry.size.width)
+                            .foregroundStyle(.secondary)
+                    }
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal,28).padding(.vertical,32)
+                    .frame(minHeight:max(260,geometry.size.height-152))
+                }
+                .scrollIndicators(.hidden)
+                HStack {
+                    Spacer()
+                    Button { beginExit(.next) } label: {
+                        Label(settings.text("继续", "Next"),systemImage:"arrow.right")
+                            .font(.callout.weight(.medium))
+                            .padding(.horizontal,18).frame(minHeight:44)
+                    }
+                    .buttonStyle(.glass).buttonBorderShape(.capsule)
+                    .accessibilityIdentifier("welcome.next")
+                }
+                .frame(minHeight:64)
+                .padding(.horizontal,26).padding(.vertical,18)
+                .opacity(exitRoute == nil ? 1 : 0)
+                .animation(.easeOut(duration:0.2),value:exitRoute)
+            }
+            .clipped()
+            .disabled(exitRoute != nil)
+        }
+        .task(id:active && scenePhase == .active && exitRoute == nil) {
+            guard active, scenePhase == .active, exitRoute == nil else { return }
+            while revealedRows < 3 {
+                do { try await Task.sleep(for:.seconds(reduceMotion ? 0.06 : 0.18)) } catch { return }
+                guard !Task.isCancelled else { return }
+                withAnimation(reduceMotion ? .easeOut(duration:0.18) : .smooth(duration:0.6)) {
+                    revealedRows += 1
+                }
+            }
+            do { try await Task.sleep(for:.seconds(0.6)) } catch { return }
+            guard !Task.isCancelled else { return }
+            titleFocused = true
+        }
+        .task(id:exitRoute) {
+            guard let route = exitRoute else { return }
+            // Wait for the final staggered line to leave before retiring the page.
+            do { try await Task.sleep(for:.seconds(reduceMotion ? 0.2
+                : Self.departureDuration + 2 * Self.departureStagger)) } catch { return }
+            guard !Task.isCancelled, active else { return }
+            switch route {
+            case .next: next()
+            case .skip: skip()
+            }
+        }
+    }
+
+    private func line(_ value: String, index: Int, size: CGFloat, tracking: CGFloat, width: CGFloat) -> some View {
+        let revealed = revealedRows > index
+        return ZStack {
+            // Reserve final text metrics while the stable Text changes content.
+            Text(value).hidden().accessibilityHidden(true)
+            Text(revealed ? value : " ")
+                .contentTransition(reduceMotion ? .opacity : .numericText(value:revealed ? 1 : 0))
+        }
+        // Keep the system wordmark family with an airy welcome-only treatment.
+        .font(.system(size:size,weight:index == 1 ? .ultraLight : .light,
+                      design:index == 1 ? .default : .monospaced))
+        .tracking(tracking)
+        .lineLimit(1).minimumScaleFactor(0.55)
+        .frame(maxWidth:.infinity)
+        .offset(x:exitRoute != nil && !reduceMotion ? -width-80 : 0)
+        .opacity(exitRoute == nil ? 1 : 0)
+        .animation(reduceMotion ? .easeOut(duration:0.18)
+                   : Self.departureAnimation.delay(Double(index)*Self.departureStagger),value:exitRoute)
+        .accessibilityHidden(!revealed || exitRoute != nil)
+    }
+
+    private func divider(width: CGFloat) -> some View {
+        let length = min(230,max(0,width-96))
+        let revealed = revealedRows > 1
+        return Path { path in
+            path.move(to:CGPoint(x:0,y:0.5))
+            path.addLine(to:CGPoint(x:length,y:0.5))
+        }
+        .trim(from:0,to:reduceMotion || revealed ? 1 : 0)
+        .stroke(.white.opacity(0.2),style:StrokeStyle(lineWidth:0.5,lineCap:.round))
+        .frame(width:length,height:1)
+        .opacity(revealed ? 1 : 0)
+        .animation(reduceMotion ? .easeOut(duration:0.18)
+                   : .easeInOut(duration:0.8).delay(0.12),value:revealed)
+        .offset(x:exitRoute != nil && !reduceMotion ? -width-80 : 0)
+        .opacity(exitRoute == nil ? 1 : 0)
+        .animation(reduceMotion ? .easeOut(duration:0.18)
+                   : Self.departureAnimation.delay(1.5*Self.departureStagger),value:exitRoute)
+        .accessibilityHidden(true)
+    }
+
+    private func beginExit(_ route: ExitRoute) {
+        guard active, exitRoute == nil else { return }
+        titleFocused = false
+        exitRoute = route
+        // Start the camera in this same update, retaining the text until it exits.
+        if route == .next { beginNext() }
+    }
+}

@@ -1,0 +1,25 @@
+{
+  "version": "a43a39ba5c7b258293d2662bc6f934851fe07edd",
+  "repository": "https://github.com/MetaCubeX/meta-rules-dat",
+  "licenseRevision": "4178770badecb1b349fbcd62c737e0d7a2079729",
+  "assets": [
+    {
+      "key": "geo:geoip:mmdb",
+      "file": "geoip.metadb",
+      "bytes": 8389459,
+      "sha256": "68dda901d6030dc43ec238efe31dae514c53a66f79fca2fa3999b66485e4f8b0"
+    },
+    {
+      "key": "geo:geoip:dat",
+      "file": "geoip.dat",
+      "bytes": 16515432,
+      "sha256": "391b522361c52804e486a98b53d97f3d9c1d3e4e4217bb34954774a0b456b9fd"
+    },
+    {
+      "key": "geo:geosite:dat",
+      "file": "geosite.dat",
+      "bytes": 4253533,
+      "sha256": "c7d7f1a5d15344b2fb97fb9f08f999c16d19e0b63b5b3a9a13b97a97e52b9dbd"
+    }
+  ]
+}

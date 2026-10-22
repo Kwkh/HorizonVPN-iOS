@@ -1,0 +1,11 @@
+{
+  "name": "Natural Earth 1:50m land",
+  "version": "4.1.0",
+  "url": "https://naturalearth.s3.amazonaws.com/50m_physical/ne_50m_land.zip",
+  "page": "https://www.naturalearthdata.com/downloads/50m-physical-vectors/50m-land/",
+  "license": "Public domain",
+  "terms": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "sha256": "0b8e670cf80dce9cbebe2a193bc44ba5602758c22e1fa603980553646d7ff162",
+  "sampling": "78000 equal-area Fibonacci candidates; 0.25 degree latitude scanlines",
+  "versionEvidence": "ne_50m_land.VERSION.txt inside the pinned archive (website still lists 4.0.0)"
+}

@@ -1,0 +1,10 @@
+Made with Natural Earth.
+Natural Earth 1:50m land, version 4.1.0 (archive VERSION.txt).
+Natural Earth raster and vector map data are in the public domain.
+https://www.naturalearthdata.com/about/terms-of-use/
+https://www.naturalearthdata.com/downloads/50m-physical-vectors/50m-land/
+
+This app bundles a deterministic particle sample derived from the land polygons.
+It is a generalized geographic visualization, not a navigation or survey map.
+Reproduction: scripts/build-globe-points.py; pinned input and SHA-256 are in
+Configuration/Geography/source.json. The visual renderer performs no map downloads.

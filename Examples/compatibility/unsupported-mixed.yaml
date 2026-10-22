@@ -1,0 +1,9 @@
+proxy-providers: {}
+rule-providers: {}
+sniffer: {enable: true}
+proxies:
+  - {name: EXAMPLE-SS, type: ss, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+  - {name: EXAMPLE-TUIC, type: tuic, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+proxy-groups:
+  - {name: AUTO, type: url-test, proxies: [EXAMPLE-SS, EXAMPLE-TUIC], url: 'https://example.invalid/probe', interval: 300}
+rules: ['GEOSITE,cn,DIRECT', 'RULE-SET,remote,AUTO', 'MATCH,AUTO']

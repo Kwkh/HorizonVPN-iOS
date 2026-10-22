@@ -1,0 +1,59 @@
+import Foundation
+
+/// Entirely synthetic. Never substitute real subscription values here.
+enum CompatibilityFixture {
+    static let publicKey = Data(repeating: 1, count: 32).base64EncodedString()
+        .replacingOccurrences(of: "=", with: "").replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_")
+    static let yaml = """
+    ---
+    mixed-port: 7890
+    allow-lan: false
+    mode: rule
+    log-level: info
+    ipv6: false
+    dns:
+      enable: true
+      ipv6: false
+      enhanced-mode: fake-ip
+      nameserver: [https://1.1.1.1/dns-query]
+      default-nameserver: [192.0.2.53, 192.0.2.54]
+      proxy-server-nameserver: [192.0.2.53, 192.0.2.54]
+    proxies:
+      - name: TEST-HY2
+        type: hysteria2
+        server: hy2.example.invalid
+        port: 443
+        password: TEST-ONLY-PASSWORD
+        sni: tls.example.invalid
+        obfs: salamander
+        obfs-password: TEST-ONLY-OBFS
+        up: 10
+        down: 50
+        alpn: [h3]
+        fingerprint: "\(String(repeating: "01", count: 32))"
+      - name: TEST-VLESS
+        type: vless
+        server: vless.example.invalid
+        port: 443
+        uuid: 00000000-0000-4000-8000-000000000001
+        network: tcp
+        tls: true
+        udp: true
+        servername: tls.example.invalid
+        flow: xtls-rprx-vision
+        client-fingerprint: chrome
+        reality-opts:
+          public-key: \(publicKey)
+          short-id: "0123456789abcdef"
+    proxy-groups:
+      - name: TEST-SELECT
+        type: select
+        proxies: [TEST-HY2, TEST-VLESS]
+    rules:
+      - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+      - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+      - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+      - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+      - MATCH,TEST-SELECT
+    """
+}

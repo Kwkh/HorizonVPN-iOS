@@ -1,0 +1,13 @@
+proxies:
+  - name: EXAMPLE
+    type: vmess
+    server: node.example.invalid
+    port: 443
+    uuid: 11111111-1111-4111-8111-111111111111
+    cipher: auto
+    alterId: 0
+    tfo: true
+    ip-version: ipv4-prefer
+    global-padding: true
+    authenticated-length: true
+    smux: {enabled: true, protocol: h2mux, max-connections: 2, min-streams: 4, padding: true, only-tcp: true}

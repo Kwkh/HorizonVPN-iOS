@@ -1,0 +1,1287 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		000F6BD0C1E71559A46D393E /* Shared/ConfigurationInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C552D81B5F3A72A5CA69DE5 /* Shared/ConfigurationInput.swift */; };
+		01820D5D576F36BDE4C5595D /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B25B607E5DEF58566F2C2B /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift */; };
+		01E9FE7B6FEF631CEC5C44B7 /* Shared/PrototypeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BB7DEE3FAE3E8E318479EF /* Shared/PrototypeError.swift */; };
+		03EFC2895DF615083ADB93B2 /* PacketTunnel/BootstrapResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96634611F6FFB260F62E745 /* PacketTunnel/BootstrapResolver.swift */; };
+		047F0D8F5B4441957ADAC203 /* Shared/TelemetryHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321C1FE6DCF72113C903E4C /* Shared/TelemetryHistory.swift */; };
+		076EB40E7B32F26DAF62378F /* Horizon/Services/Mac/MacProbeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E24167B6302096A86B5CA /* Horizon/Services/Mac/MacProbeStore.swift */; };
+		08F18C443EA0D2D75E714828 /* .build/macos/artifacts/HakoDynamic.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458FD2BDDE584C739626A258 /* .build/macos/artifacts/HakoDynamic.xcframework */; };
+		098E1CD9CD9EE92410FD07D0 /* Horizon/Features/Horizon/Resources/NaturalEarth-NOTICE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8B107AEB062D3BD49F59F1A0 /* Horizon/Features/Horizon/Resources/NaturalEarth-NOTICE.txt */; };
+		09B61F288C8A026A7890EC1A /* Horizon/Services/Mac/MacTelemetryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191E10ED818B5C4B445A27B7 /* Horizon/Services/Mac/MacTelemetryStore.swift */; };
+		0B3A310D5E24AA7857DD7296 /* PacketTunnel/BatchProbeRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F06A3C88A857520710FAC9E /* PacketTunnel/BatchProbeRunner.swift */; };
+		0E2FB656D4E40C3D55E039C3 /* Horizon/Features/Horizon/HorizonWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B758DAFC1F1F455653CDBD1 /* Horizon/Features/Horizon/HorizonWelcomeView.swift */; };
+		0F29F431C67641578D2F0879 /* Horizon/Features/MacCloudSync/MacICloudSubscriptionSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CA4CC84C164DFD86986A3C /* Horizon/Features/MacCloudSync/MacICloudSubscriptionSyncView.swift */; };
+		0F6E04E52A5ED70CBE1931CB /* Shared/NetworkInspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F759F9DFEDB0A5CBBE599 /* Shared/NetworkInspection.swift */; };
+		10247789A0A18B1D592A1831 /* Shared/NetworkInspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537F759F9DFEDB0A5CBBE599 /* Shared/NetworkInspection.swift */; };
+		1408138C1CD6D1C8924633FF /* Horizon/Services/Mac/MacText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144809E89077CDB3008AF1C0 /* Horizon/Services/Mac/MacText.swift */; };
+		1567A53CAB45C1046E461AC6 /* Shared/ConnectionWidgetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9D0CF296C0DD7D2C404049 /* Shared/ConnectionWidgetState.swift */; };
+		1692F36CC7460087E507C4BA /* Shared/ConfigurationFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF25C0C2BE6FA0153F3A8B6B /* Shared/ConfigurationFormat.swift */; };
+		1752A90384587D7CF05924F6 /* Horizon/Features/MacConfigurations/Components/MacConfigurationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE6B836FB11E10B58200612 /* Horizon/Features/MacConfigurations/Components/MacConfigurationCard.swift */; };
+		182115C2BA0B8C544F534332 /* Shared/RuntimeGroupChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D2CC7C1EF70048770C9D5D /* Shared/RuntimeGroupChoices.swift */; };
+		190AE6104C60788C5B3B9F20 /* Shared/LiveActivity/ActivityNodePingCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5562E4B709A96F570998C8D6 /* Shared/LiveActivity/ActivityNodePingCommand.swift */; };
+		1AA83BED424ABA7BF5F90F81 /* Horizon/Features/Horizon/Rendering/HorizonRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57624EAAC579F9DF8A459FFE /* Horizon/Features/Horizon/Rendering/HorizonRenderer.swift */; };
+		1C2D1DD03B12455E8E4F5871 /* Horizon/Services/CloudSync/SubscriptionCloudSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FDF900A44342BEA1F6B5B3 /* Horizon/Services/CloudSync/SubscriptionCloudSyncEngine.swift */; };
+		1DF9AA6C70E0D38BCFAB9B7F /* Horizon/App/Mac/HorizonMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53371FDA7A8863B0547AEB99 /* Horizon/App/Mac/HorizonMacApp.swift */; };
+		1EB1FC5E1B304D768B53E400 /* Horizon/App/Mac/Components/MacSidebarTrafficView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53D3892B29B4BA692ED9C42 /* Horizon/App/Mac/Components/MacSidebarTrafficView.swift */; };
+		220B2EA4CC6F87F6B1647365 /* Horizon/Features/MacHome/Components/MacConnectionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0EB6C83D92EE8C476A6E929 /* Horizon/Features/MacHome/Components/MacConnectionButtonView.swift */; };
+		2253DB7A62DD74F81E53E14E /* Horizon/Features/MacSettings/MacSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4959478533EFE155BB3AE8B1 /* Horizon/Features/MacSettings/MacSettingsView.swift */; };
+		22D27464935A4D7BA3633DA5 /* Horizon/Features/MacCloudSync/Components/MacCloudReviewPromptModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F686C407F8487381E62E96 /* Horizon/Features/MacCloudSync/Components/MacCloudReviewPromptModifier.swift */; };
+		22EBAC58F4E24C429C8C0D79 /* Horizon/Features/MacCloudSync/MacICloudSyncInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E922A3FB864541A3D36916 /* Horizon/Features/MacCloudSync/MacICloudSyncInfoView.swift */; };
+		257116685A36DCFF6C26C494 /* Shared/CoreStartDiagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAAB172C40E05DD6B2EAD39 /* Shared/CoreStartDiagnostic.swift */; };
+		2587358196DBFCEFED55E9B3 /* Shared/TunnelDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E604A776BD03062E71448D /* Shared/TunnelDiagnostics.swift */; };
+		25A11A0555979B306A83EBF0 /* Shared/PingReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7310AE4709D96EA7D82EF512 /* Shared/PingReport.swift */; };
+		271833E30C38B0F1CA8ADAC8 /* Shared/ConfigurationVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F3791471F75F6E03593D7 /* Shared/ConfigurationVault.swift */; };
+		28FE4409A52DBF695A091C4C /* Shared/LiveTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A5B75E67B31C488584D35 /* Shared/LiveTelemetry.swift */; };
+		29E78DD386BB818413ACD80B /* Shared/NodeURI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F710DC063710E4D7C077B9 /* Shared/NodeURI.swift */; };
+		2B277563373E4BDBB30DC359 /* Horizon/Services/Mac/MacICloudSubscriptionSyncStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E25EDC4501465687FD0ABF /* Horizon/Services/Mac/MacICloudSubscriptionSyncStore.swift */; };
+		2D6266B8E067A2E0E3C64751 /* Shared/ConfigurationCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2521D2F0B52A385FCC4ED /* Shared/ConfigurationCompatibility.swift */; };
+		2D885A20237B86EBB33EAC62 /* Shared/CoreRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B614DB9028743B9DE2328225 /* Shared/CoreRuntime.swift */; };
+		2F890712419C6A3B86DA81E9 /* Shared/ConfigurationRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F2CE2867B0B8AA25047746 /* Shared/ConfigurationRouting.swift */; };
+		30D97B3705705C756AB13643 /* Horizon/Features/Horizon/Rendering/HorizonShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = D8E8095AF4194D982DFDD445 /* Horizon/Features/Horizon/Rendering/HorizonShaders.metal */; };
+		311B3D4D4BEE44A18C38A48A /* Horizon/Services/CloudSync/CloudReviewNoticeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558E794E7AF143528BD97813 /* Horizon/Services/CloudSync/CloudReviewNoticeTracker.swift */; };
+		35F6529C9BD7708382786EBD /* Horizon/Features/MacHome/MacHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD186A3E886CFCB521FC013 /* Horizon/Features/MacHome/MacHomeView.swift */; };
+		364116FCA3943C34B4F602F7 /* Horizon/Services/BundledGeoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109E66AF5287D1E89800ADAA /* Horizon/Services/BundledGeoData.swift */; };
+		378223C4EBD50165200C15BC /* Shared/BatchProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAEB28E03272343792426F7 /* Shared/BatchProbe.swift */; };
+		385FC1CA3BC477032745753A /* Horizon/Features/MacConfigurations/MacConfigurationMaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41E29F767F5E5F5E49A0ECB /* Horizon/Features/MacConfigurations/MacConfigurationMaintenanceView.swift */; };
+		3941AB292E9691A52DC9B9CC /* Shared/SubscriptionRevision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326DB0ECC5D374C3063B14F3 /* Shared/SubscriptionRevision.swift */; };
+		39B3461B9560456F9A9E28ED /* Horizon/Services/Mac/MacLibraryActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9420AF28B05342BA9F270990 /* Horizon/Services/Mac/MacLibraryActivity.swift */; };
+		3C068EFCAB1DCF5830CAB13B /* Shared/RoutingAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73203C39B1B89D71988A760 /* Shared/RoutingAssessment.swift */; };
+		3CAFB6083BDFB66F8ACC3D06 /* .build/macos/artifacts/HakoDynamic.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458FD2BDDE584C739626A258 /* .build/macos/artifacts/HakoDynamic.xcframework */; };
+		3D32E564823CCEC929768C35 /* Horizon/Features/MacSettings/MacAboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779D2FDA337C08A61D72B051 /* Horizon/Features/MacSettings/MacAboutView.swift */; };
+		3D49A3E6E445AF58F9B34B5F /* Horizon/Features/MacMenuBar/Components/MacMenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C57F5BE92D20C9E10A7F501 /* Horizon/Features/MacMenuBar/Components/MacMenuBarLabel.swift */; };
+		3E1695332955EBCD8D86A742 /* Horizon/Features/Horizon/Rendering/HorizonWallTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D43E0118E4FA2FB67855F7 /* Horizon/Features/Horizon/Rendering/HorizonWallTouch.swift */; };
+		3E9BFF5DB7227CE9BD070110 /* Shared/ConnectionCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CA2C9E6AB6738265FF30B /* Shared/ConnectionCapture.swift */; };
+		3EBF286362346D7AC99498C0 /* Horizon/Features/Horizon/Rendering/HorizonGlobeInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE08F3D33AA02E02FEF90A2E /* Horizon/Features/Horizon/Rendering/HorizonGlobeInteraction.swift */; };
+		3FABA639FD9BA0FAF4997E7A /* Shared/PingReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7310AE4709D96EA7D82EF512 /* Shared/PingReport.swift */; };
+		430F6CB82E2E48AF8269491D /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF265E13DF28446FB32BB811 /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewView.swift */; };
+		452CC88A6543C4BFEB3DD8E0 /* Shared/ConfigurationCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2521D2F0B52A385FCC4ED /* Shared/ConfigurationCompatibility.swift */; };
+		4538CC7D8592F05111BE8FD1 /* Horizon/Features/Horizon/Rendering/HorizonGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AC8DA5F3963CD74A4CB8D5 /* Horizon/Features/Horizon/Rendering/HorizonGeometry.swift */; };
+		4670558E215A66C8E1B3B7AD /* Horizon/Services/Mac/MacSubscriptionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322CA1CE8E9E1377F02309F5 /* Horizon/Services/Mac/MacSubscriptionWorker.swift */; };
+		47EB928E8263F2E6547D3F29 /* PacketTunnel/DNSInspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B84978E2AD66A51ED51944 /* PacketTunnel/DNSInspection.swift */; };
+		4A397C5030C2897DD2B32CB1 /* Shared/SubscriptionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80723FFCFC1A6108C7CC71F /* Shared/SubscriptionRepository.swift */; };
+		50177B10042651FE4A3E9311 /* Horizon/App/Mac/MacRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F28962E21884956B8F88E94 /* Horizon/App/Mac/MacRootView.swift */; };
+		5102422B3DF68B747CCE6A49 /* Shared/TunnelDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E604A776BD03062E71448D /* Shared/TunnelDiagnostics.swift */; };
+		575E87274CCF6D0E20C348D9 /* Shared/TunnelSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F112099197A7386A6B9F04 /* Shared/TunnelSnapshot.swift */; };
+		579CC850726DEAEC6EAF4A09 /* Horizon/Features/MacIntro/MacIntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55B555F2CE99552FA989379 /* Horizon/Features/MacIntro/MacIntroductionView.swift */; };
+		5A1A26E0307C95E2002F2BB6 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A1A26DF307C95E2002F2BB6 /* Media.xcassets */; };
+		5AAF80B7BEDD44B6AEB82763 /* Horizon/Services/CloudSync/CloudAssetRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC39D2D11F7469CA00C040D /* Horizon/Services/CloudSync/CloudAssetRecord.swift */; };
+		5DA291FD2EC9979018F6CBB6 /* Shared/TunnelSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F112099197A7386A6B9F04 /* Shared/TunnelSnapshot.swift */; };
+		5F9091528CD55F93CCBB6C83 /* Horizon/Features/Horizon/Rendering/HorizonGuideTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5309231F342BD24B12E50E /* Horizon/Features/Horizon/Rendering/HorizonGuideTransition.swift */; };
+		6177C264AFD6AA163DA00EC0 /* Shared/ProbeAdmissionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D921C165C9A21AE5437A3 /* Shared/ProbeAdmissionQueue.swift */; };
+		625C8802477B6A707AB7F15C /* Shared/ConfigurationResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B763FA7C2E19D45962443 /* Shared/ConfigurationResources.swift */; };
+		625FDCEF1D1A0810AFE0E112 /* .build/macos/artifacts/CoreLicenses in Resources */ = {isa = PBXBuildFile; fileRef = FCAB6EE328EEA6878ABA8CF6 /* .build/macos/artifacts/CoreLicenses */; };
+		636F0FDB985DB333973C7C64 /* Shared/RoutingAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73203C39B1B89D71988A760 /* Shared/RoutingAssessment.swift */; };
+		646AF2ED129EF7099B3C5900 /* Shared/PrototypeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BB7DEE3FAE3E8E318479EF /* Shared/PrototypeError.swift */; };
+		64820CB782490097C274F4C7 /* Shared/ConfigurationSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F8B179ABA23AE77871DC43 /* Shared/ConfigurationSnapshot.swift */; };
+		64B98DD075B6956B78D6ACA6 /* Shared/ConfigurationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0EEDFE9FF9B946EC8532A2 /* Shared/ConfigurationPolicy.swift */; };
+		64EB9AB9632247888814B11E /* Horizon/Services/CloudSync/CloudSyncTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFAC39CEEA1460EBCC0443C /* Horizon/Services/CloudSync/CloudSyncTrigger.swift */; };
+		65F84F0254D1F2152572BD4D /* Shared/ConfigurationDNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DD67DBA80FEBE90412DC26 /* Shared/ConfigurationDNS.swift */; };
+		664BACC2D5402D2E1D72492D /* Horizon/Features/Horizon/Resources/earth-land.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9C658BF131B21D3FFE1701B2 /* Horizon/Features/Horizon/Resources/earth-land.bin */; };
+		665A9B2CF2A39984A321E4DA /* Horizon/Services/Mac/MacMenuBarActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399F3663B3675A7A8413802 /* Horizon/Services/Mac/MacMenuBarActions.swift */; };
+		67FB4A535474C98825807F79 /* Horizon/Features/MacHome/Components/MacTrafficChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD599F24D10A1BD161E44C1 /* Horizon/Features/MacHome/Components/MacTrafficChart.swift */; };
+		68DADAF61EDED1E2CB35B6E8 /* Shared/SubscriptionChangeSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722B89457EF4A385520A54 /* Shared/SubscriptionChangeSummary.swift */; };
+		69C21E94D3885C01163B61E9 /* Horizon/Features/Horizon/Rendering/HorizonSceneClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C23601D7837E95BAE4359EE /* Horizon/Features/Horizon/Rendering/HorizonSceneClock.swift */; };
+		6B0F07DB63214D668CDC6977 /* Horizon/Services/CloudSync/CloudSyncJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0346DDE032B045398BD84367 /* Horizon/Services/CloudSync/CloudSyncJournal.swift */; };
+		6B9F5F5B534E372F2B12D5C9 /* Horizon/Features/Horizon/Rendering/HorizonRenderFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BD5C53D0E7F9FA3FB20672 /* Horizon/Features/Horizon/Rendering/HorizonRenderFrame.swift */; };
+		6CAF27C5AB29E84BBAA075CC /* Horizon/Services/SubscriptionQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533A81D6F78D0265BF5218D7 /* Horizon/Services/SubscriptionQRCode.swift */; };
+		6D2BAE3B866520564B300845 /* Horizon/Features/MacHome/Components/MacHomePingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AA4549FEEDA209EDF05D3B /* Horizon/Features/MacHome/Components/MacHomePingView.swift */; };
+		704CEAB1F558D39C2F969C18 /* Shared/SubscriptionChangeSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9722B89457EF4A385520A54 /* Shared/SubscriptionChangeSummary.swift */; };
+		71FB07C1C4DB1F4CD9102375 /* Horizon/Features/Horizon/Rendering/HorizonSceneProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2FFC4771ED63E343AEBC59 /* Horizon/Features/Horizon/Rendering/HorizonSceneProgress.swift */; };
+		73EA97285A9DB0E612D23AFF /* Horizon/Features/MacIntro/MacGuideGlobeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AEE6EFEB5CB82AECC1FF19 /* Horizon/Features/MacIntro/MacGuideGlobeView.swift */; };
+		76476BAFC8652B0AB64D0E72 /* Horizon/Services/AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2B6D00CEFCEA6D81B1E593 /* Horizon/Services/AppSettings.swift */; };
+		784655C1DE020AC16CA4D9FD /* Horizon/Features/Horizon/Rendering/HorizonMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2146961B3D595FE30655FA3 /* Horizon/Features/Horizon/Rendering/HorizonMotion.swift */; };
+		78CEEE321A8A6024C606D1BF /* Shared/ConfigurationSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F8B179ABA23AE77871DC43 /* Shared/ConfigurationSnapshot.swift */; };
+		7AD7E1EE74D27B1115AB71C5 /* Horizon/Features/MacConfigurations/MacConfigurationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01935E32624A9D130511C88 /* Horizon/Features/MacConfigurations/MacConfigurationsView.swift */; };
+		7B0B9307314B09FBC4654C5F /* Shared/ConfigurationRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F2CE2867B0B8AA25047746 /* Shared/ConfigurationRouting.swift */; };
+		7B7FBD512995526EE8FE3264 /* Shared/ConfigurationSelectionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13323C505D609C31EFEF1052 /* Shared/ConfigurationSelectionPolicy.swift */; };
+		7B85B4180FBB427186A50A38 /* Horizon/Services/CloudSync/CloudSyncCallbackTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B819D174E0846E8B3D04929 /* Horizon/Services/CloudSync/CloudSyncCallbackTask.swift */; };
+		7C0FE9BE4A0566DF1D9251EF /* Shared/ConfigurationGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F98DA6011AA43EC86AEDD /* Shared/ConfigurationGroups.swift */; };
+		7E50D7258844A3F04745B329 /* Shared/CompiledGeoCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126A34B3326FE528A90D5157 /* Shared/CompiledGeoCache.swift */; };
+		7E7A3292A9CEDB5CE183AABD /* Shared/ConfigurationDNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DD67DBA80FEBE90412DC26 /* Shared/ConfigurationDNS.swift */; };
+		7FAE859B4C21FDD3E1354327 /* Horizon/Features/MacConfigurations/MacConfigurationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6F37A450A0A3C62437251B /* Horizon/Features/MacConfigurations/MacConfigurationDetailView.swift */; };
+		8060D100C2313B82590AD15E /* Horizon/Services/SubscriptionImportLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BF545E6040AC752EE84B2E /* Horizon/Services/SubscriptionImportLoader.swift */; };
+		80D70CBE73B59593FBF17663 /* Horizon/Features/MacHome/Components/MacMetalScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E55DE059F9DEBF1EAB3481 /* Horizon/Features/MacHome/Components/MacMetalScene.swift */; };
+		81ECE7D05F223F79AE77767D /* Shared/ConfigurationCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719123D8233E4E2E9BB9427F /* Shared/ConfigurationCatalog.swift */; };
+		82669E34F95EB67E60D54447 /* PacketTunnel/TunnelTrafficRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88351BEFB5DA2345F744024 /* PacketTunnel/TunnelTrafficRecorder.swift */; };
+		86648F38282977D68A99EC2C /* Shared/ConfigurationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0EEDFE9FF9B946EC8532A2 /* Shared/ConfigurationPolicy.swift */; };
+		88F9E2A59515C5816BECCD23 /* Shared/SubscriptionRevision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326DB0ECC5D374C3063B14F3 /* Shared/SubscriptionRevision.swift */; };
+		8A1D8C76D0EBCEE953B629C2 /* Horizon/Features/MacNodes/MacGroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8448083D6B6CE6C11CC6C65 /* Horizon/Features/MacNodes/MacGroupsView.swift */; };
+		8A78E37F453B8FFB9B2DACF4 /* Shared/TelemetryHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0321C1FE6DCF72113C903E4C /* Shared/TelemetryHistory.swift */; };
+		8AAF545022B68FE51D3264CA /* Shared/LiveTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A5B75E67B31C488584D35 /* Shared/LiveTelemetry.swift */; };
+		8B4B17DA8F5083961B3D7AE5 /* Horizon/Features/MacNodes/MacNodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58563F4810338BAC7E519C5E /* Horizon/Features/MacNodes/MacNodesView.swift */; };
+		8D9C6DDFAFAB8CBAC5B93C23 /* Shared/ConnectionWidgetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9D0CF296C0DD7D2C404049 /* Shared/ConnectionWidgetState.swift */; };
+		9000BEAF675FF1B3FB1927E8 /* Shared/ConnectivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA5602C1E42B056ED4B4917 /* Shared/ConnectivityReport.swift */; };
+		92D501E481884C2AA4E5C3B6 /* Horizon/Services/CloudSync/CloudAssetCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B0B1EE0FAD438B839E6B96 /* Horizon/Services/CloudSync/CloudAssetCache.swift */; };
+		9369D9A2BB744694A5187F53 /* Horizon/Features/MacHome/Components/MacScrollingTrafficPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C662A269BE4F5094B54B1A /* Horizon/Features/MacHome/Components/MacScrollingTrafficPlot.swift */; };
+		9442C5FE0AD75C3C298C8464 /* Shared/ConfigurationCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719123D8233E4E2E9BB9427F /* Shared/ConfigurationCatalog.swift */; };
+		9598916A8417011E861FABE5 /* Horizon/Services/Mac/MacLibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0242082CA6F14564663D2D1 /* Horizon/Services/Mac/MacLibraryStore.swift */; };
+		99D1D7822D0CB190876E318B /* Shared/CoreStartDiagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAAB172C40E05DD6B2EAD39 /* Shared/CoreStartDiagnostic.swift */; };
+		9ADDC0197FB6DEE0FBD56D99 /* Horizon/Resources/GeoData in Resources */ = {isa = PBXBuildFile; fileRef = 01230F26F155B4EBFE1C7493 /* Horizon/Resources/GeoData */; };
+		9BCACBB5D34C3285775D5C4A /* Horizon/Features/Horizon/Rendering/HorizonGuideGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8150EC4713CABCE906024ECA /* Horizon/Features/Horizon/Rendering/HorizonGuideGeometry.swift */; };
+		9CCE6B2E2617F91BC6748C50 /* Horizon/Services/StandaloneProbeSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1000516CEF0EB369378A649A /* Horizon/Services/StandaloneProbeSession.swift */; };
+		9D0F540A1CF8B09A1E11E0EB /* Shared/ConfigurationValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B8EE0D19C3F53FDAB074D /* Shared/ConfigurationValidation.swift */; };
+		A1855811696273F2D4CAA975 /* Horizon/Features/MacMenuBar/MacMenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2DDB805976F38AF505F3AA /* Horizon/Features/MacMenuBar/MacMenuBarView.swift */; };
+		A4A503963396244467C3095F /* Shared/CoreRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B614DB9028743B9DE2328225 /* Shared/CoreRuntime.swift */; };
+		A4BF1CEA5E91D4EE6C9DAEFB /* Horizon/Features/Horizon/Rendering/HorizonGuideNodeTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E24324FBF7F8B94ACF2B317 /* Horizon/Features/Horizon/Rendering/HorizonGuideNodeTree.swift */; };
+		A58ED703A5F3D4EE9373B166 /* Shared/RuntimeGroupChoices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D2CC7C1EF70048770C9D5D /* Shared/RuntimeGroupChoices.swift */; };
+		A6F82333B12E4930883DA5D1 /* Horizon/Features/MacHome/Components/MacHomeGlobeFraming.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C7F7CF82E94FB0B6D9038D /* Horizon/Features/MacHome/Components/MacHomeGlobeFraming.swift */; };
+		A8E79CCBB27FF3F01874A935 /* Horizon/Services/Mac/MacVPNController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0557ED67274003EE09E276 /* Horizon/Services/Mac/MacVPNController.swift */; };
+		AA0EBF11873D924F503DB71B /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3EA3C8C8C9037D8C390139 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift */; };
+		AA5C5F4EA64C886A71113A68 /* Shared/PrototypeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5037D38EFF0496A26BE2D /* Shared/PrototypeConfiguration.swift */; };
+		AB1FA5BCCC910F663A032504 /* Horizon/Services/SubscriptionResourceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AECBD8C6FF5B3E5C34163E /* Horizon/Services/SubscriptionResourceLoader.swift */; };
+		AB8C7A2CCAE62E074AC805DE /* Shared/LiveActivity/ActivityNodePingCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5562E4B709A96F570998C8D6 /* Shared/LiveActivity/ActivityNodePingCommand.swift */; };
+		AC9F04DAE36802EA73D9A5F5 /* Shared/SubscriptionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80723FFCFC1A6108C7CC71F /* Shared/SubscriptionRepository.swift */; };
+		AE73E770019D35CAE0EBEA5E /* Shared/CompiledGeoCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126A34B3326FE528A90D5157 /* Shared/CompiledGeoCache.swift */; };
+		AEBEEE60AB6D2FEA21D8968A /* Shared/ConfigurationResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B763FA7C2E19D45962443 /* Shared/ConfigurationResources.swift */; };
+		B03AF5D91916624FC3C25224 /* Horizon/App/Mac/MacAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9720892048B496D3278ABF5 /* Horizon/App/Mac/MacAppDelegate.swift */; };
+		B162404664815B53A9395CF8 /* Horizon/Features/Horizon/Rendering/HorizonPullState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853042E244F283A3CB99266F /* Horizon/Features/Horizon/Rendering/HorizonPullState.swift */; };
+		B1F3EC08308E74853A9787AD /* Shared/ConfigurationRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594592AADC620721A8C6B45B /* Shared/ConfigurationRules.swift */; };
+		B4C2BBD192C59C540661F88B /* Shared/SubscriptionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1538C789DBC2AB0CDD90BBE /* Shared/SubscriptionLibrary.swift */; };
+		B53B93F6975AEA22A53F5FA9 /* Horizon/Features/Horizon/Rendering/HorizonIntroCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D158416D0A7C6F00D0D5F996 /* Horizon/Features/Horizon/Rendering/HorizonIntroCamera.swift */; };
+		B607B748CC163CF07461D783 /* Horizon/Features/Horizon/Rendering/HorizonParticlePass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E93A5E36662A661F3D7F78 /* Horizon/Features/Horizon/Rendering/HorizonParticlePass.swift */; };
+		B6BB8F7E59674A1BBEC916BF /* Shared/ConfigurationNodeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45AC3DC35FBE4A5BCF80634 /* Shared/ConfigurationNodeOptions.swift */; };
+		B8269270FEB5972773D44613 /* PacketTunnel/PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F970A2E60620C3C3ACB408 /* PacketTunnel/PacketTunnelProvider.swift */; };
+		B9A032767182D634FBFE61B9 /* Shared/ConnectionCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359CA2C9E6AB6738265FF30B /* Shared/ConnectionCapture.swift */; };
+		BF34F1DDD0C0CE4C2B320868 /* Shared/BatchProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAEB28E03272343792426F7 /* Shared/BatchProbe.swift */; };
+		BFFB2B637C6DD71C7E0EC234 /* Horizon/Features/Horizon/Rendering/HorizonGuidePullState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DF7095F0401AEE1EFD3861 /* Horizon/Features/Horizon/Rendering/HorizonGuidePullState.swift */; };
+		C11CC7BCA6AB29F8A02D2890 /* Shared/SubscriptionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1538C789DBC2AB0CDD90BBE /* Shared/SubscriptionLibrary.swift */; };
+		C2082070753F41C41E1D93DB /* Horizon/Features/Horizon/Rendering/HorizonFramePresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA9497DC7EB2A69B8D01A4D /* Horizon/Features/Horizon/Rendering/HorizonFramePresentation.swift */; };
+		C309F895ADEF16EC319155EE /* Horizon/Features/Horizon/Components/HorizonGuideTrafficReadout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF306F694EEC36338C1746C /* Horizon/Features/Horizon/Components/HorizonGuideTrafficReadout.swift */; };
+		C595143A754D9497C5654EAA /* Shared/ConfigurationSelectionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13323C505D609C31EFEF1052 /* Shared/ConfigurationSelectionPolicy.swift */; };
+		C66F547211D228815378B539 /* Horizon/Features/MacNodes/Components/MacNodeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAD127C788C3FCD24E940D6 /* Horizon/Features/MacNodes/Components/MacNodeCard.swift */; };
+		C899A82B36DA93275622123B /* PacketTunnel/CorePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D381189E1D7B0B96B86457 /* PacketTunnel/CorePlatform.swift */; };
+		CDF9EA055688A42E4424085B /* Horizon/Features/Home/Components/TrafficPlotGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095C0893310D35DDE26DD457 /* Horizon/Features/Home/Components/TrafficPlotGeometry.swift */; };
+		CF02BA9AAD8F5415F1169ABA /* Horizon/Features/MacConfigurations/MacRevisionReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6ACE2EF25893F8837F7E9 /* Horizon/Features/MacConfigurations/MacRevisionReviewView.swift */; };
+		CF220BBAD5D2C2E0201CC83B /* Horizon/Features/Horizon/Rendering/HorizonGuidePullMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8345D7818513CAE98FD906 /* Horizon/Features/Horizon/Rendering/HorizonGuidePullMotion.swift */; };
+		D2A56F85352A305559C300B1 /* Horizon/Features/Horizon/Rendering/HorizonGuideFraming.swift in Sources */ = {isa = PBXBuildFile; fileRef = B398D6E5EC788E52BA719B87 /* Horizon/Features/Horizon/Rendering/HorizonGuideFraming.swift */; };
+		D5BC001A6E904201B1000002 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BC001A6E904201B1000001 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelection.swift */; };
+		D5BC001A6E904201B1000004 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelectionSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BC001A6E904201B1000003 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelectionSurface.swift */; };
+		D6F1EC38C4AD2AA472F9B48F /* Horizon/App/Mac/Components/MacSubpageTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D8CE13BABC34A98CE64438 /* Horizon/App/Mac/Components/MacSubpageTracking.swift */; };
+		D787FA05F7B5D3FB941D39C7 /* Shared/ProbeAdmissionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D921C165C9A21AE5437A3 /* Shared/ProbeAdmissionQueue.swift */; };
+		DA55DA385B4FC26059A8FCD7 /* Horizon/Features/Horizon/Rendering/HorizonGuideTrafficDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA6D6AC5C2769BE61EDC9C2 /* Horizon/Features/Horizon/Rendering/HorizonGuideTrafficDisplay.swift */; };
+		DA6C20261013000000000001 /* .build/macos/artifacts/HakoDynamic.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 458FD2BDDE584C739626A258 /* .build/macos/artifacts/HakoDynamic.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DC3566C4430E69C1D8B0092D /* Horizon/Features/MacHome/Components/MacConnectionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52D411A2476451695C91206 /* Horizon/Features/MacHome/Components/MacConnectionTitleView.swift */; };
+		DDCA371A6E904201B1000002 /* Horizon/Services/Mac/MacCloudSubscriptionInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCA371A6E904201B1000001 /* Horizon/Services/Mac/MacCloudSubscriptionInventory.swift */; };
+		DE001AFF73F3AB2BD238AAC5 /* Shared/NodeURI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F710DC063710E4D7C077B9 /* Shared/NodeURI.swift */; };
+		DEFB773E7F07312CEA9BF0B3 /* Horizon/Features/Horizon/Components/HorizonGuideScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C07B82103CEE12560D95A0 /* Horizon/Features/Horizon/Components/HorizonGuideScene.swift */; };
+		DF22E37945F44C8A88AC9837 /* Horizon/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2E27496380F4710B830C921 /* Horizon/Assets.xcassets */; };
+		E05027A74F284F1D8D27B0A3 /* Horizon/Features/MacHome/Components/MacRoutingPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D9B62A229C49168A3587C4 /* Horizon/Features/MacHome/Components/MacRoutingPickerView.swift */; };
+		E17500ED17414EEC91D39645 /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A17FA75A3D45AD9FD1DA94 /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewListView.swift */; };
+		E19B2349791209FB5202C258 /* Shared/ConfigurationInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C552D81B5F3A72A5CA69DE5 /* Shared/ConfigurationInput.swift */; };
+		E30107F1D229F300D4E24460 /* Shared/ConfigurationGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034F98DA6011AA43EC86AEDD /* Shared/ConfigurationGroups.swift */; };
+		E33F25A01C0FE0EAE32E00B6 /* PacketTunnel/ConnectivityProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CB8BB9CA376DE778213372 /* PacketTunnel/ConnectivityProbe.swift */; };
+		E4552EE6698F055EBCD51BD0 /* Shared/ConfigurationRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594592AADC620721A8C6B45B /* Shared/ConfigurationRules.swift */; };
+		E77C42C0AE7E42CF8DBA2C18 /* Horizon/Services/ConfigurationImportWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C509538199454DD391BF9C08 /* Horizon/Services/ConfigurationImportWorker.swift */; };
+		E8F4C88E07D5B0848267C487 /* Shared/ConnectivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA5602C1E42B056ED4B4917 /* Shared/ConnectivityReport.swift */; };
+		E91696E21B5D1534CDFD4BDB /* Shared/PrototypeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5037D38EFF0496A26BE2D /* Shared/PrototypeConfiguration.swift */; };
+		EE83FDF078980DA002E5133F /* Horizon/Features/Horizon/Components/HorizonWelcomeWordmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C7FBCC2EE44388E6E54FE3 /* Horizon/Features/Horizon/Components/HorizonWelcomeWordmark.swift */; };
+		EF13FC1698A27D5E2E561D12 /* HorizonMacTunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AC0554CA5E0314795775ED40 /* HorizonMacTunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F0FCFF1D85FF6FF946ADF713 /* Shared/ConfigurationValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B8EE0D19C3F53FDAB074D /* Shared/ConfigurationValidation.swift */; };
+		F121A5450F45BF09967BCC35 /* Horizon/Features/MacConfigurations/MacImportConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EFEBDE0AE60AB171AEA2E2 /* Horizon/Features/MacConfigurations/MacImportConfirmationView.swift */; };
+		F4CBFB8CBEF6BA53726FB9E1 /* Shared/ConfigurationVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F3791471F75F6E03593D7 /* Shared/ConfigurationVault.swift */; };
+		F5D31DD0BBC8A39D484EEC39 /* Shared/ConfigurationFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF25C0C2BE6FA0153F3A8B6B /* Shared/ConfigurationFormat.swift */; };
+		F8D3A1ECA64B3F9E476988B8 /* Horizon/Services/SubscriptionDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9025499D61F630448126D918 /* Horizon/Services/SubscriptionDownloader.swift */; };
+		FAF427C3CEA081AF26B36E1C /* Horizon/Features/Horizon/Rendering/HorizonIntroduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671DE8C4EE0B4FA9B423A1DA /* Horizon/Features/Horizon/Rendering/HorizonIntroduction.swift */; };
+		FB188FD9246843D3A9B82934 /* Horizon/Services/CloudSync/CloudSubscriptionVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84029D582D9C4C1491990583 /* Horizon/Services/CloudSync/CloudSubscriptionVersion.swift */; };
+		FC924DF5E0942C475526EE04 /* Shared/ConfigurationNodeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45AC3DC35FBE4A5BCF80634 /* Shared/ConfigurationNodeOptions.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1241936D4DD3AAD68FE7BFBD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 244210E48437B6556980A702 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4B593F917916CFAEC0178AC;
+			remoteInfo = HorizonMacTunnel;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		70169F10B8C6D32730D688FB /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EF13FC1698A27D5E2E561D12 /* HorizonMacTunnel.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA6C20261013000000000002 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DA6C20261013000000000001 /* .build/macos/artifacts/HakoDynamic.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		00E6ACE2EF25893F8837F7E9 /* Horizon/Features/MacConfigurations/MacRevisionReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacConfigurations/MacRevisionReviewView.swift; sourceTree = SOURCE_ROOT; };
+		01230F26F155B4EBFE1C7493 /* Horizon/Resources/GeoData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Horizon/Resources/GeoData; sourceTree = SOURCE_ROOT; };
+		01D9B62A229C49168A3587C4 /* Horizon/Features/MacHome/Components/MacRoutingPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacHome/Components/MacRoutingPickerView.swift; sourceTree = SOURCE_ROOT; };
+		0321C1FE6DCF72113C903E4C /* Shared/TelemetryHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/TelemetryHistory.swift; sourceTree = SOURCE_ROOT; };
+		0346DDE032B045398BD84367 /* Horizon/Services/CloudSync/CloudSyncJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/CloudSync/CloudSyncJournal.swift; sourceTree = SOURCE_ROOT; };
+		034F98DA6011AA43EC86AEDD /* Shared/ConfigurationGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationGroups.swift; sourceTree = SOURCE_ROOT; };
+		040E24167B6302096A86B5CA /* Horizon/Services/Mac/MacProbeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacProbeStore.swift; sourceTree = SOURCE_ROOT; };
+		095C0893310D35DDE26DD457 /* Horizon/Features/Home/Components/TrafficPlotGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Home/Components/TrafficPlotGeometry.swift; sourceTree = SOURCE_ROOT; };
+		0AAEB28E03272343792426F7 /* Shared/BatchProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/BatchProbe.swift; sourceTree = SOURCE_ROOT; };
+		0B0EEDFE9FF9B946EC8532A2 /* Shared/ConfigurationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationPolicy.swift; sourceTree = SOURCE_ROOT; };
+		0E4C12133CB4F70B524644A7 /* HorizonMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HorizonMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F28962E21884956B8F88E94 /* Horizon/App/Mac/MacRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/App/Mac/MacRootView.swift; sourceTree = SOURCE_ROOT; };
+		1000516CEF0EB369378A649A /* Horizon/Services/StandaloneProbeSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/StandaloneProbeSession.swift; sourceTree = SOURCE_ROOT; };
+		109E66AF5287D1E89800ADAA /* Horizon/Services/BundledGeoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/BundledGeoData.swift; sourceTree = SOURCE_ROOT; };
+		126A34B3326FE528A90D5157 /* Shared/CompiledGeoCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/CompiledGeoCache.swift; sourceTree = SOURCE_ROOT; };
+		130F3791471F75F6E03593D7 /* Shared/ConfigurationVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationVault.swift; sourceTree = SOURCE_ROOT; };
+		13323C505D609C31EFEF1052 /* Shared/ConfigurationSelectionPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationSelectionPolicy.swift; sourceTree = SOURCE_ROOT; };
+		144809E89077CDB3008AF1C0 /* Horizon/Services/Mac/MacText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacText.swift; sourceTree = SOURCE_ROOT; };
+		15D8CE13BABC34A98CE64438 /* Horizon/App/Mac/Components/MacSubpageTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/App/Mac/Components/MacSubpageTracking.swift; sourceTree = SOURCE_ROOT; };
+		191E10ED818B5C4B445A27B7 /* Horizon/Services/Mac/MacTelemetryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacTelemetryStore.swift; sourceTree = SOURCE_ROOT; };
+		1DA9497DC7EB2A69B8D01A4D /* Horizon/Features/Horizon/Rendering/HorizonFramePresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonFramePresentation.swift; sourceTree = SOURCE_ROOT; };
+		1FD599F24D10A1BD161E44C1 /* Horizon/Features/MacHome/Components/MacTrafficChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacHome/Components/MacTrafficChart.swift; sourceTree = SOURCE_ROOT; };
+		21F2CE2867B0B8AA25047746 /* Shared/ConfigurationRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationRouting.swift; sourceTree = SOURCE_ROOT; };
+		27AEE6EFEB5CB82AECC1FF19 /* Horizon/Features/MacIntro/MacGuideGlobeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacIntro/MacGuideGlobeView.swift; sourceTree = SOURCE_ROOT; };
+		2A3EA3C8C8C9037D8C390139 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ".build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift"; sourceTree = SOURCE_ROOT; };
+		30F8B179ABA23AE77871DC43 /* Shared/ConfigurationSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationSnapshot.swift; sourceTree = SOURCE_ROOT; };
+		322CA1CE8E9E1377F02309F5 /* Horizon/Services/Mac/MacSubscriptionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacSubscriptionWorker.swift; sourceTree = SOURCE_ROOT; };
+		326DB0ECC5D374C3063B14F3 /* Shared/SubscriptionRevision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SubscriptionRevision.swift; sourceTree = SOURCE_ROOT; };
+		359CA2C9E6AB6738265FF30B /* Shared/ConnectionCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConnectionCapture.swift; sourceTree = SOURCE_ROOT; };
+		35AC8DA5F3963CD74A4CB8D5 /* Horizon/Features/Horizon/Rendering/HorizonGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonGeometry.swift; sourceTree = SOURCE_ROOT; };
+		38BF545E6040AC752EE84B2E /* Horizon/Services/SubscriptionImportLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/SubscriptionImportLoader.swift; sourceTree = SOURCE_ROOT; };
+		42DD67DBA80FEBE90412DC26 /* Shared/ConfigurationDNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationDNS.swift; sourceTree = SOURCE_ROOT; };
+		44F970A2E60620C3C3ACB408 /* PacketTunnel/PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnel/PacketTunnelProvider.swift; sourceTree = SOURCE_ROOT; };
+		458FD2BDDE584C739626A258 /* .build/macos/artifacts/HakoDynamic.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = .build/macos/artifacts/HakoDynamic.xcframework; sourceTree = SOURCE_ROOT; };
+		489D921C165C9A21AE5437A3 /* Shared/ProbeAdmissionQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ProbeAdmissionQueue.swift; sourceTree = SOURCE_ROOT; };
+		4959478533EFE155BB3AE8B1 /* Horizon/Features/MacSettings/MacSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacSettings/MacSettingsView.swift; sourceTree = SOURCE_ROOT; };
+		4AAD127C788C3FCD24E940D6 /* Horizon/Features/MacNodes/Components/MacNodeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacNodes/Components/MacNodeCard.swift; sourceTree = SOURCE_ROOT; };
+		4B758DAFC1F1F455653CDBD1 /* Horizon/Features/Horizon/HorizonWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/HorizonWelcomeView.swift; sourceTree = SOURCE_ROOT; };
+		4C552D81B5F3A72A5CA69DE5 /* Shared/ConfigurationInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationInput.swift; sourceTree = SOURCE_ROOT; };
+		4C57F5BE92D20C9E10A7F501 /* Horizon/Features/MacMenuBar/Components/MacMenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacMenuBar/Components/MacMenuBarLabel.swift; sourceTree = SOURCE_ROOT; };
+		4FA5602C1E42B056ED4B4917 /* Shared/ConnectivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConnectivityReport.swift; sourceTree = SOURCE_ROOT; };
+		52CA4CC84C164DFD86986A3C /* Horizon/Features/MacCloudSync/MacICloudSubscriptionSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacCloudSync/MacICloudSubscriptionSyncView.swift; sourceTree = SOURCE_ROOT; };
+		53371FDA7A8863B0547AEB99 /* Horizon/App/Mac/HorizonMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/App/Mac/HorizonMacApp.swift; sourceTree = SOURCE_ROOT; };
+		533A81D6F78D0265BF5218D7 /* Horizon/Services/SubscriptionQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/SubscriptionQRCode.swift; sourceTree = SOURCE_ROOT; };
+		537F759F9DFEDB0A5CBBE599 /* Shared/NetworkInspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/NetworkInspection.swift; sourceTree = SOURCE_ROOT; };
+		5562E4B709A96F570998C8D6 /* Shared/LiveActivity/ActivityNodePingCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/LiveActivity/ActivityNodePingCommand.swift; sourceTree = SOURCE_ROOT; };
+		558E794E7AF143528BD97813 /* Horizon/Services/CloudSync/CloudReviewNoticeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/CloudSync/CloudReviewNoticeTracker.swift; sourceTree = SOURCE_ROOT; };
+		57624EAAC579F9DF8A459FFE /* Horizon/Features/Horizon/Rendering/HorizonRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonRenderer.swift; sourceTree = SOURCE_ROOT; };
+		57AECBD8C6FF5B3E5C34163E /* Horizon/Services/SubscriptionResourceLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/SubscriptionResourceLoader.swift; sourceTree = SOURCE_ROOT; };
+		58563F4810338BAC7E519C5E /* Horizon/Features/MacNodes/MacNodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacNodes/MacNodesView.swift; sourceTree = SOURCE_ROOT; };
+		594592AADC620721A8C6B45B /* Shared/ConfigurationRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationRules.swift; sourceTree = SOURCE_ROOT; };
+		59D43E0118E4FA2FB67855F7 /* Horizon/Features/Horizon/Rendering/HorizonWallTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonWallTouch.swift; sourceTree = SOURCE_ROOT; };
+		5A1A26DF307C95E2002F2BB6 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		5C23601D7837E95BAE4359EE /* Horizon/Features/Horizon/Rendering/HorizonSceneClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonSceneClock.swift; sourceTree = SOURCE_ROOT; };
+		642B763FA7C2E19D45962443 /* Shared/ConfigurationResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationResources.swift; sourceTree = SOURCE_ROOT; };
+		671DE8C4EE0B4FA9B423A1DA /* Horizon/Features/Horizon/Rendering/HorizonIntroduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonIntroduction.swift; sourceTree = SOURCE_ROOT; };
+		6A2DDB805976F38AF505F3AA /* Horizon/Features/MacMenuBar/MacMenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacMenuBar/MacMenuBarView.swift; sourceTree = SOURCE_ROOT; };
+		6B819D174E0846E8B3D04929 /* Horizon/Services/CloudSync/CloudSyncCallbackTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/CloudSync/CloudSyncCallbackTask.swift; sourceTree = SOURCE_ROOT; };
+		6F06A3C88A857520710FAC9E /* PacketTunnel/BatchProbeRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnel/BatchProbeRunner.swift; sourceTree = SOURCE_ROOT; };
+		719123D8233E4E2E9BB9427F /* Shared/ConfigurationCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationCatalog.swift; sourceTree = SOURCE_ROOT; };
+		71A17FA75A3D45AD9FD1DA94 /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewListView.swift; sourceTree = SOURCE_ROOT; };
+		72B84978E2AD66A51ED51944 /* PacketTunnel/DNSInspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnel/DNSInspection.swift; sourceTree = SOURCE_ROOT; };
+		7310AE4709D96EA7D82EF512 /* Shared/PingReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/PingReport.swift; sourceTree = SOURCE_ROOT; };
+		7399F3663B3675A7A8413802 /* Horizon/Services/Mac/MacMenuBarActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacMenuBarActions.swift; sourceTree = SOURCE_ROOT; };
+		745A5B75E67B31C488584D35 /* Shared/LiveTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/LiveTelemetry.swift; sourceTree = SOURCE_ROOT; };
+		74D381189E1D7B0B96B86457 /* PacketTunnel/CorePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnel/CorePlatform.swift; sourceTree = SOURCE_ROOT; };
+		75C07B82103CEE12560D95A0 /* Horizon/Features/Horizon/Components/HorizonGuideScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Components/HorizonGuideScene.swift; sourceTree = SOURCE_ROOT; };
+		75FDF900A44342BEA1F6B5B3 /* Horizon/Services/CloudSync/SubscriptionCloudSyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/CloudSync/SubscriptionCloudSyncEngine.swift; sourceTree = SOURCE_ROOT; };
+		779D2FDA337C08A61D72B051 /* Horizon/Features/MacSettings/MacAboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacSettings/MacAboutView.swift; sourceTree = SOURCE_ROOT; };
+		7A8345D7818513CAE98FD906 /* Horizon/Features/Horizon/Rendering/HorizonGuidePullMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonGuidePullMotion.swift; sourceTree = SOURCE_ROOT; };
+		7AC39D2D11F7469CA00C040D /* Horizon/Services/CloudSync/CloudAssetRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/CloudSync/CloudAssetRecord.swift; sourceTree = SOURCE_ROOT; };
+		8150EC4713CABCE906024ECA /* Horizon/Features/Horizon/Rendering/HorizonGuideGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonGuideGeometry.swift; sourceTree = SOURCE_ROOT; };
+		84029D582D9C4C1491990583 /* Horizon/Services/CloudSync/CloudSubscriptionVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/CloudSync/CloudSubscriptionVersion.swift; sourceTree = SOURCE_ROOT; };
+		853042E244F283A3CB99266F /* Horizon/Features/Horizon/Rendering/HorizonPullState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonPullState.swift; sourceTree = SOURCE_ROOT; };
+		86E604A776BD03062E71448D /* Shared/TunnelDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/TunnelDiagnostics.swift; sourceTree = SOURCE_ROOT; };
+		8B107AEB062D3BD49F59F1A0 /* Horizon/Features/Horizon/Resources/NaturalEarth-NOTICE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Horizon/Features/Horizon/Resources/NaturalEarth-NOTICE.txt"; sourceTree = SOURCE_ROOT; };
+		8BAAB172C40E05DD6B2EAD39 /* Shared/CoreStartDiagnostic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/CoreStartDiagnostic.swift; sourceTree = SOURCE_ROOT; };
+		8CD186A3E886CFCB521FC013 /* Horizon/Features/MacHome/MacHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacHome/MacHomeView.swift; sourceTree = SOURCE_ROOT; };
+		8E24324FBF7F8B94ACF2B317 /* Horizon/Features/Horizon/Rendering/HorizonGuideNodeTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonGuideNodeTree.swift; sourceTree = SOURCE_ROOT; };
+		8E9D0CF296C0DD7D2C404049 /* Shared/ConnectionWidgetState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConnectionWidgetState.swift; sourceTree = SOURCE_ROOT; };
+		9025499D61F630448126D918 /* Horizon/Services/SubscriptionDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/SubscriptionDownloader.swift; sourceTree = SOURCE_ROOT; };
+		93B0B1EE0FAD438B839E6B96 /* Horizon/Services/CloudSync/CloudAssetCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/CloudSync/CloudAssetCache.swift; sourceTree = SOURCE_ROOT; };
+		9420AF28B05342BA9F270990 /* Horizon/Services/Mac/MacLibraryActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacLibraryActivity.swift; sourceTree = SOURCE_ROOT; };
+		96EFEBDE0AE60AB171AEA2E2 /* Horizon/Features/MacConfigurations/MacImportConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacConfigurations/MacImportConfirmationView.swift; sourceTree = SOURCE_ROOT; };
+		9B6F37A450A0A3C62437251B /* Horizon/Features/MacConfigurations/MacConfigurationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacConfigurations/MacConfigurationDetailView.swift; sourceTree = SOURCE_ROOT; };
+		9C658BF131B21D3FFE1701B2 /* Horizon/Features/Horizon/Resources/earth-land.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "Horizon/Features/Horizon/Resources/earth-land.bin"; sourceTree = SOURCE_ROOT; };
+		A01935E32624A9D130511C88 /* Horizon/Features/MacConfigurations/MacConfigurationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacConfigurations/MacConfigurationsView.swift; sourceTree = SOURCE_ROOT; };
+		A52D411A2476451695C91206 /* Horizon/Features/MacHome/Components/MacConnectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacHome/Components/MacConnectionTitleView.swift; sourceTree = SOURCE_ROOT; };
+		A53D3892B29B4BA692ED9C42 /* Horizon/App/Mac/Components/MacSidebarTrafficView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/App/Mac/Components/MacSidebarTrafficView.swift; sourceTree = SOURCE_ROOT; };
+		A8448083D6B6CE6C11CC6C65 /* Horizon/Features/MacNodes/MacGroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacNodes/MacGroupsView.swift; sourceTree = SOURCE_ROOT; };
+		ABF306F694EEC36338C1746C /* Horizon/Features/Horizon/Components/HorizonGuideTrafficReadout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Components/HorizonGuideTrafficReadout.swift; sourceTree = SOURCE_ROOT; };
+		AC0554CA5E0314795775ED40 /* HorizonMacTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HorizonMacTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE08F3D33AA02E02FEF90A2E /* Horizon/Features/Horizon/Rendering/HorizonGlobeInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonGlobeInteraction.swift; sourceTree = SOURCE_ROOT; };
+		B0242082CA6F14564663D2D1 /* Horizon/Services/Mac/MacLibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacLibraryStore.swift; sourceTree = SOURCE_ROOT; };
+		B1538C789DBC2AB0CDD90BBE /* Shared/SubscriptionLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SubscriptionLibrary.swift; sourceTree = SOURCE_ROOT; };
+		B2E27496380F4710B830C921 /* Horizon/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Horizon/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		B398D6E5EC788E52BA719B87 /* Horizon/Features/Horizon/Rendering/HorizonGuideFraming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonGuideFraming.swift; sourceTree = SOURCE_ROOT; };
+		B41E29F767F5E5F5E49A0ECB /* Horizon/Features/MacConfigurations/MacConfigurationMaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacConfigurations/MacConfigurationMaintenanceView.swift; sourceTree = SOURCE_ROOT; };
+		B614DB9028743B9DE2328225 /* Shared/CoreRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/CoreRuntime.swift; sourceTree = SOURCE_ROOT; };
+		B7E93A5E36662A661F3D7F78 /* Horizon/Features/Horizon/Rendering/HorizonParticlePass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonParticlePass.swift; sourceTree = SOURCE_ROOT; };
+		B88351BEFB5DA2345F744024 /* PacketTunnel/TunnelTrafficRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnel/TunnelTrafficRecorder.swift; sourceTree = SOURCE_ROOT; };
+		BC2B6D00CEFCEA6D81B1E593 /* Horizon/Services/AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/AppSettings.swift; sourceTree = SOURCE_ROOT; };
+		BC2FFC4771ED63E343AEBC59 /* Horizon/Features/Horizon/Rendering/HorizonSceneProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonSceneProgress.swift; sourceTree = SOURCE_ROOT; };
+		C509538199454DD391BF9C08 /* Horizon/Services/ConfigurationImportWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/ConfigurationImportWorker.swift; sourceTree = SOURCE_ROOT; };
+		C5B25B607E5DEF58566F2C2B /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ".build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift"; sourceTree = SOURCE_ROOT; };
+		C7F112099197A7386A6B9F04 /* Shared/TunnelSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/TunnelSnapshot.swift; sourceTree = SOURCE_ROOT; };
+		CE5309231F342BD24B12E50E /* Horizon/Features/Horizon/Rendering/HorizonGuideTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonGuideTransition.swift; sourceTree = SOURCE_ROOT; };
+		CF265E13DF28446FB32BB811 /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewView.swift; sourceTree = SOURCE_ROOT; };
+		D158416D0A7C6F00D0D5F996 /* Horizon/Features/Horizon/Rendering/HorizonIntroCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonIntroCamera.swift; sourceTree = SOURCE_ROOT; };
+		D2C7FBCC2EE44388E6E54FE3 /* Horizon/Features/Horizon/Components/HorizonWelcomeWordmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Components/HorizonWelcomeWordmark.swift; sourceTree = SOURCE_ROOT; };
+		D5BC001A6E904201B1000001 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacConfigurations/Components/MacConfigurationSelection.swift; sourceTree = SOURCE_ROOT; };
+		D5BC001A6E904201B1000003 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelectionSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacConfigurations/Components/MacConfigurationSelectionSurface.swift; sourceTree = SOURCE_ROOT; };
+		D7C7F7CF82E94FB0B6D9038D /* Horizon/Features/MacHome/Components/MacHomeGlobeFraming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacHome/Components/MacHomeGlobeFraming.swift; sourceTree = SOURCE_ROOT; };
+		D8E8095AF4194D982DFDD445 /* Horizon/Features/Horizon/Rendering/HorizonShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Horizon/Features/Horizon/Rendering/HorizonShaders.metal; sourceTree = SOURCE_ROOT; };
+		D9722B89457EF4A385520A54 /* Shared/SubscriptionChangeSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SubscriptionChangeSummary.swift; sourceTree = SOURCE_ROOT; };
+		DA3B8EE0D19C3F53FDAB074D /* Shared/ConfigurationValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationValidation.swift; sourceTree = SOURCE_ROOT; };
+		DDCA371A6E904201B1000001 /* Horizon/Services/Mac/MacCloudSubscriptionInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacCloudSubscriptionInventory.swift; sourceTree = SOURCE_ROOT; };
+		E0CB8BB9CA376DE778213372 /* PacketTunnel/ConnectivityProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnel/ConnectivityProbe.swift; sourceTree = SOURCE_ROOT; };
+		E0EB6C83D92EE8C476A6E929 /* Horizon/Features/MacHome/Components/MacConnectionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacHome/Components/MacConnectionButtonView.swift; sourceTree = SOURCE_ROOT; };
+		E2146961B3D595FE30655FA3 /* Horizon/Features/Horizon/Rendering/HorizonMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonMotion.swift; sourceTree = SOURCE_ROOT; };
+		E6BD5C53D0E7F9FA3FB20672 /* Horizon/Features/Horizon/Rendering/HorizonRenderFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonRenderFrame.swift; sourceTree = SOURCE_ROOT; };
+		E8C662A269BE4F5094B54B1A /* Horizon/Features/MacHome/Components/MacScrollingTrafficPlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacHome/Components/MacScrollingTrafficPlot.swift; sourceTree = SOURCE_ROOT; };
+		E8DF7095F0401AEE1EFD3861 /* Horizon/Features/Horizon/Rendering/HorizonGuidePullState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonGuidePullState.swift; sourceTree = SOURCE_ROOT; };
+		E9D2CC7C1EF70048770C9D5D /* Shared/RuntimeGroupChoices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/RuntimeGroupChoices.swift; sourceTree = SOURCE_ROOT; };
+		ED0557ED67274003EE09E276 /* Horizon/Services/Mac/MacVPNController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacVPNController.swift; sourceTree = SOURCE_ROOT; };
+		EED2521D2F0B52A385FCC4ED /* Shared/ConfigurationCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationCompatibility.swift; sourceTree = SOURCE_ROOT; };
+		F1F686C407F8487381E62E96 /* Horizon/Features/MacCloudSync/Components/MacCloudReviewPromptModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacCloudSync/Components/MacCloudReviewPromptModifier.swift; sourceTree = SOURCE_ROOT; };
+		F1F710DC063710E4D7C077B9 /* Shared/NodeURI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/NodeURI.swift; sourceTree = SOURCE_ROOT; };
+		F3E922A3FB864541A3D36916 /* Horizon/Features/MacCloudSync/MacICloudSyncInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacCloudSync/MacICloudSyncInfoView.swift; sourceTree = SOURCE_ROOT; };
+		F45AC3DC35FBE4A5BCF80634 /* Shared/ConfigurationNodeOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationNodeOptions.swift; sourceTree = SOURCE_ROOT; };
+		F4E55DE059F9DEBF1EAB3481 /* Horizon/Features/MacHome/Components/MacMetalScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacHome/Components/MacMetalScene.swift; sourceTree = SOURCE_ROOT; };
+		F55B555F2CE99552FA989379 /* Horizon/Features/MacIntro/MacIntroductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacIntro/MacIntroductionView.swift; sourceTree = SOURCE_ROOT; };
+		F5BB7DEE3FAE3E8E318479EF /* Shared/PrototypeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/PrototypeError.swift; sourceTree = SOURCE_ROOT; };
+		F5E25EDC4501465687FD0ABF /* Horizon/Services/Mac/MacICloudSubscriptionSyncStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/Mac/MacICloudSubscriptionSyncStore.swift; sourceTree = SOURCE_ROOT; };
+		F73203C39B1B89D71988A760 /* Shared/RoutingAssessment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/RoutingAssessment.swift; sourceTree = SOURCE_ROOT; };
+		F80723FFCFC1A6108C7CC71F /* Shared/SubscriptionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SubscriptionRepository.swift; sourceTree = SOURCE_ROOT; };
+		F96634611F6FFB260F62E745 /* PacketTunnel/BootstrapResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnel/BootstrapResolver.swift; sourceTree = SOURCE_ROOT; };
+		F9720892048B496D3278ABF5 /* Horizon/App/Mac/MacAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/App/Mac/MacAppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		F9AA4549FEEDA209EDF05D3B /* Horizon/Features/MacHome/Components/MacHomePingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacHome/Components/MacHomePingView.swift; sourceTree = SOURCE_ROOT; };
+		F9D5037D38EFF0496A26BE2D /* Shared/PrototypeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/PrototypeConfiguration.swift; sourceTree = SOURCE_ROOT; };
+		FBA6D6AC5C2769BE61EDC9C2 /* Horizon/Features/Horizon/Rendering/HorizonGuideTrafficDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/Horizon/Rendering/HorizonGuideTrafficDisplay.swift; sourceTree = SOURCE_ROOT; };
+		FBE6B836FB11E10B58200612 /* Horizon/Features/MacConfigurations/Components/MacConfigurationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Features/MacConfigurations/Components/MacConfigurationCard.swift; sourceTree = SOURCE_ROOT; };
+		FCAB6EE328EEA6878ABA8CF6 /* .build/macos/artifacts/CoreLicenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .build/macos/artifacts/CoreLicenses; sourceTree = SOURCE_ROOT; };
+		FEFAC39CEEA1460EBCC0443C /* Horizon/Services/CloudSync/CloudSyncTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizon/Services/CloudSync/CloudSyncTrigger.swift; sourceTree = SOURCE_ROOT; };
+		FF25C0C2BE6FA0153F3A8B6B /* Shared/ConfigurationFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/ConfigurationFormat.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4106F914D65F5B2017EC04AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08F18C443EA0D2D75E714828 /* .build/macos/artifacts/HakoDynamic.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA75DFBAC7C748B92E698B45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CAFB6083BDFB66F8ACC3D06 /* .build/macos/artifacts/HakoDynamic.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		019A42BAD27DE0F6E6890A53 /* MacSettings */ = {
+			isa = PBXGroup;
+			children = (
+				779D2FDA337C08A61D72B051 /* Horizon/Features/MacSettings/MacAboutView.swift */,
+				4959478533EFE155BB3AE8B1 /* Horizon/Features/MacSettings/MacSettingsView.swift */,
+			);
+			name = MacSettings;
+			sourceTree = "<group>";
+		};
+		0A3E27B8CA818264D75C8D81 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E4C12133CB4F70B524644A7 /* HorizonMac.app */,
+				AC0554CA5E0314795775ED40 /* HorizonMacTunnel.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0D6E4079E36703EBD37C0072 = {
+			isa = PBXGroup;
+			children = (
+				A8BC29CDF774E71F375659E8 /* Horizon */,
+				B8A7C4C7C43B9A2F11EEEA63 /* Shared */,
+				381953C68BB30F0C98CA00FC /* PacketTunnel */,
+				458FD2BDDE584C739626A258 /* .build/macos/artifacts/HakoDynamic.xcframework */,
+				FCAB6EE328EEA6878ABA8CF6 /* .build/macos/artifacts/CoreLicenses */,
+				01230F26F155B4EBFE1C7493 /* Horizon/Resources/GeoData */,
+				0A3E27B8CA818264D75C8D81 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		11BEA496F9BE887AFC4A4801 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				095C0893310D35DDE26DD457 /* Horizon/Features/Home/Components/TrafficPlotGeometry.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		1F55B4BE8C3644DE90349DBB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F1F686C407F8487381E62E96 /* Horizon/Features/MacCloudSync/Components/MacCloudReviewPromptModifier.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		26229E84EED6F4FE35D66412 /* Horizon */ = {
+			isa = PBXGroup;
+			children = (
+				C6B3030FDAF7ECCA7409A720 /* Rendering */,
+				4B758DAFC1F1F455653CDBD1 /* Horizon/Features/Horizon/HorizonWelcomeView.swift */,
+				59486A3C13869649C691AF80 /* Components */,
+				7DC65A58C25035C536653D3A /* Resources */,
+			);
+			name = Horizon;
+			sourceTree = "<group>";
+		};
+		366367DAD23FDD5CCD3C73C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4AAD127C788C3FCD24E940D6 /* Horizon/Features/MacNodes/Components/MacNodeCard.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		381953C68BB30F0C98CA00FC /* PacketTunnel */ = {
+			isa = PBXGroup;
+			children = (
+				2A3EA3C8C8C9037D8C390139 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift */,
+				C5B25B607E5DEF58566F2C2B /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift */,
+				6F06A3C88A857520710FAC9E /* PacketTunnel/BatchProbeRunner.swift */,
+				F96634611F6FFB260F62E745 /* PacketTunnel/BootstrapResolver.swift */,
+				E0CB8BB9CA376DE778213372 /* PacketTunnel/ConnectivityProbe.swift */,
+				74D381189E1D7B0B96B86457 /* PacketTunnel/CorePlatform.swift */,
+				72B84978E2AD66A51ED51944 /* PacketTunnel/DNSInspection.swift */,
+				44F970A2E60620C3C3ACB408 /* PacketTunnel/PacketTunnelProvider.swift */,
+				B88351BEFB5DA2345F744024 /* PacketTunnel/TunnelTrafficRecorder.swift */,
+			);
+			name = PacketTunnel;
+			sourceTree = "<group>";
+		};
+		403620FFCD375E36D95ADA33 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				70047FCC41C148F08F83E939 /* MacCloudSync */,
+				DA24C682C10BA8CAAEE14B59 /* MacConfigurations */,
+				6F8D72C10EA2FF4EFA78EC6F /* MacHome */,
+				A1FA73D12EB8F5DB2687D0E5 /* MacNodes */,
+				019A42BAD27DE0F6E6890A53 /* MacSettings */,
+				AC28E81AACA542994C473C21 /* MacIntro */,
+				852A98E9A74D779BDC244A77 /* MacMenuBar */,
+				26229E84EED6F4FE35D66412 /* Horizon */,
+				A760C3D6034C6FDF5155D77E /* Home */,
+			);
+			name = Features;
+			sourceTree = "<group>";
+		};
+		4CBEC59B75D351482F4DC3C7 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				DDCA371A6E904201B1000001 /* Horizon/Services/Mac/MacCloudSubscriptionInventory.swift */,
+				F5E25EDC4501465687FD0ABF /* Horizon/Services/Mac/MacICloudSubscriptionSyncStore.swift */,
+				9420AF28B05342BA9F270990 /* Horizon/Services/Mac/MacLibraryActivity.swift */,
+				B0242082CA6F14564663D2D1 /* Horizon/Services/Mac/MacLibraryStore.swift */,
+				7399F3663B3675A7A8413802 /* Horizon/Services/Mac/MacMenuBarActions.swift */,
+				322CA1CE8E9E1377F02309F5 /* Horizon/Services/Mac/MacSubscriptionWorker.swift */,
+				144809E89077CDB3008AF1C0 /* Horizon/Services/Mac/MacText.swift */,
+				ED0557ED67274003EE09E276 /* Horizon/Services/Mac/MacVPNController.swift */,
+				040E24167B6302096A86B5CA /* Horizon/Services/Mac/MacProbeStore.swift */,
+				191E10ED818B5C4B445A27B7 /* Horizon/Services/Mac/MacTelemetryStore.swift */,
+			);
+			name = Mac;
+			sourceTree = "<group>";
+		};
+		59486A3C13869649C691AF80 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D2C7FBCC2EE44388E6E54FE3 /* Horizon/Features/Horizon/Components/HorizonWelcomeWordmark.swift */,
+				75C07B82103CEE12560D95A0 /* Horizon/Features/Horizon/Components/HorizonGuideScene.swift */,
+				ABF306F694EEC36338C1746C /* Horizon/Features/Horizon/Components/HorizonGuideTrafficReadout.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		6988189B12CE40D3817704B9 /* CloudSync */ = {
+			isa = PBXGroup;
+			children = (
+				6B819D174E0846E8B3D04929 /* Horizon/Services/CloudSync/CloudSyncCallbackTask.swift */,
+				84029D582D9C4C1491990583 /* Horizon/Services/CloudSync/CloudSubscriptionVersion.swift */,
+				0346DDE032B045398BD84367 /* Horizon/Services/CloudSync/CloudSyncJournal.swift */,
+				75FDF900A44342BEA1F6B5B3 /* Horizon/Services/CloudSync/SubscriptionCloudSyncEngine.swift */,
+				FEFAC39CEEA1460EBCC0443C /* Horizon/Services/CloudSync/CloudSyncTrigger.swift */,
+				7AC39D2D11F7469CA00C040D /* Horizon/Services/CloudSync/CloudAssetRecord.swift */,
+				93B0B1EE0FAD438B839E6B96 /* Horizon/Services/CloudSync/CloudAssetCache.swift */,
+				558E794E7AF143528BD97813 /* Horizon/Services/CloudSync/CloudReviewNoticeTracker.swift */,
+			);
+			name = CloudSync;
+			sourceTree = "<group>";
+		};
+		6F8D72C10EA2FF4EFA78EC6F /* MacHome */ = {
+			isa = PBXGroup;
+			children = (
+				8CD186A3E886CFCB521FC013 /* Horizon/Features/MacHome/MacHomeView.swift */,
+				84587A1449E67C1A2150B140 /* Components */,
+			);
+			name = MacHome;
+			sourceTree = "<group>";
+		};
+		70047FCC41C148F08F83E939 /* MacCloudSync */ = {
+			isa = PBXGroup;
+			children = (
+				1F55B4BE8C3644DE90349DBB /* Components */,
+				CF265E13DF28446FB32BB811 /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewView.swift */,
+				F3E922A3FB864541A3D36916 /* Horizon/Features/MacCloudSync/MacICloudSyncInfoView.swift */,
+				71A17FA75A3D45AD9FD1DA94 /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewListView.swift */,
+				52CA4CC84C164DFD86986A3C /* Horizon/Features/MacCloudSync/MacICloudSubscriptionSyncView.swift */,
+			);
+			name = MacCloudSync;
+			sourceTree = "<group>";
+		};
+		7670A25078444163941FE129 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A53D3892B29B4BA692ED9C42 /* Horizon/App/Mac/Components/MacSidebarTrafficView.swift */,
+				15D8CE13BABC34A98CE64438 /* Horizon/App/Mac/Components/MacSubpageTracking.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		7DC65A58C25035C536653D3A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9C658BF131B21D3FFE1701B2 /* Horizon/Features/Horizon/Resources/earth-land.bin */,
+				8B107AEB062D3BD49F59F1A0 /* Horizon/Features/Horizon/Resources/NaturalEarth-NOTICE.txt */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		84587A1449E67C1A2150B140 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E0EB6C83D92EE8C476A6E929 /* Horizon/Features/MacHome/Components/MacConnectionButtonView.swift */,
+				F9AA4549FEEDA209EDF05D3B /* Horizon/Features/MacHome/Components/MacHomePingView.swift */,
+				01D9B62A229C49168A3587C4 /* Horizon/Features/MacHome/Components/MacRoutingPickerView.swift */,
+				1FD599F24D10A1BD161E44C1 /* Horizon/Features/MacHome/Components/MacTrafficChart.swift */,
+				E8C662A269BE4F5094B54B1A /* Horizon/Features/MacHome/Components/MacScrollingTrafficPlot.swift */,
+				F4E55DE059F9DEBF1EAB3481 /* Horizon/Features/MacHome/Components/MacMetalScene.swift */,
+				D7C7F7CF82E94FB0B6D9038D /* Horizon/Features/MacHome/Components/MacHomeGlobeFraming.swift */,
+				A52D411A2476451695C91206 /* Horizon/Features/MacHome/Components/MacConnectionTitleView.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		845D79358D79B3C5DEA80923 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				7670A25078444163941FE129 /* Components */,
+				53371FDA7A8863B0547AEB99 /* Horizon/App/Mac/HorizonMacApp.swift */,
+				F9720892048B496D3278ABF5 /* Horizon/App/Mac/MacAppDelegate.swift */,
+				0F28962E21884956B8F88E94 /* Horizon/App/Mac/MacRootView.swift */,
+			);
+			name = Mac;
+			sourceTree = "<group>";
+		};
+		852A98E9A74D779BDC244A77 /* MacMenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				6A2DDB805976F38AF505F3AA /* Horizon/Features/MacMenuBar/MacMenuBarView.swift */,
+				922E0D2D3A8C08BB6402C800 /* Components */,
+			);
+			name = MacMenuBar;
+			sourceTree = "<group>";
+		};
+		8B2A7978943C8F6607277B8D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FBE6B836FB11E10B58200612 /* Horizon/Features/MacConfigurations/Components/MacConfigurationCard.swift */,
+				D5BC001A6E904201B1000003 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelectionSurface.swift */,
+				D5BC001A6E904201B1000001 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelection.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		8F9389256AB70A21D1E6567E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				845D79358D79B3C5DEA80923 /* Mac */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		922E0D2D3A8C08BB6402C800 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4C57F5BE92D20C9E10A7F501 /* Horizon/Features/MacMenuBar/Components/MacMenuBarLabel.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		A1FA73D12EB8F5DB2687D0E5 /* MacNodes */ = {
+			isa = PBXGroup;
+			children = (
+				58563F4810338BAC7E519C5E /* Horizon/Features/MacNodes/MacNodesView.swift */,
+				A8448083D6B6CE6C11CC6C65 /* Horizon/Features/MacNodes/MacGroupsView.swift */,
+				366367DAD23FDD5CCD3C73C4 /* Components */,
+			);
+			name = MacNodes;
+			sourceTree = "<group>";
+		};
+		A760C3D6034C6FDF5155D77E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				11BEA496F9BE887AFC4A4801 /* Components */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		A8BC29CDF774E71F375659E8 /* Horizon */ = {
+			isa = PBXGroup;
+			children = (
+				B2E27496380F4710B830C921 /* Horizon/Assets.xcassets */,
+				8F9389256AB70A21D1E6567E /* App */,
+				403620FFCD375E36D95ADA33 /* Features */,
+				D4240E0D61B440589D0D2C8D /* Services */,
+				5A1A26DF307C95E2002F2BB6 /* Media.xcassets */,
+			);
+			name = Horizon;
+			sourceTree = "<group>";
+		};
+		AC28E81AACA542994C473C21 /* MacIntro */ = {
+			isa = PBXGroup;
+			children = (
+				F55B555F2CE99552FA989379 /* Horizon/Features/MacIntro/MacIntroductionView.swift */,
+				27AEE6EFEB5CB82AECC1FF19 /* Horizon/Features/MacIntro/MacGuideGlobeView.swift */,
+			);
+			name = MacIntro;
+			sourceTree = "<group>";
+		};
+		B8A7C4C7C43B9A2F11EEEA63 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				0AAEB28E03272343792426F7 /* Shared/BatchProbe.swift */,
+				126A34B3326FE528A90D5157 /* Shared/CompiledGeoCache.swift */,
+				719123D8233E4E2E9BB9427F /* Shared/ConfigurationCatalog.swift */,
+				EED2521D2F0B52A385FCC4ED /* Shared/ConfigurationCompatibility.swift */,
+				42DD67DBA80FEBE90412DC26 /* Shared/ConfigurationDNS.swift */,
+				FF25C0C2BE6FA0153F3A8B6B /* Shared/ConfigurationFormat.swift */,
+				034F98DA6011AA43EC86AEDD /* Shared/ConfigurationGroups.swift */,
+				4C552D81B5F3A72A5CA69DE5 /* Shared/ConfigurationInput.swift */,
+				F45AC3DC35FBE4A5BCF80634 /* Shared/ConfigurationNodeOptions.swift */,
+				0B0EEDFE9FF9B946EC8532A2 /* Shared/ConfigurationPolicy.swift */,
+				642B763FA7C2E19D45962443 /* Shared/ConfigurationResources.swift */,
+				21F2CE2867B0B8AA25047746 /* Shared/ConfigurationRouting.swift */,
+				594592AADC620721A8C6B45B /* Shared/ConfigurationRules.swift */,
+				13323C505D609C31EFEF1052 /* Shared/ConfigurationSelectionPolicy.swift */,
+				30F8B179ABA23AE77871DC43 /* Shared/ConfigurationSnapshot.swift */,
+				DA3B8EE0D19C3F53FDAB074D /* Shared/ConfigurationValidation.swift */,
+				130F3791471F75F6E03593D7 /* Shared/ConfigurationVault.swift */,
+				359CA2C9E6AB6738265FF30B /* Shared/ConnectionCapture.swift */,
+				8E9D0CF296C0DD7D2C404049 /* Shared/ConnectionWidgetState.swift */,
+				4FA5602C1E42B056ED4B4917 /* Shared/ConnectivityReport.swift */,
+				B614DB9028743B9DE2328225 /* Shared/CoreRuntime.swift */,
+				8BAAB172C40E05DD6B2EAD39 /* Shared/CoreStartDiagnostic.swift */,
+				5562E4B709A96F570998C8D6 /* Shared/LiveActivity/ActivityNodePingCommand.swift */,
+				745A5B75E67B31C488584D35 /* Shared/LiveTelemetry.swift */,
+				537F759F9DFEDB0A5CBBE599 /* Shared/NetworkInspection.swift */,
+				F1F710DC063710E4D7C077B9 /* Shared/NodeURI.swift */,
+				7310AE4709D96EA7D82EF512 /* Shared/PingReport.swift */,
+				489D921C165C9A21AE5437A3 /* Shared/ProbeAdmissionQueue.swift */,
+				F9D5037D38EFF0496A26BE2D /* Shared/PrototypeConfiguration.swift */,
+				F5BB7DEE3FAE3E8E318479EF /* Shared/PrototypeError.swift */,
+				F73203C39B1B89D71988A760 /* Shared/RoutingAssessment.swift */,
+				E9D2CC7C1EF70048770C9D5D /* Shared/RuntimeGroupChoices.swift */,
+				D9722B89457EF4A385520A54 /* Shared/SubscriptionChangeSummary.swift */,
+				B1538C789DBC2AB0CDD90BBE /* Shared/SubscriptionLibrary.swift */,
+				F80723FFCFC1A6108C7CC71F /* Shared/SubscriptionRepository.swift */,
+				326DB0ECC5D374C3063B14F3 /* Shared/SubscriptionRevision.swift */,
+				0321C1FE6DCF72113C903E4C /* Shared/TelemetryHistory.swift */,
+				86E604A776BD03062E71448D /* Shared/TunnelDiagnostics.swift */,
+				C7F112099197A7386A6B9F04 /* Shared/TunnelSnapshot.swift */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		C6B3030FDAF7ECCA7409A720 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				B7E93A5E36662A661F3D7F78 /* Horizon/Features/Horizon/Rendering/HorizonParticlePass.swift */,
+				CE5309231F342BD24B12E50E /* Horizon/Features/Horizon/Rendering/HorizonGuideTransition.swift */,
+				5C23601D7837E95BAE4359EE /* Horizon/Features/Horizon/Rendering/HorizonSceneClock.swift */,
+				1DA9497DC7EB2A69B8D01A4D /* Horizon/Features/Horizon/Rendering/HorizonFramePresentation.swift */,
+				853042E244F283A3CB99266F /* Horizon/Features/Horizon/Rendering/HorizonPullState.swift */,
+				AE08F3D33AA02E02FEF90A2E /* Horizon/Features/Horizon/Rendering/HorizonGlobeInteraction.swift */,
+				E8DF7095F0401AEE1EFD3861 /* Horizon/Features/Horizon/Rendering/HorizonGuidePullState.swift */,
+				671DE8C4EE0B4FA9B423A1DA /* Horizon/Features/Horizon/Rendering/HorizonIntroduction.swift */,
+				BC2FFC4771ED63E343AEBC59 /* Horizon/Features/Horizon/Rendering/HorizonSceneProgress.swift */,
+				35AC8DA5F3963CD74A4CB8D5 /* Horizon/Features/Horizon/Rendering/HorizonGeometry.swift */,
+				E6BD5C53D0E7F9FA3FB20672 /* Horizon/Features/Horizon/Rendering/HorizonRenderFrame.swift */,
+				57624EAAC579F9DF8A459FFE /* Horizon/Features/Horizon/Rendering/HorizonRenderer.swift */,
+				B398D6E5EC788E52BA719B87 /* Horizon/Features/Horizon/Rendering/HorizonGuideFraming.swift */,
+				FBA6D6AC5C2769BE61EDC9C2 /* Horizon/Features/Horizon/Rendering/HorizonGuideTrafficDisplay.swift */,
+				8E24324FBF7F8B94ACF2B317 /* Horizon/Features/Horizon/Rendering/HorizonGuideNodeTree.swift */,
+				E2146961B3D595FE30655FA3 /* Horizon/Features/Horizon/Rendering/HorizonMotion.swift */,
+				D158416D0A7C6F00D0D5F996 /* Horizon/Features/Horizon/Rendering/HorizonIntroCamera.swift */,
+				7A8345D7818513CAE98FD906 /* Horizon/Features/Horizon/Rendering/HorizonGuidePullMotion.swift */,
+				59D43E0118E4FA2FB67855F7 /* Horizon/Features/Horizon/Rendering/HorizonWallTouch.swift */,
+				8150EC4713CABCE906024ECA /* Horizon/Features/Horizon/Rendering/HorizonGuideGeometry.swift */,
+				D8E8095AF4194D982DFDD445 /* Horizon/Features/Horizon/Rendering/HorizonShaders.metal */,
+			);
+			name = Rendering;
+			sourceTree = "<group>";
+		};
+		D4240E0D61B440589D0D2C8D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C509538199454DD391BF9C08 /* Horizon/Services/ConfigurationImportWorker.swift */,
+				6988189B12CE40D3817704B9 /* CloudSync */,
+				109E66AF5287D1E89800ADAA /* Horizon/Services/BundledGeoData.swift */,
+				4CBEC59B75D351482F4DC3C7 /* Mac */,
+				9025499D61F630448126D918 /* Horizon/Services/SubscriptionDownloader.swift */,
+				38BF545E6040AC752EE84B2E /* Horizon/Services/SubscriptionImportLoader.swift */,
+				533A81D6F78D0265BF5218D7 /* Horizon/Services/SubscriptionQRCode.swift */,
+				57AECBD8C6FF5B3E5C34163E /* Horizon/Services/SubscriptionResourceLoader.swift */,
+				BC2B6D00CEFCEA6D81B1E593 /* Horizon/Services/AppSettings.swift */,
+				1000516CEF0EB369378A649A /* Horizon/Services/StandaloneProbeSession.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		DA24C682C10BA8CAAEE14B59 /* MacConfigurations */ = {
+			isa = PBXGroup;
+			children = (
+				A01935E32624A9D130511C88 /* Horizon/Features/MacConfigurations/MacConfigurationsView.swift */,
+				96EFEBDE0AE60AB171AEA2E2 /* Horizon/Features/MacConfigurations/MacImportConfirmationView.swift */,
+				9B6F37A450A0A3C62437251B /* Horizon/Features/MacConfigurations/MacConfigurationDetailView.swift */,
+				00E6ACE2EF25893F8837F7E9 /* Horizon/Features/MacConfigurations/MacRevisionReviewView.swift */,
+				B41E29F767F5E5F5E49A0ECB /* Horizon/Features/MacConfigurations/MacConfigurationMaintenanceView.swift */,
+				8B2A7978943C8F6607277B8D /* Components */,
+			);
+			name = MacConfigurations;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AC44A5EE06496B21A17CA082 /* HorizonMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BA3697B6B79B44D3ED89D1B /* Build configuration list for PBXNativeTarget "HorizonMac" */;
+			buildPhases = (
+				2252E911D4B97BECC2578801 /* Sources */,
+				BA75DFBAC7C748B92E698B45 /* Frameworks */,
+				31A1F89F08BCA7137300901F /* Resources */,
+				70169F10B8C6D32730D688FB /* Embed App Extensions */,
+				DA6C20261013000000000002 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F26350DAFE3F19AABFD69AC4 /* PBXTargetDependency */,
+			);
+			name = HorizonMac;
+			productName = HorizonMac;
+			productReference = 0E4C12133CB4F70B524644A7 /* HorizonMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F4B593F917916CFAEC0178AC /* HorizonMacTunnel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0645311DEA414C864366230C /* Build configuration list for PBXNativeTarget "HorizonMacTunnel" */;
+			buildPhases = (
+				F94D3FBF7284F29E1D8DE009 /* Sources */,
+				4106F914D65F5B2017EC04AA /* Frameworks */,
+				888DA4BF526878E547B6400D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HorizonMacTunnel;
+			productName = HorizonMacTunnel;
+			productReference = AC0554CA5E0314795775ED40 /* HorizonMacTunnel.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		244210E48437B6556980A702 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2650;
+			};
+			buildConfigurationList = F905B102B4F13BD6617D8EB3 /* Build configuration list for PBXProject "HorizonMac" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"zh-Hans",
+				Base,
+			);
+			mainGroup = 0D6E4079E36703EBD37C0072;
+			productRefGroup = 0A3E27B8CA818264D75C8D81 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC44A5EE06496B21A17CA082 /* HorizonMac */,
+				F4B593F917916CFAEC0178AC /* HorizonMacTunnel */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		31A1F89F08BCA7137300901F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF22E37945F44C8A88AC9837 /* Horizon/Assets.xcassets in Resources */,
+				5A1A26E0307C95E2002F2BB6 /* Media.xcassets in Resources */,
+				625FDCEF1D1A0810AFE0E112 /* .build/macos/artifacts/CoreLicenses in Resources */,
+				9ADDC0197FB6DEE0FBD56D99 /* Horizon/Resources/GeoData in Resources */,
+				664BACC2D5402D2E1D72492D /* Horizon/Features/Horizon/Resources/earth-land.bin in Resources */,
+				098E1CD9CD9EE92410FD07D0 /* Horizon/Features/Horizon/Resources/NaturalEarth-NOTICE.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		888DA4BF526878E547B6400D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2252E911D4B97BECC2578801 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22D27464935A4D7BA3633DA5 /* Horizon/Features/MacCloudSync/Components/MacCloudReviewPromptModifier.swift in Sources */,
+				0F29F431C67641578D2F0879 /* Horizon/Features/MacCloudSync/MacICloudSubscriptionSyncView.swift in Sources */,
+				E17500ED17414EEC91D39645 /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewListView.swift in Sources */,
+				22EBAC58F4E24C429C8C0D79 /* Horizon/Features/MacCloudSync/MacICloudSyncInfoView.swift in Sources */,
+				430F6CB82E2E48AF8269491D /* Horizon/Features/MacCloudSync/MacCloudSubscriptionReviewView.swift in Sources */,
+				DDCA371A6E904201B1000002 /* Horizon/Services/Mac/MacCloudSubscriptionInventory.swift in Sources */,
+				2B277563373E4BDBB30DC359 /* Horizon/Services/Mac/MacICloudSubscriptionSyncStore.swift in Sources */,
+				E77C42C0AE7E42CF8DBA2C18 /* Horizon/Services/ConfigurationImportWorker.swift in Sources */,
+				311B3D4D4BEE44A18C38A48A /* Horizon/Services/CloudSync/CloudReviewNoticeTracker.swift in Sources */,
+				92D501E481884C2AA4E5C3B6 /* Horizon/Services/CloudSync/CloudAssetCache.swift in Sources */,
+				5AAF80B7BEDD44B6AEB82763 /* Horizon/Services/CloudSync/CloudAssetRecord.swift in Sources */,
+				64EB9AB9632247888814B11E /* Horizon/Services/CloudSync/CloudSyncTrigger.swift in Sources */,
+				1C2D1DD03B12455E8E4F5871 /* Horizon/Services/CloudSync/SubscriptionCloudSyncEngine.swift in Sources */,
+				6B0F07DB63214D668CDC6977 /* Horizon/Services/CloudSync/CloudSyncJournal.swift in Sources */,
+				FB188FD9246843D3A9B82934 /* Horizon/Services/CloudSync/CloudSubscriptionVersion.swift in Sources */,
+				7B85B4180FBB427186A50A38 /* Horizon/Services/CloudSync/CloudSyncCallbackTask.swift in Sources */,
+				220B2EA4CC6F87F6B1647365 /* Horizon/Features/MacHome/Components/MacConnectionButtonView.swift in Sources */,
+				6D2BAE3B866520564B300845 /* Horizon/Features/MacHome/Components/MacHomePingView.swift in Sources */,
+				E05027A74F284F1D8D27B0A3 /* Horizon/Features/MacHome/Components/MacRoutingPickerView.swift in Sources */,
+				1EB1FC5E1B304D768B53E400 /* Horizon/App/Mac/Components/MacSidebarTrafficView.swift in Sources */,
+				39B3461B9560456F9A9E28ED /* Horizon/Services/Mac/MacLibraryActivity.swift in Sources */,
+				50177B10042651FE4A3E9311 /* Horizon/App/Mac/MacRootView.swift in Sources */,
+				D6F1EC38C4AD2AA472F9B48F /* Horizon/App/Mac/Components/MacSubpageTracking.swift in Sources */,
+				1DF9AA6C70E0D38BCFAB9B7F /* Horizon/App/Mac/HorizonMacApp.swift in Sources */,
+				3D49A3E6E445AF58F9B34B5F /* Horizon/Features/MacMenuBar/Components/MacMenuBarLabel.swift in Sources */,
+				A1855811696273F2D4CAA975 /* Horizon/Features/MacMenuBar/MacMenuBarView.swift in Sources */,
+				665A9B2CF2A39984A321E4DA /* Horizon/Services/Mac/MacMenuBarActions.swift in Sources */,
+				B03AF5D91916624FC3C25224 /* Horizon/App/Mac/MacAppDelegate.swift in Sources */,
+				A8E79CCBB27FF3F01874A935 /* Horizon/Services/Mac/MacVPNController.swift in Sources */,
+				9598916A8417011E861FABE5 /* Horizon/Services/Mac/MacLibraryStore.swift in Sources */,
+				4670558E215A66C8E1B3B7AD /* Horizon/Services/Mac/MacSubscriptionWorker.swift in Sources */,
+				1408138C1CD6D1C8924633FF /* Horizon/Services/Mac/MacText.swift in Sources */,
+				35F6529C9BD7708382786EBD /* Horizon/Features/MacHome/MacHomeView.swift in Sources */,
+				F121A5450F45BF09967BCC35 /* Horizon/Features/MacConfigurations/MacImportConfirmationView.swift in Sources */,
+				7AD7E1EE74D27B1115AB71C5 /* Horizon/Features/MacConfigurations/MacConfigurationsView.swift in Sources */,
+				8B4B17DA8F5083961B3D7AE5 /* Horizon/Features/MacNodes/MacNodesView.swift in Sources */,
+				FC924DF5E0942C475526EE04 /* Shared/ConfigurationNodeOptions.swift in Sources */,
+				271833E30C38B0F1CA8ADAC8 /* Shared/ConfigurationVault.swift in Sources */,
+				F0FCFF1D85FF6FF946ADF713 /* Shared/ConfigurationValidation.swift in Sources */,
+				B4C2BBD192C59C540661F88B /* Shared/SubscriptionLibrary.swift in Sources */,
+				DE001AFF73F3AB2BD238AAC5 /* Shared/NodeURI.swift in Sources */,
+				5DA291FD2EC9979018F6CBB6 /* Shared/TunnelSnapshot.swift in Sources */,
+				452CC88A6543C4BFEB3DD8E0 /* Shared/ConfigurationCompatibility.swift in Sources */,
+				9000BEAF675FF1B3FB1927E8 /* Shared/ConnectivityReport.swift in Sources */,
+				7B7FBD512995526EE8FE3264 /* Shared/ConfigurationSelectionPolicy.swift in Sources */,
+				9442C5FE0AD75C3C298C8464 /* Shared/ConfigurationCatalog.swift in Sources */,
+				7B0B9307314B09FBC4654C5F /* Shared/ConfigurationRouting.swift in Sources */,
+				64B98DD075B6956B78D6ACA6 /* Shared/ConfigurationPolicy.swift in Sources */,
+				0F6E04E52A5ED70CBE1931CB /* Shared/NetworkInspection.swift in Sources */,
+				646AF2ED129EF7099B3C5900 /* Shared/PrototypeError.swift in Sources */,
+				28FE4409A52DBF695A091C4C /* Shared/LiveTelemetry.swift in Sources */,
+				A4A503963396244467C3095F /* Shared/CoreRuntime.swift in Sources */,
+				8D9C6DDFAFAB8CBAC5B93C23 /* Shared/ConnectionWidgetState.swift in Sources */,
+				25A11A0555979B306A83EBF0 /* Shared/PingReport.swift in Sources */,
+				B9A032767182D634FBFE61B9 /* Shared/ConnectionCapture.swift in Sources */,
+				3941AB292E9691A52DC9B9CC /* Shared/SubscriptionRevision.swift in Sources */,
+				64820CB782490097C274F4C7 /* Shared/ConfigurationSnapshot.swift in Sources */,
+				1692F36CC7460087E507C4BA /* Shared/ConfigurationFormat.swift in Sources */,
+				257116685A36DCFF6C26C494 /* Shared/CoreStartDiagnostic.swift in Sources */,
+				5102422B3DF68B747CCE6A49 /* Shared/TunnelDiagnostics.swift in Sources */,
+				E91696E21B5D1534CDFD4BDB /* Shared/PrototypeConfiguration.swift in Sources */,
+				3C068EFCAB1DCF5830CAB13B /* Shared/RoutingAssessment.swift in Sources */,
+				68DADAF61EDED1E2CB35B6E8 /* Shared/SubscriptionChangeSummary.swift in Sources */,
+				4A397C5030C2897DD2B32CB1 /* Shared/SubscriptionRepository.swift in Sources */,
+				A58ED703A5F3D4EE9373B166 /* Shared/RuntimeGroupChoices.swift in Sources */,
+				AE73E770019D35CAE0EBEA5E /* Shared/CompiledGeoCache.swift in Sources */,
+				378223C4EBD50165200C15BC /* Shared/BatchProbe.swift in Sources */,
+				65F84F0254D1F2152572BD4D /* Shared/ConfigurationDNS.swift in Sources */,
+				8A78E37F453B8FFB9B2DACF4 /* Shared/TelemetryHistory.swift in Sources */,
+				6177C264AFD6AA163DA00EC0 /* Shared/ProbeAdmissionQueue.swift in Sources */,
+				625C8802477B6A707AB7F15C /* Shared/ConfigurationResources.swift in Sources */,
+				000F6BD0C1E71559A46D393E /* Shared/ConfigurationInput.swift in Sources */,
+				E4552EE6698F055EBCD51BD0 /* Shared/ConfigurationRules.swift in Sources */,
+				7C0FE9BE4A0566DF1D9251EF /* Shared/ConfigurationGroups.swift in Sources */,
+				190AE6104C60788C5B3B9F20 /* Shared/LiveActivity/ActivityNodePingCommand.swift in Sources */,
+				AB1FA5BCCC910F663A032504 /* Horizon/Services/SubscriptionResourceLoader.swift in Sources */,
+				364116FCA3943C34B4F602F7 /* Horizon/Services/BundledGeoData.swift in Sources */,
+				F8D3A1ECA64B3F9E476988B8 /* Horizon/Services/SubscriptionDownloader.swift in Sources */,
+				8060D100C2313B82590AD15E /* Horizon/Services/SubscriptionImportLoader.swift in Sources */,
+				6CAF27C5AB29E84BBAA075CC /* Horizon/Services/SubscriptionQRCode.swift in Sources */,
+				076EB40E7B32F26DAF62378F /* Horizon/Services/Mac/MacProbeStore.swift in Sources */,
+				09B61F288C8A026A7890EC1A /* Horizon/Services/Mac/MacTelemetryStore.swift in Sources */,
+				67FB4A535474C98825807F79 /* Horizon/Features/MacHome/Components/MacTrafficChart.swift in Sources */,
+				9369D9A2BB744694A5187F53 /* Horizon/Features/MacHome/Components/MacScrollingTrafficPlot.swift in Sources */,
+				80D70CBE73B59593FBF17663 /* Horizon/Features/MacHome/Components/MacMetalScene.swift in Sources */,
+				A6F82333B12E4930883DA5D1 /* Horizon/Features/MacHome/Components/MacHomeGlobeFraming.swift in Sources */,
+				7FAE859B4C21FDD3E1354327 /* Horizon/Features/MacConfigurations/MacConfigurationDetailView.swift in Sources */,
+				CF02BA9AAD8F5415F1169ABA /* Horizon/Features/MacConfigurations/MacRevisionReviewView.swift in Sources */,
+				385FC1CA3BC477032745753A /* Horizon/Features/MacConfigurations/MacConfigurationMaintenanceView.swift in Sources */,
+				8A1D8C76D0EBCEE953B629C2 /* Horizon/Features/MacNodes/MacGroupsView.swift in Sources */,
+				3D32E564823CCEC929768C35 /* Horizon/Features/MacSettings/MacAboutView.swift in Sources */,
+				2253DB7A62DD74F81E53E14E /* Horizon/Features/MacSettings/MacSettingsView.swift in Sources */,
+				579CC850726DEAEC6EAF4A09 /* Horizon/Features/MacIntro/MacIntroductionView.swift in Sources */,
+				73EA97285A9DB0E612D23AFF /* Horizon/Features/MacIntro/MacGuideGlobeView.swift in Sources */,
+				B607B748CC163CF07461D783 /* Horizon/Features/Horizon/Rendering/HorizonParticlePass.swift in Sources */,
+				5F9091528CD55F93CCBB6C83 /* Horizon/Features/Horizon/Rendering/HorizonGuideTransition.swift in Sources */,
+				69C21E94D3885C01163B61E9 /* Horizon/Features/Horizon/Rendering/HorizonSceneClock.swift in Sources */,
+				C2082070753F41C41E1D93DB /* Horizon/Features/Horizon/Rendering/HorizonFramePresentation.swift in Sources */,
+				B162404664815B53A9395CF8 /* Horizon/Features/Horizon/Rendering/HorizonPullState.swift in Sources */,
+				3EBF286362346D7AC99498C0 /* Horizon/Features/Horizon/Rendering/HorizonGlobeInteraction.swift in Sources */,
+				BFFB2B637C6DD71C7E0EC234 /* Horizon/Features/Horizon/Rendering/HorizonGuidePullState.swift in Sources */,
+				FAF427C3CEA081AF26B36E1C /* Horizon/Features/Horizon/Rendering/HorizonIntroduction.swift in Sources */,
+				71FB07C1C4DB1F4CD9102375 /* Horizon/Features/Horizon/Rendering/HorizonSceneProgress.swift in Sources */,
+				4538CC7D8592F05111BE8FD1 /* Horizon/Features/Horizon/Rendering/HorizonGeometry.swift in Sources */,
+				6B9F5F5B534E372F2B12D5C9 /* Horizon/Features/Horizon/Rendering/HorizonRenderFrame.swift in Sources */,
+				1AA83BED424ABA7BF5F90F81 /* Horizon/Features/Horizon/Rendering/HorizonRenderer.swift in Sources */,
+				D2A56F85352A305559C300B1 /* Horizon/Features/Horizon/Rendering/HorizonGuideFraming.swift in Sources */,
+				DA55DA385B4FC26059A8FCD7 /* Horizon/Features/Horizon/Rendering/HorizonGuideTrafficDisplay.swift in Sources */,
+				A4BF1CEA5E91D4EE6C9DAEFB /* Horizon/Features/Horizon/Rendering/HorizonGuideNodeTree.swift in Sources */,
+				784655C1DE020AC16CA4D9FD /* Horizon/Features/Horizon/Rendering/HorizonMotion.swift in Sources */,
+				B53B93F6975AEA22A53F5FA9 /* Horizon/Features/Horizon/Rendering/HorizonIntroCamera.swift in Sources */,
+				CF220BBAD5D2C2E0201CC83B /* Horizon/Features/Horizon/Rendering/HorizonGuidePullMotion.swift in Sources */,
+				3E1695332955EBCD8D86A742 /* Horizon/Features/Horizon/Rendering/HorizonWallTouch.swift in Sources */,
+				9BCACBB5D34C3285775D5C4A /* Horizon/Features/Horizon/Rendering/HorizonGuideGeometry.swift in Sources */,
+				30D97B3705705C756AB13643 /* Horizon/Features/Horizon/Rendering/HorizonShaders.metal in Sources */,
+				76476BAFC8652B0AB64D0E72 /* Horizon/Services/AppSettings.swift in Sources */,
+				9CCE6B2E2617F91BC6748C50 /* Horizon/Services/StandaloneProbeSession.swift in Sources */,
+				CDF9EA055688A42E4424085B /* Horizon/Features/Home/Components/TrafficPlotGeometry.swift in Sources */,
+				0E2FB656D4E40C3D55E039C3 /* Horizon/Features/Horizon/HorizonWelcomeView.swift in Sources */,
+				EE83FDF078980DA002E5133F /* Horizon/Features/Horizon/Components/HorizonWelcomeWordmark.swift in Sources */,
+				DEFB773E7F07312CEA9BF0B3 /* Horizon/Features/Horizon/Components/HorizonGuideScene.swift in Sources */,
+				C309F895ADEF16EC319155EE /* Horizon/Features/Horizon/Components/HorizonGuideTrafficReadout.swift in Sources */,
+				DC3566C4430E69C1D8B0092D /* Horizon/Features/MacHome/Components/MacConnectionTitleView.swift in Sources */,
+				1752A90384587D7CF05924F6 /* Horizon/Features/MacConfigurations/Components/MacConfigurationCard.swift in Sources */,
+				D5BC001A6E904201B1000004 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelectionSurface.swift in Sources */,
+				D5BC001A6E904201B1000002 /* Horizon/Features/MacConfigurations/Components/MacConfigurationSelection.swift in Sources */,
+				C66F547211D228815378B539 /* Horizon/Features/MacNodes/Components/MacNodeCard.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F94D3FBF7284F29E1D8DE009 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6BB8F7E59674A1BBEC916BF /* Shared/ConfigurationNodeOptions.swift in Sources */,
+				F4CBFB8CBEF6BA53726FB9E1 /* Shared/ConfigurationVault.swift in Sources */,
+				9D0F540A1CF8B09A1E11E0EB /* Shared/ConfigurationValidation.swift in Sources */,
+				C11CC7BCA6AB29F8A02D2890 /* Shared/SubscriptionLibrary.swift in Sources */,
+				29E78DD386BB818413ACD80B /* Shared/NodeURI.swift in Sources */,
+				575E87274CCF6D0E20C348D9 /* Shared/TunnelSnapshot.swift in Sources */,
+				2D6266B8E067A2E0E3C64751 /* Shared/ConfigurationCompatibility.swift in Sources */,
+				E8F4C88E07D5B0848267C487 /* Shared/ConnectivityReport.swift in Sources */,
+				C595143A754D9497C5654EAA /* Shared/ConfigurationSelectionPolicy.swift in Sources */,
+				81ECE7D05F223F79AE77767D /* Shared/ConfigurationCatalog.swift in Sources */,
+				2F890712419C6A3B86DA81E9 /* Shared/ConfigurationRouting.swift in Sources */,
+				86648F38282977D68A99EC2C /* Shared/ConfigurationPolicy.swift in Sources */,
+				10247789A0A18B1D592A1831 /* Shared/NetworkInspection.swift in Sources */,
+				01E9FE7B6FEF631CEC5C44B7 /* Shared/PrototypeError.swift in Sources */,
+				8AAF545022B68FE51D3264CA /* Shared/LiveTelemetry.swift in Sources */,
+				2D885A20237B86EBB33EAC62 /* Shared/CoreRuntime.swift in Sources */,
+				1567A53CAB45C1046E461AC6 /* Shared/ConnectionWidgetState.swift in Sources */,
+				3FABA639FD9BA0FAF4997E7A /* Shared/PingReport.swift in Sources */,
+				3E9BFF5DB7227CE9BD070110 /* Shared/ConnectionCapture.swift in Sources */,
+				88F9E2A59515C5816BECCD23 /* Shared/SubscriptionRevision.swift in Sources */,
+				78CEEE321A8A6024C606D1BF /* Shared/ConfigurationSnapshot.swift in Sources */,
+				F5D31DD0BBC8A39D484EEC39 /* Shared/ConfigurationFormat.swift in Sources */,
+				99D1D7822D0CB190876E318B /* Shared/CoreStartDiagnostic.swift in Sources */,
+				2587358196DBFCEFED55E9B3 /* Shared/TunnelDiagnostics.swift in Sources */,
+				AA5C5F4EA64C886A71113A68 /* Shared/PrototypeConfiguration.swift in Sources */,
+				636F0FDB985DB333973C7C64 /* Shared/RoutingAssessment.swift in Sources */,
+				704CEAB1F558D39C2F969C18 /* Shared/SubscriptionChangeSummary.swift in Sources */,
+				AC9F04DAE36802EA73D9A5F5 /* Shared/SubscriptionRepository.swift in Sources */,
+				182115C2BA0B8C544F534332 /* Shared/RuntimeGroupChoices.swift in Sources */,
+				7E50D7258844A3F04745B329 /* Shared/CompiledGeoCache.swift in Sources */,
+				BF34F1DDD0C0CE4C2B320868 /* Shared/BatchProbe.swift in Sources */,
+				7E7A3292A9CEDB5CE183AABD /* Shared/ConfigurationDNS.swift in Sources */,
+				047F0D8F5B4441957ADAC203 /* Shared/TelemetryHistory.swift in Sources */,
+				D787FA05F7B5D3FB941D39C7 /* Shared/ProbeAdmissionQueue.swift in Sources */,
+				AEBEEE60AB6D2FEA21D8968A /* Shared/ConfigurationResources.swift in Sources */,
+				E19B2349791209FB5202C258 /* Shared/ConfigurationInput.swift in Sources */,
+				B1F3EC08308E74853A9787AD /* Shared/ConfigurationRules.swift in Sources */,
+				E30107F1D229F300D4E24460 /* Shared/ConfigurationGroups.swift in Sources */,
+				AB8C7A2CCAE62E074AC805DE /* Shared/LiveActivity/ActivityNodePingCommand.swift in Sources */,
+				E33F25A01C0FE0EAE32E00B6 /* PacketTunnel/ConnectivityProbe.swift in Sources */,
+				C899A82B36DA93275622123B /* PacketTunnel/CorePlatform.swift in Sources */,
+				B8269270FEB5972773D44613 /* PacketTunnel/PacketTunnelProvider.swift in Sources */,
+				0B3A310D5E24AA7857DD7296 /* PacketTunnel/BatchProbeRunner.swift in Sources */,
+				47EB928E8263F2E6547D3F29 /* PacketTunnel/DNSInspection.swift in Sources */,
+				03EFC2895DF615083ADB93B2 /* PacketTunnel/BootstrapResolver.swift in Sources */,
+				82669E34F95EB67E60D54447 /* PacketTunnel/TunnelTrafficRecorder.swift in Sources */,
+				AA0EBF11873D924F503DB71B /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift in Sources */,
+				01820D5D576F36BDE4C5595D /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F26350DAFE3F19AABFD69AC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4B593F917916CFAEC0178AC /* HorizonMacTunnel */;
+			targetProxy = 1241936D4DD3AAD68FE7BFBD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0B0C687DF8B6B8DC790B519C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) HORIZON_NATIVE_MAC";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		73BA2D43FCFD67BD46F13197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Mac/App.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.5.6;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HORIZON_OFFLINE_PREVIEW = NO;
+				ICLOUD_CONTAINER_ENVIRONMENT = Development;
+				INFOPLIST_FILE = "Configuration/Mac/App-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) HORIZON_NATIVE_MAC DEBUG";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		73EBF6644258C120893E685D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) HORIZON_NATIVE_MAC DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		908FA1D1F250C3989528CDC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Mac/Tunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.5.5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HORIZON_OFFLINE_PREVIEW = NO;
+				INFOPLIST_FILE = "Configuration/Mac/Tunnel-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash.MacPacketTunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) HORIZON_NATIVE_MAC";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		AB5CB3C6DE141B55F3E0FB20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Mac/App.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.5.6;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HORIZON_OFFLINE_PREVIEW = NO;
+				ICLOUD_CONTAINER_ENVIRONMENT = Production;
+				INFOPLIST_FILE = "Configuration/Mac/App-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) HORIZON_NATIVE_MAC";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		CBA6AD1A8C88DD3B338E3BA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Mac/Tunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.5.5;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HORIZON_OFFLINE_PREVIEW = NO;
+				INFOPLIST_FILE = "Configuration/Mac/Tunnel-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash.MacPacketTunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) HORIZON_NATIVE_MAC DEBUG";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0645311DEA414C864366230C /* Build configuration list for PBXNativeTarget "HorizonMacTunnel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBA6AD1A8C88DD3B338E3BA3 /* Debug */,
+				908FA1D1F250C3989528CDC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BA3697B6B79B44D3ED89D1B /* Build configuration list for PBXNativeTarget "HorizonMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73BA2D43FCFD67BD46F13197 /* Debug */,
+				AB5CB3C6DE141B55F3E0FB20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F905B102B4F13BD6617D8EB3 /* Build configuration list for PBXProject "HorizonMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73EBF6644258C120893E685D /* Debug */,
+				0B0C687DF8B6B8DC790B519C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 244210E48437B6556980A702 /* Project object */;
+}

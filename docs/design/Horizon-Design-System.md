@@ -1,0 +1,1018 @@
+# HORIZON 设计系统与实现手册
+
+版本：1.0 · 源码基准：2026-10-05 当前工作区 · 主要平台：iOS / SwiftUI / Metal。
+
+这份手册面向设计师和开发者，目标是让一个新的项目在不依赖原项目聊天记录的情况下，复现 HORIZON 的视觉、交互和动态体验。它既解释设计语言，也记录当前实现的尺寸、颜色、动画公式、组件结构和验收方式。
+
+**阅读约定**：标为“当前”的数值来自本次检查的源码；标为“复用建议”的内容是面向新项目的实施建议，不代表原 App 已经提供相应封装。所有 SwiftUI 布局尺寸使用 pt，Metal 世界尺寸使用无单位的世界坐标，时间使用秒。灰度 shader 数值与 SwiftUI 颜色不应直接混为相同屏幕亮度。
+
+本文以当前默认的 **Horizon 风格**为主，单独记录设置中保留的 **Classic 风格**。已有设计曾多次迭代，本文不把旧版截图、聊天里的中间方案或注释中的旧描述当作当前规范。这里没有包含真实订阅链接、节点凭据或用户配置。
+
+## 1. 设计定位
+
+Horizon 是“黑色空间中的白色结构”：界面以纯黑为底，通过细线、字重、透明度、真实遮挡和空间位移建立层次。主视觉具有电影式运镜；功能界面保持原生、简洁、可快速操作。
+
+它的识别特征是这几项同时出现：
+
+- 黑色背景、白色主信息、灰色次要信息，彩色只承担必要的系统或语义用途。
+- 主视觉使用有实体遮挡的线框三维结构，而不是透明网格。
+- 粒子构成可信的地理轮廓，并与相机、墙壁处在同一空间。
+- 大部分功能用图标与短关键词表达，解释放进 info。
+- Liquid Glass 集中用于交互控件和系统导航，不覆盖所有内容。
+- 状态切换、数字变化、按钮尺寸和场景转场都保持连续。
+- 持续运动有独立的时间轴，不随着一次数据更新重新开始。
+
+新项目可替换“墙与地球”的业务隐喻，但应保留“实体前景 → 越过边界 → 更大的空间 → 聚合后的核心对象”这一叙事关系。若要求完全复现当前 Horizon，则墙、地球和开场流程也属于设计的一部分。
+
+### 1.1 层次优先级
+
+| 层次 | 内容 | 视觉方式 | 交互职责 |
+|---|---|---|---|
+| 环境层 | 黑色空间、远处粒子 | 低亮度、缓慢漂移 | 通常不截获触摸 |
+| 场景层 | 墙、地球、示意卡片、节点结构 | 细线、透视、深度遮挡 | 限定区域内旋转或拖动 |
+| 信息层 | 状态、订阅名、速率、结果 | 清晰文字、灰度差异 | 阅读与局部操作 |
+| 控件层 | Connect、Ping、Next、导航 | 原生玻璃、稳定点击区域 | 执行明确动作 |
+| 说明层 | 兼容性、错误详情、功能解释 | 独立 sheet / 子页面 | 用户主动展开 |
+
+场景不能降低按钮和信息的可用性。控件不能靠粒子的变化来传达唯一的操作结果。每一个业务状态都要有明确的文字或辅助功能表达。
+
+### 1.2 边框的使用边界
+
+“无框”是指功能内容尽量不被一层层卡片包住。列表使用系统分割线或细分割线；首页用空白和分割线分区。真实三维对象的线框、原生按钮的胶囊轮廓、系统 sheet 的边界属于允许的结构。
+
+不要给每一行添加圆角矩形，不要同时堆叠描边、阴影、发光和玻璃背景。当前节点选中效果已经取消矩形高亮背景与缩放，保留文字亮度变化和确认标记。
+
+## 2. 颜色与材质
+
+### 2.1 Horizon 颜色表
+
+| 用途 | 当前值或策略 | 使用说明 |
+|---|---|---|
+| 主背景 | `Color.black` | Horizon 强制深色，不随系统浅色切换 |
+| 主文字 / 主题 tint | 白色 | 页面、主要操作、主要图标 |
+| 次要文字 | `.secondary` | 依系统环境解析，不写成一个全局固定灰色 |
+| 未选中节点名称 | primary × 0.72 | 选中 / 正在切换变为 1.0 |
+| 节点序号 | primary × 0.45 | 强调时 0.90 |
+| 节点协议 | primary × 0.50 | 强调时 0.80 |
+| 首页区域分割线 | white × 0.16；0.5 pt | 信息行与曲线之间 |
+| 曲线内部累计分割线 | primary × 0.10；0.5 pt | 轻于主要区域边界 |
+| Guide 文案上方线 | white × 0.22；0.5 pt | 连接编号与 QUICK TOUR |
+| 上传曲线 / 上传数值 | white × 0.50 | 同一图中较暗的一条线 |
+| 下载曲线 / 下载数值 | white × 1.0 | 同一图中较亮的一条线 |
+| 错误 / 删除 | 系统 `.red` | 语义色优先于白色主题 |
+| Toggle 开启 | 系统绿色 | 不继承白色 tint 变成白色开关 |
+| 不可用连接按钮 | 局部 opacity 0.45 | 无网络时仍允许点击查看简短提示 |
+
+不要把“所有东西都白色”理解为 Horizon。它依赖黑、灰、白的强弱层级；红色删除和绿色开关也是原生语义的一部分。
+
+### 2.2 Classic 颜色表
+
+| Token | 当前 RGB 0…1 | 约等于 HEX | 使用 |
+|---|---|---|---|
+| 深色背景 | 0.025, 0.036, 0.055 | #06090E | 带极轻蓝色倾向的近黑 |
+| 浅色背景 | 0.960, 0.970, 0.965 | #F5F7F6 | 接近白的浅底 |
+| 深色 accent / mint | 0.380, 0.940, 0.800 | #61F0CC | 主操作、下载曲线、连接状态 |
+| 浅色 accent | 0.020, 0.420, 0.340 | #056B57 | 浅底上的绿色操作 |
+| 深色上传 | 1.000, 0.240, 0.320 | #FF3D52 | 亮红色上传曲线 |
+| 浅色上传 | 0.820, 0.080, 0.170 | #D1142B | 浅底可读的红色 |
+| 辅助 blue | 0.420, 0.620, 1.000 | #6B9EFF | 源码存在的辅助颜色，不是 Horizon 主色 |
+
+HEX 为 RGB 转成 8-bit 后的四舍五入近似；实现时原始 RGB 是基准。Classic 支持深色、浅色、跟随系统，默认深色。Horizon 与 Classic 是完整风格选择，不是只替换 accent。
+
+### 2.3 Liquid Glass
+
+当前主要实现使用 `.buttonStyle(.glass)`、`.buttonBorderShape(.capsule / .circle)` 与 `GlassEffectContainer`。Tab Bar、导航按钮等采用系统原生外观。
+
+玻璃的作用是让操作层有材质，内容层仍然安静。Connect、Ping、Next 适合玻璃；流量曲线、节点列表、解释正文不需要被放进玻璃卡片。
+
+原生玻璃不是一张半透明黑色图片，也不是固定的 blur radius。圆角、折射、环境适配与按压表现由系统控制。其他项目应优先复用原生控件；若支持旧系统，需要提供可读的材质或普通按钮降级，并说明其外观只能近似。
+
+**复用建议**：在新项目的设计 token 中记录玻璃的“用途”和“容器关系”，不要写一个假定适用于所有系统版本的玻璃透明度、阴影和模糊半径。
+
+### 2.4 防止 tint 意外变蓝
+
+当前根 Tab 设置白色 tint，但独立 sheet、NavigationStack、PhotosPicker 或 Label 内的 SF Symbol 仍可能采用各自的 tint 解析。导入页面的修复思路是：在正确的页面边界设置主题，再对关键操作图标显式设置 `foregroundStyle(actionColor)`。
+
+建议颜色解析顺序：语义角色 → 当前风格 token → 组件明确前景 → 系统默认。删除角色应使用红色，Toggle 应明确使用系统绿色，不要为了统一主题覆盖它们。
+
+```swift
+Button(role: .destructive, action: delete) {
+    Label("Delete", systemImage: "trash")
+}
+.tint(.red)
+
+Toggle("Enabled", isOn: $enabled)
+    .tint(.green)
+
+Label("Scan", systemImage: "qrcode.viewfinder")
+    .foregroundStyle(theme.action)
+```
+
+以上是移植示例；不是要求重写现有原生控件。
+
+## 3. 字体系统与品牌字样
+
+### 3.1 字体原则
+
+主体采用系统字体，品牌与主视觉标题偏细，操作与列表标题有更高字重。只有序号、速率和需要稳定位宽的内容使用等宽数字或等宽字体。不要把所有文字换成“科幻字体”：陌生字体会削弱功能页可读性。
+
+| 位置 | 当前字体 | 特征 |
+|---|---|---|
+| Welcome 品牌基准 | 46 pt、system ultraLight | 用 CoreText 获取 `H O R I Z O N` 的字形位置，最终显示原创单线笔画 |
+| About 品牌 | 46 pt、system ultraLight、tracking 1.5 | 普通 Text `H O R I Z O N`，不是笔画动画 |
+| Welcome 前缀 | 24 pt、light、monospaced | Welcome to / 欢迎来到 |
+| Welcome 副文案 | 19 pt、light、monospaced | secondary，居中 |
+| Guide 左上角品牌 | caption、medium、tracking 5 | 紧凑品牌定位 |
+| Guide 章节标题 | 32 pt、system light | Dynamic Type，左对齐 |
+| Guide 说明 | body、secondary | 简短，必要时允许换行 |
+| 首页小品牌 | 15 pt、medium、tracking 6 | secondary，状态标题上方 |
+| 首页状态标题 | 28 pt、system light | 单行，最小缩放 0.75 |
+| Classic 首页品牌 | 29 pt、medium、rounded、tracking 5 | Classic 独立处理 |
+| 流量数值 | 32 pt、regular、rounded、monospacedDigit | 数字与单位分开 |
+| 流量单位 | title3 | 右侧 72 pt 区域，右对齐 |
+| 区域标题 | title3 semibold | 如 Live traffic |
+| 节点名称 | headline | 未选中也保持可读，不改字重造成布局抖动 |
+| 节点协议 | callout | 更弱的亮度 |
+| 节点序号 | title3 monospaced | 01 / 02 / 03 |
+| 订阅摘要 | subheadline secondary | 节点 / 策略组 / 规则数 |
+| 时间 / 当前标记 | caption | 辅助信息，不承担主操作 |
+| 操作按钮 | callout medium | Connect / Ping / Next |
+
+带明确点数的品牌、首页状态、Guide 标题采用 `@ScaledMetric`；语义字号直接跟随 Dynamic Type。标题不能为追求细字而在所有背景上使用极低亮度。
+
+### 3.2 三种品牌表现必须区分
+
+1. **功能页品牌**：普通系统字样，用 tracking 形成呼吸感。
+2. **About 的展示字样**：`H O R I Z O N` + ultraLight + tracking 1.5。
+3. **Welcome 的绘制字样**：沿原创中心线画出每个字母，并持续保留矢量结果。完成后不切回普通 Text，避免字间距或笔画位置跳变。
+
+Welcome 的字间距来自 CoreText 对旧静态品牌的排版测量，而不是给每个字母分配同宽格子。特别是 I 必须保留较窄字形的实际 advance。新项目若绘制自己的品牌，先定义静态终态排版，再把笔画映射到该排版。
+
+### 3.3 品牌笔画参数
+
+- 当前原创路径坐标空间：704 × 73。
+- 基准字体：system ultraLight，46 pt，通过 Dynamic Type 缩放。
+- 线宽：`max(0.65, fontSize × 0.017)`。
+- 线端、连接处均为 round。
+- 第 i 个字母起始延迟：`i × 0.055 s`，全词在 0.33 s 内开始绘制。
+- 单字母内按笔画顺序绘制，两笔之间 0.045 s。
+- 默认单笔时长：0.27 × 1.6 = 0.432 s。
+- O 的环形笔画：0.46 × 1.6 = 0.736 s。
+- R 的弧形笔画：0.34 × 1.6 = 0.544 s。
+- Z 的连续笔画：0.42 × 1.6 = 0.672 s。
+- 减速公式：`p = 1 − (1 − t)^4`。末段保持长尾，形成停笔的滞留感。
+- 当前全词笔画完成约 1.716 s，由笔画表计算，不另写固定等待常量。
+
+原始路径和字形映射见 `HorizonWelcomeWordmark.swift`；对另一个品牌应重新画中心线，不能把 HORIZON 的笔画直接横向拉伸当作另一个字体。
+
+## 4. 布局系统
+
+### 4.1 基本尺度
+
+当前界面没有一个统一覆盖所有页面的硬编码 spacing enum。以下归纳源码中实际使用的节奏，新项目可以将其提取为 token。
+
+| 尺寸 / 间距 | 典型用途 |
+|---|---|
+| 0.5 pt | 功能区域细分割线 |
+| 4–9 pt | 数值符号、同组文字、标题与小品牌之间 |
+| 12–16 pt | 控件内容、图标与标签、相邻信息 |
+| 18–22 pt | 分区内部、按钮边缘、说明段落 |
+| 24–28 pt | 页面主内容水平边距、显著区域间距 |
+| 36 pt | Horizon 首页信息区底部留白 |
+| 44 × 44 pt 最小点击区 | info、返回、图标动作 |
+
+首页内容横边距 26 pt；Guide 文字横边距 28 pt，顶底控件横边距 26 pt；Info sheet 正文 padding 24 pt、段落间隔 22 pt。系统 List 的默认行内边距保留，不强行把所有页面改成同一种自定义 ScrollView。
+
+### 4.2 首页布局
+
+```text
+安全区顶端
+┌─────────────────────────────────────┐
+│              HORIZON                │
+│              Connected              │
+│                                     │
+│        粒子地球 / 黑色空间            │
+│                                     │
+│           前景砖墙与墙沿              │
+│              [ Connect ]            │
+│                  ˅                  │
+├─────────────────────────────────────┤
+│ Subscription              [Ping]    │
+│ 当前名称                             │
+│ ─────────────────────────────────── │
+│ Live traffic                  Log   │
+│      同图上行与下行连续曲线            │
+│ ↑                     12.34 KB/s    │
+│ ↓                    123.45 KB/s    │
+│ ─────────────────────────────────── │
+│ Tunnel total         ↓ …     ↑ …    │
+└─────────────────────────────────────┘
+             原生三 Tab 导航
+```
+
+这张图是结构示意，不是当前页面截图。
+
+主视觉高度：`max(540, min(880, availableHeight × 0.96))`。首页不是把所有信息压缩成一屏的仪表盘：第一屏大部分空间给场景，用户继续向下滚动查看流量。场景下方信息区 `VStack(spacing: 28)`，订阅标签与名称间隔 7 pt。
+
+顶部有 150 pt 黑色渐隐遮罩（black 0.94 → clear），底部有 150 pt clear → black 渐变，用于场景与文字、信息区连接。它们在介绍期间隐藏，避免干扰全貌地球。不要用整个场景的随机 opacity 闪变来模拟深度。
+
+连接按钮底部留 22 pt；其下方下拉提示距按钮 8 pt，提示点击区域 60 × 44 pt。提示点击后以 0.65 s easeInOut 滚动到信息区。
+
+### 4.3 三 Tab 导航
+
+| Tab | Horizon 图标 | 页面职责 |
+|---|---|---|
+| Home / 主页 | `globe.europe.africa` | 场景、连接动作、当前订阅、Ping、实时流量 |
+| Nodes / 节点 | `point.3.connected.trianglepath.dotted` | 节点、策略组、测速、订阅入口 |
+| Settings / 设置 | `slider.horizontal.3` | 语言、外观、场景尺寸、动态效果、灵动岛、About |
+
+采用原生 TabView。`tabBarMinimizeBehavior(.onScrollDown)` 提供向下滚动收起、反向滚动恢复的 compact 行为。不要额外叠加自制底部胶囊来模拟同一个 Tab Bar。
+
+首次指南、场景交接和结尾动画期间隐藏 Tab Bar；不仅是 opacity 0，还要处理命中与辅助功能，不能让隐藏导航先接受点击。
+
+### 4.4 功能页布局
+
+节点、订阅、设置、诊断采用原生 NavigationStack 与 List / ScrollView。核心布局关系是：页面标题 → 当前摘要或搜索 → 主要动作 → 列表。无框内容与细分割线保留；系统在 sheet 中展示的分组背景可以保留，不必逐个移除到失去原生层次。
+
+工具栏保留必要的 info、Select、Cancel、Save 等。不要把工具栏标题过长截断视为品牌特色；新项目应选择短标题或调整信息层次，而不是缩小所有字体。
+
+## 5. 控件和状态规范
+
+### 5.1 连接按钮
+
+当前形态为居中的小玻璃胶囊：HStack spacing 8、图标区域宽 18、左右 padding 20、内容最小高度 44、callout medium。按钮宽度跟随文字实际长度，外部居中保持连续，不采用一块很宽的固定文字占位。
+
+| 状态 | 文案 | 图标 | 反馈 |
+|---|---|---|---|
+| 可连接 | Connect / 连接 | `arrow.up.right` | 可点击或下滑越墙 |
+| 尚未准备好 | Connect / 连接 | `xmark` | 根据业务条件限制执行 |
+| 无网络 | Connect / 连接 | `xmark` | 视觉弱化，点击简短告知，不实际连接 |
+| 已连接 | Disconnect / 断开 | `power` | 断开动作 |
+| 可取消连接 | Cancel / 取消 | `power` | 停止进行中的操作 |
+| 正在停止 | 保留 Disconnect | `power` | 不可重复执行；辅助功能读“正在断开” |
+
+把可执行、可取消、正在停止分别建模。停止过程中保留文案可以避免快速经过数种短文本造成视觉噪声；不是所有状态都必须展示一条新的按钮文字。
+
+当前按钮使用 `.geometryGroup()`，将标签、原生玻璃与外部居中布局置于同一局部动画关系中。尺寸和符号变化使用 smooth 0.3 s；图标使用原生 `.symbolEffect(.replace)`，Reduce Motion 切为 opacity。首帧直接设置正确图标，不从临时状态动画到真实状态。
+
+### 5.2 首页 Ping
+
+小玻璃胶囊，HStack spacing 9；状态图标 / spinner 的容器 22 × 22；左右内边距 8、内容最小高度 32；单行、minimumScaleFactor 0.8。图标不承担独立触摸区，整个按钮是点击目标。
+
+当前状态图标：有网络与配置时 `wifi`；超时为 `wifi.exclamationmark`；无网络或无配置为 `wifi.slash`。加载时原图标区域显示小 spinner。当前 **有测试条件即可在未连接 VPN 时测速**，不要沿用旧方案“未连接总显示 wifi.slash”。
+
+数字采用等宽数字与 NumericText，文案包括 ms / Timeout / Failed / Busy / Unavailable。按钮与相邻订阅名称共享 smooth 0.3 s 布局过渡，Ping 有较高 layoutPriority；先让订阅名称让出空间，避免结果变成两行。
+
+### 5.3 节点行
+
+当前 `NodeSelectionRowView`：HStack spacing 15，名称与协议间距 6，垂直 padding 8；右侧指示区恒定 24 × 24。节点序号、名称、协议通过透明度强调，不缩放、不改变矩形背景。
+
+点击切换开始即可提高目标行亮度；成功确认后才显示选中 checkmark。请求不足 150 ms 不显示 spinner，超过后只在目标行的指示区显示。其他行不得跟随临时 busy 状态全体变灰。
+
+选中亮度过渡：smooth 0.36 s；指示区过渡：easeInOut 0.25 s；减少动态效果时亮度变化改为 0.2 s。自定义 ButtonStyle 保留交互与可访问性语义，不引入系统 plain ButtonStyle 的额外按压透明度变化。
+
+节点行中的独立 Ping 不使用 ECG 图标；最小区域 54 × 44、callout、等宽数字。按压 opacity 从 1 到 0.65，easeOut 0.12 s；真正不可用时 0.4，临时测试 / 切换锁不让其他结果一起变暗。
+
+### 5.4 订阅行
+
+名称使用 headline，可到两行；摘要 subheadline，日期 caption。三项纵向 spacing 7、垂直 padding 6。
+
+右侧“当前 + checkmark”在每一行都预留相同布局空间，只切换 opacity 和辅助功能可见性。这样切换订阅不会挤压名称、重新折行或调整整行高度。目标行 pending 与 current 同样提高名称亮度，过渡 0.3 s；其他行保留原亮度。
+
+行主体点击执行切换，右侧独立的小箭头点击进入详情；不要把整行只做成详情 NavigationLink，再要求用户进详情才能切换。选择 / 批量删除模式是显式例外。
+
+删除使用红色原生 swipe action，并允许完整滑动触发。删除最后一项时也保留稳定的 List 结构和 section 身份；避免从 List 突然切换成另一个整页容器。
+
+### 5.5 info 和长说明
+
+主页面只展示 `info.circle`，点击打开独立 InformationSheetView：NavigationStack、正文 ScrollView、24 pt padding、22 pt 段落间距、body 字号、允许复制文字；sheet 支持 medium / large，并显示原生 drag indicator。
+
+页面上保留状态结果，例如“导入失败”“等待下载”；“为什么、支持范围、限制、存储说明”放 info。错误后的下一步动作要能直接找到，不能只藏在一大段正文里。
+
+### 5.6 Save 与 sheet 生命周期
+
+保存时 toolbar 的按钮身份与占位保持稳定，加载图标局部覆盖；保存成功由同一个展示状态关闭一次 sheet。不要让保存后的源数据更新重新计算出另一个相同的导入 sheet，再产生“先降下去再弹上来”。
+
+这是设计实现的一部分：动画不能掩盖错误的生命周期。sheet 应有明确的一次性会话身份，完成、取消、失败分别处理。
+
+### 5.7 策略组折叠
+
+组头展示“组名”与“组类型 · 当前选择”两层信息，headline / subheadline，纵向 spacing 5；右侧 chevron.right 展开时转 90°。整组头至少 44 pt 高、上下 padding 6，避免只有小箭头能点击。
+
+成员行以自己的稳定 id 展示，选中 / pending 文字由 primary 0.72 到 1.0，smooth 0.3 s；右侧 24×24 容器预留 checkmark 与 spinner，加载仍延迟 150 ms。组头的当前选择以 opacity 0.25 s 更新，不因为当前成员变化而重建整个 Section。
+
+搜索时展开匹配成员，不能让折叠把搜索结果藏起来；辅助功能说明此时组不能折叠的原因。
+
+### 5.8 设置与主题选择
+
+风格选择页面保留两个原生列表选项。图标 title2、固定宽 32；文字与说明纵向 spacing 6；主名称 title3，说明 callout secondary；行 HStack spacing 18、垂直 padding 14。选择改变以 easeInOut 0.3 s 应用，主页面与 Tab 图标同步。
+
+尺寸设置用原生 Slider，步长 0.1，两端 Small / Large。上方 LabeledContent 展示当前倍率，等宽数字、NumericText，层内 spacing 12。不要把尺寸控制做成额外复杂的 3D 编辑器。
+
+语言提供跟随系统 / 简体中文 / English。名称、页面结构与 SF Symbol 随语言稳定保留，业务或用户提供的节点名称不翻译。
+
+### 5.9 默认体验清单
+
+| 项目 | 当前默认 |
+|---|---|
+| 界面风格 | Horizon |
+| Horizon 外观 | 深色固定 |
+| Classic 外观 | 深色，可选浅色 / 跟随系统 |
+| 语言 | 跟随系统 |
+| 粒子动画 | 开启，仍响应系统 Reduce Motion |
+| 砖块比例 | 1.5× |
+| 地球比例 | 1.3× |
+| 曲线映射 | 固定对数 |
+| 保存的线性量程 | 1 MB/s |
+| 节点原名显示 | 默认关闭，使用隐私标签 |
+| 连接确认 | 默认开启，可由用户选择不再提示 |
+| 灵动岛功能开关 | 默认开启，实际展示受系统支持与许可约束 |
+
+新项目应明确选择自己的默认值。不要把“用户上一次保存的偏好”作为截图中看见的值，误写成程序默认值。
+
+### 5.10 加载与错误
+
+短操作主要使用目标行的亮度或文字变化，耗时超过一定阈值才显示 spinner；长下载要有加载状态、超时、取消和失败结果。单节点测试的完成提示不能使用“全部节点完成”的文案，批次与单项动作分别建模。
+
+错误的主展示保持简洁，详情和适配说明放 info；消息属于哪个导入会话、订阅或节点必须明确。业务操作结束时不要全页重建，错误消失或恢复成功采用局部 opacity / smooth 过渡。
+
+本手册规定表达方式，不把具体错误码或订阅兼容范围固定成设计 token。
+
+## 6. 动效语言
+
+### 6.1 三类时间轴
+
+| 时间轴 | 典型内容 | 实现选择 |
+|---|---|---|
+| 操作反馈 | 文字、选中、结果、尺寸 | 局部 SwiftUI Animation / contentTransition |
+| 空间叙事 | 运镜、散点聚合、墙构建 | Metal 逐帧状态模型，统一进度 |
+| 持续展示 | 自转、粒子漂移、曲线左移 | 持续 clock / CADisplayLink，不随数据更新重启 |
+
+不要把三类都放进父页面的 `.animation(value: wholeModel)`。一次 Ping 结果变更不应改变地球运镜，一秒一次采样不应使曲线重新做一秒的整段动画。
+
+### 6.2 当前时长与曲线
+
+| 用途 | 当前时长 / 公式 | 使用原因 |
+|---|---|---|
+| 普通结果与宽度 | smooth 0.3 s | 可感知、不过分拖慢操作 |
+| 节点文字高亮 | smooth 0.36 s | 选择反馈明显且轻 |
+| 流量数值 / 累计 | easeInOut 0.28 s | 跟随测量、不占用一整秒 |
+| 状态 NumericText | smooth 0.65 s | 与慢场景兼容，独立于逐帧位置 |
+| 场景尺寸设置后的标题目标变化 | smooth 0.65 s | 避免位置和字号跳变 |
+| 首页初次冷启动入场 | easeOut 0.42 s | 轻微出现，不重播世界故事 |
+| 引导结束后主页元素恢复 | easeInOut 0.45 s | 与场景完成衔接 |
+| Welcome 左移退场 | cubic (0.42, 0, 0.58, 1)，1.5 s | 缓起缓止，与页面相机同步 |
+| Guide 章节空间切换 | cubic (0.22, 0, 0.16, 1)，1.5 s | 通过 Welcome departureDuration 统一基础时长 |
+| 自动 Guide → 首页桥接 | 1.6 s，quintic | 与章节切换是不同过程 |
+| 正常连接 / 断开运镜 | 3.6 s，quintic | 连续的电影式镜头 |
+| 手动旋转松手回位 | 0.9 s，quaternion slerp + quintic | 不打断基础自转 |
+| 引导手动相机偏移回位 | 0.75 s，quintic | 轻微可玩性，不抢主操作 |
+| Welcome 字母绘制 | quartic ease-out | 每笔末端缓慢收束 |
+| Welcome 分割线 | cubic (0.25, 1, 0.5, 1)，0.8 s | 与字母绘制有相似减速长尾 |
+| Guide 手势提示出现 | 等待 5 s，再 1.8 s easeInOut | 先让用户理解场景，必要时提示 |
+| Guide 返回原位后的文字恢复 | easeOut 0.16 s | 原位确立后及时恢复 |
+
+表中部分参数是各组件的当前实现，不宜无条件合并成一个全局 duration。0.3 s 的按钮反馈与 3.6 s 的运镜解决不同问题。
+
+### 6.3 公用数学
+
+连续运镜使用五次 smoothstep：
+
+```text
+t = clamp(elapsed / duration, 0, 1)
+S5(t) = 6t⁵ − 15t⁴ + 10t³
+value = start + (target − start) × S5(t)
+```
+
+它在起点和终点的速度、加速度都为 0，适合后撤、抬升、落位。普通强调或混合也使用三次 smoothstep `S3(t)=3t²−2t³`。
+
+聚合采用与帧率无关的指数趋近：`x += (target−x) × (1−exp(−rate×dt))`。它不会因为 30 / 60 fps 改变聚合的速度。必须限制异常大的 dt，避免从后台恢复时一帧穿过整个过渡。
+
+### 6.4 NumericText 的正确使用
+
+保持同一个 Text 的身份，在带动画的状态更新中改变其内容：
+
+```swift
+Text(value.formatted())
+    .monospacedDigit()
+    .contentTransition(reduceMotion ? .opacity : .numericText(value: value))
+    .animation(reduceMotion ? nil : .easeInOut(duration: 0.28), value: value)
+```
+
+状态单词使用独立递增 transitionIndex，为原生 numericText 提供方向；不要用 `.id(status)` 重建 Text，否则这是旧文字移除、新文字插入，不是内容变化。
+
+副文本、单位和长名称可以使用 opacity，不必强行 NumericText。Canvas 绘制出来的文字不具备 SwiftUI Text 的数字内容身份；Guide 速率因此用真实 Text 投影到三维屏幕上。
+
+### 6.5 初始状态与后续变化
+
+首次建立界面先解析真实业务状态，再赋予初始视觉值。比如当前已经连接，应第一帧显示已连接的场景，而不是先显示 disconnected 再动画到 connected。
+
+冷启动时使用一次性入场标记，不能每次 onAppear 都重播。页面返回、切 Tab、列表刷新不应触发一次性标题入场或 SF Symbol replace。正常操作发生后，原有图标切换动画仍要保留。
+
+## 7. 首页三维场景
+
+### 7.1 渲染架构
+
+当前首页：SwiftUI 负责布局、文字、按钮；UIViewRepresentable 承载 MTKView；HorizonRenderer 拥有 GPU 场景与纯展示状态；业务服务拥有真实连接状态。GPU 不负责订阅、网络连接、存储或测试请求。
+
+```text
+业务服务真实状态
+       ↓ 映射
+HorizonMotion 视觉状态模型
+       ↓ 每帧推进
+相机 / 地球姿态 / 粒子聚合 / 墙构建
+       ↓
+Metal wall pass → particle pass → drawable presented
+       ↓ 少量展示状态
+标题位置与状态文字
+```
+
+MTKView 当前设置：bgra8Unorm、depth32Float、4× MSAA、黑色不透明清屏。Guide 的共享粒子层使用透明清屏，叠在 Canvas 黑色实体面后方。
+
+### 7.2 世界坐标与相机
+
+右手坐标系；墙在 z=0，墙外世界位于负 z；主相机 x 始终为 0。当前没有连接中左右绕墙的运镜。
+
+令 p 为 journey，范围 0…1：
+
+```text
+eye(p)    = (0, 1.65 + 2.8p, 4.6 − 0.1p + 1.3sin(πp))
+target(p) = (0, 1.65 + 2.45p, −6.8p)
+```
+
+起点 eye=(0,1.65,4.6)，朝墙内；终点 eye=(0,4.45,4.5)，看向墙外 target=(0,4.10,−6.8)。中段 sin 项让镜头轻轻后撤，再抬升越过墙沿，而不是原地突然翻转。
+
+透视垂直 FOV 55°，near 0.1，far 100，实时 aspect。不要使用固定 390×844 的投影，也不要通过调整相机左右位置来适配屏幕宽度。
+
+### 7.3 墙与砖块
+
+| 参数 | 当前值 |
+|---|---|
+| 墙高度 | 3.06 世界单位 |
+| 墙半厚度 | 0.25，即总厚 0.50 |
+| brickScale | 默认 1.5，范围 1…3，设置步长 0.1 |
+| 列间距 pitch | (1.22 / 3) × scale |
+| 行高 | 0.17 × scale |
+| 半砖宽 | 0.198 × scale |
+| 竖向缝留白 | 上下各 0.004 × scale |
+| 行数 | ceil(18 / scale) |
+| 横向列范围参数 | round(28 / scale) |
+| 黑色面 shader 灰度 | 0.008 |
+| 描边最大 shader 灰度 | 0.78 |
+| 距离衰减 | clamp(5 / distance, 0.16, 1) |
+
+奇数行错开半个 pitch，形成砌砖关系。改变 brickScale 只改变砖格，不改变墙轮廓、相机、总厚度。当前没有白色实心砖混入。
+
+墙必须有真实黑色面和内部挡面，挡住背面的砖线与沉下去的地球。不能只画十二条边，让所有后排结构透出。
+
+### 7.4 防闪烁描边
+
+当前不使用“实体面 + 共面独立细线”的双 pass。描边在同一个墙面 fragment 中，根据四边形 UV 到边的屏幕像素距离生成。
+
+```text
+pixelGradient = max(sqrt(dfdx(uv)² + dfdy(uv)²), 1e−6)
+distance = min(uv, 1−uv) / pixelGradient
+band = smoothstep(0, .75, distance)
+       × (1 − smoothstep(.75, 2.25, distance))
+edge = max(band.x, band.y)
+gray = mix(.008, .78, edge) × distanceFade × assembly
+```
+
+UV 使用 sample_perspective，4× MSAA 覆盖采样；四边形内的三角形对角线不绘制描边。墙深度写入使用 lessEqual。
+
+这样避免两层几何深度争夺、单像素硬边随相机移动忽明忽暗，以及深度偏移造成背线漏出。不要为“恢复更亮”重新加一层共面白线，应在同一抗锯齿覆盖模型内调亮度。
+
+### 7.5 地球几何与地理数据
+
+大陆点来自 Natural Earth 1:50m land、4.1.0，原数据 public domain。工程使用预生成 `earth-land.bin`，每条为 SIMD4<Float>、16 bytes；当前文件 359,072 bytes，即 **22,442 个陆地点**。
+
+加载后添加 2,400 个 Fibonacci 球面点；其中 1,200 为低亮度球面点，1,200 为外围环境点。当前完整点集 **24,842 个**。这说明“粒子多”有明确数据来源和上限，不是每帧随机生成任意数量。
+
+经纬度到球面转换在资源生成阶段完成，渲染只旋转和聚合。新项目可以使用相同公开数据，但应保留来源说明与可重复生成脚本。其他项目不能把随机球面点称为准确大陆。
+
+当前普通地球：半径 `2.32 × globeScale`，默认 scale=1.3，范围 1…2，设置步长 0.1。基本中心 `(0, 5.15−0.9(scale−1), −7.1)`。
+
+当投影半宽超过屏幕 NDC 半宽 1 时，额外下沉：
+
+```text
+overflow = max(0, projectedHalfWidth − 1)
+center.y -= min(1.5, 2.8 × overflow² / (overflow + .2))
+t = clamp((scale − 1.5) / .5, 0, 1)
+center.y += (1.2 − center.y) × S3(t)
+```
+
+2× 最终 center.y=1.2，让墙沿附近主要看到上半部球体。大地球不需要自动缩小到显示全貌，也不移动相机把地球强行塞回画面；它应被墙遮住，呈现“隔着墙看世界”。
+
+介绍阶段使用独立的 1.3× 全貌构图，结合当前屏幕横纵投影限幅；不要把用户的 2× 设置直接拿来裁掉介绍地球。
+
+### 7.6 粒子运动与聚合
+
+每一个粒子有固定种子和固定球面目标。漂浮位置为确定性散点场，加缓慢正弦漂移；之后同一个粒子连续向自己的目标点运动。
+
+散点场范围约 x=13、y=7.5、z=7 世界单位；漂移振幅约 0.22 / 0.24 / 0.20，各轴频率 0.19 / 0.16 / 0.12。聚合中附加小幅 curl `form×(1−form)×0.42`，两端自动归零。
+
+连接已成功且 journey>0.28 时开始聚合。连接聚合速率 1.65，散开速率 2.5，指数趋近而非突然替换点集。外围环境点不聚合，保持少量空间氛围。
+
+前侧粒子通过法线与视线点积提高亮度，背侧弱化；环境粒子再乘 0.32。粒子为圆形柔边 point sprite，大小结合内容缩放与透视深度限幅。RGB 采用 sourceAlpha + destinationOne 的加色混合，depth test 开启但不写入深度。必须先画墙，再画粒子，让前景墙深度正确遮挡球体。
+
+地球自转速度 0.055 rad/s，完整聚合时一圈约 114 s；正常场景旋转随 formation 逐渐启用。引导与首页交接时使用同一持续时钟，不能在交接帧重新赋为默认角度。
+
+### 7.7 用户旋转与命中
+
+稳定连接、journey>0.995、formation>0.98 时允许旋转。只有触摸实际可见地球才截获手势；墙后被遮住的部分不算命中，其余空间留给首页滚动。
+
+横纵拖动转成 yaw / pitch：`translation / max(80, projectedDiameter) × π`，四元数叠加到基础自转上。松手后在 0.9 s 内 slerp 回单位交互旋转；基础自转继续，所以“回原位”指回到当前自动姿态，并非静止在最初的经度。
+
+### 7.8 断网与重连
+
+恢复状态保持相机位于墙外，地球聚合度变化采用临界阻尼模型，frequency=2.8。快速恢复时从当前 formation 和 velocity 重新定向，不先把地球清成散点再开始。
+
+这是一个必须验收的中断场景：网络变化不应该造成粒子突然炸开。渲染的 recovering 状态属于展示模型，不能替代真实网络状态判断。
+
+## 8. 标题与场景联动
+
+首页标题由独立子 View 接收 formation 与地球投影，不观察所有业务数据。标题尺寸与目标位置从字体 metrics、地球投影和当前 viewport 推导，不能反复读取正在动画的 Text 的 frame 再计算自身位置。
+
+当前基础 top=22 pt，小品牌与状态 spacing=9，水平留白 40。地球投影半宽超过屏幕后，emphasis 在 overflow / 0.45 的范围内经 S3 增加；品牌最大放大 8%，状态字最大放大 14%。标题下沉受地球顶部、文字高度与 24 pt 间隔限制，避免压到球体。
+
+标题的 formation 重映射：先 `t = rawFormation^1.4`，再 S5(t)。它让文字下沉起步更慢，同时共享地球的进度，不单开一个落后计时器。尺寸设置变化使用独立 smooth 0.65 s。
+
+状态文字使用同一个 Text + NumericText smooth 0.65 s；标题位置逐帧跟场景，文字内容动画隔离在 HorizonStatusText。不要用整个 VStack 的 transition 来同时解决文字与位置。
+
+## 9. 实时曲线与数字
+
+### 9.1 视觉构图
+
+上行和下行处在同一张 90 pt 高的图里，最近 60 s；没有大量坐标标签、图例框和填充面积。两条线宽 1.8 pt，round cap / join；下行白，上行半亮白。Classic 使用红色上行、绿色下行。
+
+图下分两行展示速率：箭头在左，数值与单位右对齐；VStack spacing 16。数值是 32 pt rounded 等宽数字，单位独立显示，避免 B/s 到 MB/s 变化把整个数值字形拉扯。
+
+### 9.2 连续左移
+
+真实采样约一秒一项，视觉显示 60 fps；它们不应该是同一个时钟。当前曲线使用 UIViewRepresentable + 两个长期存在的 CAShapeLayer + CADisplayLink。
+
+```text
+x = width × (1 + (sampleUptime − displayEnd) / 60)
+dx = −width × (displayEnd − geometryEnd) / 60
+```
+
+有新样本或量程变化时重建必要的路径；每帧主要移动整张路径，不替换整个 SwiftUI Chart。关闭 Core Animation 的隐式动作，使滚动速度独立于插入样本的速度。
+
+当前视觉缓冲 2.5 s，保证下一段在进入右边界前已存在。数字显示真实最新值，图形显示有意延后的历史窗口；不能把这段延迟误称为实时测量误差。
+
+### 9.3 波形圆润与真实性
+
+使用相邻点中点作为二次曲线段端点，以样本点作为 control。这个方法让峰顶和转折圆润且不超调；成熟历史段只依赖相邻样本，下一条数据不会反复改变已经显示的历史。
+
+视觉曲线是平滑表达，数值没有被均值滤波。新项目不要为了画得好看修改真实计数或凭空生成速率。
+
+### 9.4 固定纵轴
+
+当前默认 Detail / Log，是固定对数映射：`log1p(rate)/log1p(10×1024×1024)`。上限为 **10 MiB/s**，高度不与流量成线性比例。
+
+另外提供固定线性量程：100 KB/s、1 MB/s、10 MB/s、100 MB/s，以十进制 bytes/s 表示。线性默认保存值为 1 MB/s，但默认显示模式是 Log。
+
+流量本身不改变纵轴比例。只有用户明确切换量程 / 模式才在 0.3 s 内过渡映射；超限曲线钳制，数字仍真实，显示顶部超限图标。
+
+### 9.5 缺失、后台与 Tab
+
+缺样时画面回到 y=0 并继续向左，但无有效测量的数字显示“—”。未知不是测量到 0；视觉归零与数值真实性要分开。
+
+采样由应用服务和隧道侧拥有，切 Tab 只暂停当前页面绘制，不销毁测量 session 或重置计数。回前台先接回当前 session 的真实历史，再继续展示；取回历史期间保持已有展示末端，避免清空后瞬间重画。
+
+这里的风格要求是“持续、稳定、可信”。跨项目可由自己的数据服务实现，但一定要把数据生命周期和 View 生命周期分开。
+
+## 10. 首次引导完整方案
+
+### 10.1 整体流程
+
+```text
+首次状态解析
+    ↓
+Welcome 黑底文字绘制
+    ↓ Next
+Part 1 带上你的世界：文件 / URL / QR 示意卡片
+    ↓ Next
+Part 2 选你想走的路：空间节点树 + 流量显示屏
+    ↓ Next
+Part 3 越过那面墙：墙后粒子地球 + 下滑提示
+    ↓ 用户下滑并提交
+镜头与地球连续扩展到首页场景
+    ↓ 首页场景首帧确认
+墙逐块建成 → 地球消散 / 保持真实状态 → 正常首页视角
+    ↓ 最后帧已经显示
+主页控件与 Tab Bar 出现
+    ↓
+首次 VPN 配置邀请 → 后续网络初始化
+```
+
+引导内场景是演示，不执行 VPN 连接。演示数据不写进真实测速结果、节点选择或流量历史。
+
+### 10.2 Welcome
+
+黑色背景，不显示粒子。文字居中，ScrollView 允许大字号和小屏下继续访问内容。
+
+先展示 Welcome to，再绘制 HORIZON；品牌下面的线从中间向两侧绘制。线长 `min(230, width−96)`，white opacity 0.34、线宽 0.75、round cap。普通模式只用 trim 表现入场，**不要叠加 opacity 渐入**，否则起始轨迹不清楚。
+
+字母画完立即启动 0.8 s 分割线动画；0.5 s 后出现 Here, you can…，其文字动画 0.6 s。等这些动画结束，再以 0.35 s 渐显 Next。点击区域一直保留，未出现时不接受触摸与辅助功能操作。
+
+Next 点击时相机同帧开始移动，文字向左移出 viewportWidth+80；各层错峰 0 / 0.04 / 0.08 s，分割线为 0.06 s，统一 1.5 s 减缓曲线。最后一层走完才退休 Welcome 页面，不先销毁文字再播放相机。
+
+右上角 Skip guide 可用于主动跳过。Reduced Motion 使用短渐显，不强制逐笔等待。
+
+### 10.3 Guide 的总体版式
+
+上方 HORIZON 小品牌与 Skip guide；中上方场景；下方编号 + 横线 + QUICK TOUR；细字重章节标题；短说明；最底部返回 / 进度点 / Next。第 3 章用下滑完成而非 Begin 按钮。
+
+场景高度 `max(220, min(430, height×0.48))`；章节标题 32 pt light，标题区域预留约 2.4 倍字号高度，说明区域至少 48 pt，避免章节文案长短造成底部导航明显跳动。
+
+原生玻璃 Next，最小内容高度 44、左右 padding 18。进度点未选 6×4、白色 0.25；当前为 22×4 胶囊、白色 1.0。进度宽度以 0.3 s 过渡。
+
+### 10.4 Part 1 的空间卡片
+
+三张黑色实体面、白色细边线卡片对应 `doc.text`、`link`、`qrcode`。面尺寸 1.0×1.65×0.10 世界单位，不是三张朝向完全一致的平板。
+
+当前 yaw = [−0.22, 0.07, 0.25]，pitch = [0.07, −0.05, 0.09]，roll = [0.045, −0.025, −0.055]，单位 rad。卡片 x 间隔 1.2，中间卡片 y 高 0.24，z 按序错开 −0.28。实体面按深度排序绘制，边线 white 0.62、0.8 pt。
+
+符号在各自卡面坐标里投影，字体 25 pt ultraLight；不能简单把二维符号保持水平叠在歪斜卡片上。
+
+### 10.5 Part 2 的节点树
+
+保持开放的三条细枝连接，不加成一个封闭的大多边形。三节点与下方 hub 是不同深度的四点，形成可感知的三角锥关系：
+
+```text
+node 01 = (5.55, 0.72,  0.55)
+node 02 = (7.12, 1.34, −1.65)
+node 03 = (8.30, 0.38,  1.05)
+hub     = (7.00,−0.42,  0.12)
+```
+
+圆形标签面朝相机，半径根据投影在 11…18 pt 内限幅；黑色填充挡住后方线条；先画远节点再画近节点。选择高亮每 6.5 s 轮换，1.2 s smoothstep 强调过渡，不频繁闪烁。
+
+### 10.6 Part 2 的显示屏
+
+一块有透视倾斜的黑色线框平面，设计局部尺寸 280×88；pitch −0.24 rad、yaw 0.10 rad。边线 white 0.50、0.8 pt；右侧分割线在 x=196，white 0.22。
+
+左侧 x=12…184 占主要宽度，显示两条曲线；右侧 x=202，y=12 与 y=52 竖排两组速率。上传 white 0.55、下载 white 0.95；上传线 1.0 pt，下载线 1.3 pt。不显示 DEMO 字样。
+
+示例曲线展示 40 s，底层平滑信号约 7 s 进入下一目标；文字每 3 s 更新一次，以 1.15 s easeInOut NumericText 过渡。这里是确定性的演示信号，**不是运行中的真实隧道**。代码或辅助功能必须保留这一语义，不因去掉 DEMO 徽标而伪装真实数据。
+
+数值用真实 SwiftUI Text 投影到平面，数字字体 12 pt medium monospaced，单位 10.5 pt。数值列宽 30 pt，使其变化不移动后面的单位。
+
+### 10.7 Part 3 与下滑
+
+Guide 墙比主首页小，4 行 × 7 列，每块大小约 0.70×0.34×0.28 世界单位；保留原始 Guide 墙模型。球体在墙后，当前 Guide 球心 (14,0.75,−2.2)，半径 1.65，让上方更多地球露出来。
+
+标题为 Beyond the wall / 越过那面墙；说明为 Now start your journey at HORIZON! / 现在，开启你的 HORIZON 之旅！。下滑提示在下方剩余区域居中，箭头在文字左侧，不与返回按钮相撞。
+
+提示文字为 26 pt light（ScaledMetric），白色；左侧 `arrow.down` 为 28 pt light，HStack spacing 12。箭头采用 `(1−cos(time×π/1.8))×3` 的竖向漂移，振幅范围 0…6 pt、完整周期 3.6 s；减少动态效果时静止。提示本身不截获点击。
+
+停留第 3 章超过 5 s 后，提示以 1.8 s 缓慢渐显。手指开始下拉时说明与导航区域渐隐，当前 fade extent=0.24 的归一化手势范围，使用 S5；中途反向或取消时，只有相机真实归位后才快速恢复文字。
+
+提交条件是归一化手势进度 ≥0.64 且松手；短拉动回去。注意这与首页“越墙时手指尚未松开就触发连接”的规则不同，不能复用一个 commit 条件混在一起。
+
+### 10.8 手势的平滑跟随
+
+Guide 手势先转换成有缓起缓止的空间目标，再交给有位置 / 速度 / 加速度的 follower。最大速度 0.65 归一化单位/s，最大加速度 1.8 单位/s²，内部步长不超过 1/240 s，每帧最多推进 1/20 s。
+
+快速向上甩不会直接把相机设成 0；保留速度、提前制动。真正收束条件为距离<0.0002 且速度<0.001，再设置精确端点。归位后的文字恢复依据这个端点，而不是“手指松开后固定等待 0.85 s”。
+
+### 10.9 设备倾斜与手动视差
+
+Guide 支持手机晃动，CoreMotion 30 Hz；用相对姿态建立中性方向，跟随屏幕方向。约 0.30 rad 的倾角达到最大偏移，偏移向量模长限制为 1。
+
+Guide 相机视差系数 x=1.40、y=1.00 世界单位；传感器低通时间常数 0.20 s，归中低通时间常数 0.55 s。静止判定：角速度<0.04 rad/s、姿态漂移<0.004 rad，持续 0.4 s 后重新设中性方向。
+
+这里 **0.4 s 是稳定停留后开始归中的判定时间，不是保证 0.4 s 内完全回位**。这是当前源码行为，与一句“归中 0.4 秒”不能等同。
+
+用户手动拖动同样可轻微改变相机；归一化距离按 viewport×0.42，至少 120 pt，偏移向量限制为 1；松手 0.75 s 回位。它与用于继续流程的竖直拉动分开协调。
+
+Guide 环境粒子 180 个章节点 + 72 个延伸点，确定性漂移，不能每次切章节 reseed。Welcome 阶段虽然共享世界数据，但可见度为 0，不显示粒子。
+
+### 10.10 无缝地球交接
+
+Guide 的地球与首页共用同一份陆地点、同一个粒子 shader、混合方式和质量降级规则。小地球只把亮度乘 0.8；交接中经 S5 逐渐回到 1.0，不修改粒子数量或粒径来“换风格”。
+
+交接必须同时插值：eye、target、球心、半径、viewport 位置与尺寸、visibility。Guide 第 3 章的 x=14 世界原点偏移要在坐标转换中移除。
+
+共享时钟继续驱动自转和漂移，不能在切 View 时停止旋转。先让首页 Metal 场景准备正确姿态并确认首帧已显示，再移除 Guide；结尾最后一帧显示后才释放主页 UI 和 Tab。不依赖“睡 1.6 秒应该差不多完成”的假设。
+
+### 10.11 墙搭建与结尾
+
+继续使用已经显示的完整地球；墙构建不额外等待，2 s 搭完。独立直接启动这段动画时允许 0.6 s 初始等待，用于粒子出现。
+
+每一层砖块逐块错峰，行与列均参与时序，奇偶行交替方向：`start = 0.60×normalizedRow + 0.32×normalizedColumn`，局部进度通过 `smoothstep(start,start+0.08,wallProgress)`。砖块从较低 0.18 世界单位的位置长到终态，墙底挡面在未构建完成前不提前遮住世界。
+
+搭建结束后，2.4 s 连续尾段回到真实业务状态：未连接时地球消散、相机回墙内；已连接则保持墙外地球。Skip 是右上角按钮，跳过也从当前显示姿态进入较短 0.45 s 尾段，不瞬间切帧。
+
+## 11. 首次打开与正常冷启动
+
+当前用本地 completion marker 区分“未完成首次引导”和“正常启动”。已有配置或已有 ui / connection 偏好视为迁移证据，不强制旧用户重看介绍。
+
+这不等于可靠识别每一次 App Store 重新下载：卸载、备份恢复、钥匙串残留等会影响本地证据。新项目应将需求命名为“首次体验是否完成”，而不是“是否首次下载”的绝对判断。
+
+普通冷启动只做轻量入场：场景无垂直位移；标题上移收束 6 pt、延迟 0.04 s；连接控件延迟 0.10 s、默认起始向下 8 pt；信息区延迟 0.16 s。全体使用各自局部 easeOut 0.42 s。
+
+根页面负责一次性 homeEntered；初始化真实状态完成后再揭示。临时同步状态不得变成 arrow→x→arrow 的图标切换。减少动态效果使用 0.18 s 渐显，无位移。
+
+首次引导结束后再邀请添加 VPN 配置，之后再允许网络监测初始化，防止系统网络权限弹窗提前打断叙事。别的项目应把权限申请放在功能介绍完成与真实使用需求之间，不让示意动画触发权限。
+
+## 12. 灵动岛与锁屏活动
+
+当前方案不展示持续上下行速率，展示连接状态、当前节点名及手动 Ping。此选择来自后台连续速率刷新体验的限制，不能把旧截图中的速率布局当作现行规范。
+
+compactLeading 与 minimal **复用同一个 globeIcon**：`globe.europe.africa`，20 pt regular、24×24、单色白；compactLeading 左内边距 3。compactTrailing 空白。
+
+展开态使用 bottom region 统一排版，避免相机挖孔旁边挤标题。contentMargins all=12；卡片 horizontal padding 16，top 8，bottom 16。锁屏卡片 horizontal 24、vertical 20。黑背景、白 keyline。
+
+卡片第一行品牌与状态，第二行节点名与 Ping：VStack spacing 16；品牌 subheadline semibold；状态 caption secondary；节点 headline 单行截尾。
+
+Ping 固定交互区域 112×44，subheadline 等宽数字，单行 minimumScaleFactor 0.6。文字 NumericText smooth 0.3 s；胶囊背景白色 opacity 在 0.12 与 0.22 之间 easeInOut 0.3 s，按压或测试中强调。没有 scale / offset 反馈，避免远程界面布局跳动。
+
+按钮为真实 `Button(intent:)`，不是 Link 或点击后打开 App 的普通 URL。文字上的 invalidatableContent 用于系统更新反馈；不要额外给背景加破坏命中的失效修饰。重复测试由服务合并处理。Reduce Motion 或锁屏亮度降低时取消背景动画。
+
+## 13. Classic 的复用范围
+
+Classic 保留同样的信息架构、设置、节点和订阅能力，但首页没有墙与地球，采用中心粒子场 + 玻璃圆形电源按钮。
+
+顶部品牌 29 pt rounded medium + tracking 5；粒子与电源区域高 206；电源内容 96×96，符号 35 pt light。状态 30 pt medium，当前订阅 callout secondary；页面 horizontal padding 26、bottom 30；主要 VStack spacing 20，GlassEffectContainer spacing 24。
+
+连接成功时按钮符号从 primary 到 accent，easeInOut 0.8 s。状态与信息局部过渡 0.3 s；曲线实现和数值真实性与 Horizon 一致，仅更换颜色。
+
+Classic 与 Horizon 都应使用同一业务服务，切风格不能重连网络、丢掉流量历史或改变用户当前节点。风格开关只决定布局和展示。
+
+## 14. 无障碍、性能与资源边界
+
+### 14.1 可访问性
+
+- SF Symbol 的名字不是面向用户的说明；图标动作必须有可理解的 accessibilityLabel。
+- 纯场景装饰可以隐藏；状态和操作保留文字、值与 action。
+- 只有交互地球区域截获拖动，不覆盖整个 ScrollView。
+- 隐藏的 Guide、Next、Tab 或徽标必须同步关闭命中与辅助功能。
+- 单独的选择请求 pending 不冒充已选中，确认后才设置 isSelected trait。
+- 曲线给出时间窗口、量程与最新数值的可访问性描述；对数刻度明确说高度不成线性比例。
+- 为下滑演示提供可访问性继续动作，不要求每位用户完成空间手势。
+- 支持 Dynamic Type 与中英文。用户文本不要硬截成不可识别的一个字。
+
+### 14.2 Reduce Motion
+
+开启时：停止或简化空间运动，直接建立真实场景终态；字母直接完整出现，NumericText 可改 opacity；取消位移与不必要按压动画；曲线保留数据更新但暂停连续滚动的显示时钟。
+
+业务操作仍可完成。不能把减少动态效果实现为“按钮不可用”或“引导永远等待绘制结束”。
+
+### 14.3 帧率与降级
+
+当前主场景一般 60 fps，低电量或热状态 serious 及以上 30 fps，粒子 stride=2，约绘制半数点。Guide 常态 Canvas 30 fps，交接期间 60 fps；主粒子场使用同一 stride 规则。曲线显示时钟低电量 30 fps，否则 60 fps。
+
+退后台、切离 Tab、场景滚离视口后停止不必要绘制；稳定未连接时 MTKView 可暂停。初次资源不可用时应提供可继续的功能界面，不能卡在引导不结束。
+
+当前这些是代码中的目标与降级策略，不是对所有设备“保证 60 fps”的测量结论。其他项目必须在目标设备实测 CPU/GPU 帧时、温度与电量。
+
+### 14.4 数据与资源隔离
+
+地球二进制数据随包提供，视觉层不在线下载地图。演示随机数确定性生成，不在每帧创建大量对象。不把每帧相机位置发布给根页面；标题只观察必要的 progress，Canvas 与 Metal 更新隔离到子树。
+
+采样由服务持有，展示从快照读取。解析大文件、存储凭据和构建配置不应在 View body 中做同步重活。等待足够长才展示加载图标，短操作保持干净；长操作仍必须有明确进度与可取消 / 超时路径。
+
+## 15. 跨项目落地架构
+
+### 15.1 推荐的目录
+
+```text
+App/
+  AppEntry.swift
+  RootTabView.swift
+DesignSystem/
+  DesignTheme.swift
+  Typography.swift
+  MotionTokens.swift
+Components/
+  InformationButton.swift
+  InformationSheetView.swift
+  AnimatedActionButton.swift
+Features/
+  Home/
+    HomeView.swift
+    Components/
+  Onboarding/
+    WelcomeView.swift
+    GuideView.swift
+    Components/
+  Items/
+    ItemListView.swift
+    ItemDetailView.swift
+    Components/
+  Settings/
+    SettingsView.swift
+    AppearanceView.swift
+Rendering/
+  SceneRenderer.swift
+  SceneGeometry.swift
+  SceneMotion.swift
+  SceneClock.swift
+  Shaders.metal
+Resources/
+Services/
+Shared/  // 只有确实与扩展共享的模型
+```
+
+这是新项目的复用建议。现项目沿用 `Horizon/Features/<Feature>/`，渲染位于 Horizon 功能目录；不需要为符合示例而搬动当前文件。
+
+主要页面、进入后的详情页、独立 sheet 各自一个 Swift 文件，文件名与 View 类型一致。父页面负责导航和动作协调，子组件接收数据 / Binding / 回调。不要为了拆分而给每个 Text 和 Button 建文件。
+
+### 15.2 建议的主题接口
+
+```swift
+import SwiftUI
+
+enum VisualStyle { case horizon, classic }
+
+struct DesignTheme {
+    var style: VisualStyle
+    var scheme: ColorScheme
+    var background: Color {
+        if style == .horizon { return .black }
+        return scheme == .dark
+            ? Color(red: 0.025, green: 0.036, blue: 0.055)
+            : Color(red: 0.96, green: 0.97, blue: 0.965)
+    }
+    var action: Color {
+        if style == .horizon { return .white }
+        return scheme == .dark
+            ? Color(red: 0.38, green: 0.94, blue: 0.80)
+            : Color(red: 0.02, green: 0.42, blue: 0.34)
+    }
+    var divider: Color { .primary.opacity(style == .horizon ? 0.16 : 0.12) }
+    var destructive: Color { .red }
+    var toggleOn: Color { .green }
+}
+```
+
+这是精简移植模板，不是现项目的全量 API。适配新项目时还应拆出文字颜色、图表色与受限状态，不让 action 代替所有语义色。
+
+### 15.3 普通操作组件模板
+
+```swift
+struct AnimatedActionButton: View {
+    let title: String
+    let symbol: String
+    let action: () -> Void
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Image(systemName: symbol)
+                    .frame(width: 18)
+                    .contentTransition(reduceMotion ? .opacity : .symbolEffect(.replace))
+                Text(title).contentTransition(.opacity)
+            }
+            .font(.callout.weight(.medium))
+            .lineLimit(1)
+            .fixedSize(horizontal: true, vertical: false)
+            .padding(.horizontal, 20)
+            .frame(minHeight: 44)
+        }
+        .buttonStyle(.glass)
+        .buttonBorderShape(.capsule)
+        .geometryGroup()
+        .frame(maxWidth: .infinity, alignment: .center)
+        .animation(reduceMotion ? nil : .smooth(duration: 0.3), value: title)
+        .animation(reduceMotion ? nil : .smooth(duration: 0.3), value: symbol)
+    }
+}
+```
+
+此模板面向支持上述原生 API 的系统目标；较低部署版本自行加 availability 分支。初始 title / symbol 从真实状态建立，不触发 replace 入场动画。
+
+### 15.4 渲染器接口建议
+
+外部向渲染器提供 phase、active、animate、brickScale、globeScale、可选 interactiveJourney 和共享时钟。渲染器返回少量 presentation progress 与“首帧 / 末帧实际显示”事件，不直接调用业务服务。
+
+用纯 Swift 结构分别拥有运镜、介绍、拖动回位、重连阻尼。这样能用离线测试验证连续性，也能在新项目更换业务状态映射时复用视觉层。
+
+### 15.5 实施顺序
+
+1. 建立黑白主题、语义色、系统字体、分割线和原生导航，完成静态功能布局。
+2. 加入局部 NumericText、选择高亮、宽度变化；先保证列表 / sheet 身份稳定。
+3. 建立持续曲线或其他实时展示，把采样服务与页面可见性拆开。
+4. 建 Metal 相机、黑色实体墙和抗锯齿描边，先解决遮挡与移动稳定性。
+5. 加入真实地理点、共享粒子 pass、聚合和自转，再加入用户旋转。
+6. 完成 Welcome / 三章节 Guide，复用同一个空间和粒子数据。
+7. 实现逐帧桥接、实际末帧确认、首次标记、权限延后。
+8. 补 Reduce Motion、低电量、热状态、后台恢复和扩展表面。
+9. 通过下文验收，再针对真机观感调参数。
+
+不要先堆大量粒子再补状态机。也不要靠长淡入淡出掩盖投影和首末帧不一致。
+
+## 16. 必须保留的连续性约束
+
+| 场景 | 应保持 | 常见错误 |
+|---|---|---|
+| 状态文字更新 | 同一 Text 身份、单独内容动画 | `.id(state)` 触发替换、整块标题闪动 |
+| 按钮文案变宽 | 胶囊与标签同空间过渡、外层稳定居中 | 背景先缩、文字后动、按钮向一边弹 |
+| 节点切换 | 目标行高亮、右侧指示区稳定 | 所有行 disable 变暗、行高改变 |
+| 订阅切换 | 当前徽标占位、行身份稳定 | 名称重排、toolbar 重新建立 |
+| 删除最后一项 | 稳定 List / section 外壳 | 整页切成另一种容器 |
+| 保存成功 | 关闭一次、会话结束 | 刷新源状态又弹出相同 sheet |
+| 新流量样本 | 曲线匀速移动、成熟路径不变 | 每秒动画一次、右侧峰值闪变 |
+| 切 Tab | 数据采样持续、仅暂停不可见绘制 | telemetry 放在页面 onAppear 中清空 |
+| 重连 | 从当前姿态和速度重定向 | formation 突然设为 0 |
+| Guide → 首页 | 同点集、同投影、同时间与实际末帧 | 换一颗球、角度归零、先拆旧 View |
+| 引导短拉返回 | 加速度有限、相机归位即恢复控件 | 手指快速甩动直接把进度设 0 |
+| 正常冷启动 | 真实初态 + 一次性轻入场 | 临时准备状态造成图标莫名替换 |
+
+## 17. 验收清单
+
+### 17.1 静态视觉
+
+- Horizon 主背景纯黑；Classic 深浅色分别正常。
+- 白色主操作、灰色副信息有清晰层级；错误 / 删除红色，Toggle 绿色。
+- 标题细而可读，没有一屏密集小字；长说明有 info 入口。
+- 三 Tab 图标一致；大字号、英文长文本、小屏布局仍可操作。
+- 节点无选中背景矩形与缩放；右侧标记不挤压名称。
+- 页面和 sheet 操作图标不会偶尔落回系统蓝色。
+
+### 17.2 动态体验
+
+- 正常连接 / 断开墙线不闪烁，无横向相机漂移。
+- 粒子一直是同一批点，先漂浮再聚合，成功时没有换图感。
+- 大地球被墙正确遮住，标题跟随下沉但不撞球体。
+- 地球拖动、放手回位自然，基础自转不停。
+- 曲线向左匀速，峰顶圆润，实时数字正确，不发生全页位移动画。
+- Ping、Save、切节点、切订阅的宽度 / 图标 / 加载切换无跳动。
+- Cold launch 不播放多余图标 replace；返回 Home 不重播入场。
+- Welcome 笔画到静态终态无换字体跳变，细线起始轨迹可见。
+- Part 3 拖动可反向、可中途取消，快速甩回仍连续。
+- Guide 小球至首页大球无色阶突变、自转停顿或末帧闪烁。
+- Tab Bar 在结尾真正显示完成前不出现。
+- 灵动岛 Ping 在本表面执行，点击不误跳 App，背景仅局部颜色过渡。
+
+### 17.3 功能与性能
+
+- 引导跳过、Reduced Motion、无 Metal 资源都有可用出口。
+- 后台回来时展示正确真实状态，不追补大量过期动画。
+- Low Power / thermal serious 的降级生效，不改变业务数据。
+- 多次切 Tab 不重置样本；历史跨 session 不混用。
+- 请求可超时 / 取消，结果与所属配置绑定，不污染另一配置。
+- 在目标真机观测帧间隔、GPU 开销和长时间资源占用。
+
+代码连续性检查、构建通过和镜像截图只能证明相应逻辑与状态，不能替代用户在真机上的动效观感验收。文档本身也不宣称本次重新完成了全部真机检查。
+
+## 18. 源码对照索引
+
+以下链接相对本文位置，指向本次核对的核心实现。移植时先阅读状态模型与时钟，再复制 View。
+
+| 主题 | 当前实现 |
+|---|---|
+| 全局主题 / 页面底色 | [ClashStyle.swift](../../Horizon/Components/ClashStyle.swift) |
+| 风格、默认值、语言、量程 | [AppSettings.swift](../../Horizon/Services/AppSettings.swift) |
+| Tab / 首次体验协调 | [RootTabView.swift](../../Horizon/App/RootTabView.swift) |
+| 首次完成标记与准备事件 | [FirstLaunchExperience.swift](../../Horizon/Services/FirstLaunchExperience.swift) |
+| 轻量冷启动入场 | [HomeEntrance.swift](../../Horizon/Components/HomeEntrance.swift) |
+| Horizon 首页 | [HorizonHomeView.swift](../../Horizon/Features/Horizon/HorizonHomeView.swift) |
+| Classic 首页 | [HomeView.swift](../../Horizon/Features/Home/HomeView.swift) |
+| 首页按钮 | [HorizonConnectionButton.swift](../../Horizon/Features/Horizon/Components/HorizonConnectionButton.swift) |
+| 首页标题位置 | [HorizonTitleView.swift](../../Horizon/Features/Horizon/Components/HorizonTitleView.swift) |
+| 状态 NumericText | [HorizonStatusText.swift](../../Horizon/Features/Horizon/Components/HorizonStatusText.swift) |
+| 相机 / 墙 / 地球尺寸 | [HorizonGeometry.swift](../../Horizon/Features/Horizon/Rendering/HorizonGeometry.swift) |
+| 运镜 / 聚合 / 重连 | [HorizonMotion.swift](../../Horizon/Features/Horizon/Rendering/HorizonMotion.swift) |
+| GPU 管线与帧提交 | [HorizonRenderer.swift](../../Horizon/Features/Horizon/Rendering/HorizonRenderer.swift) |
+| 抗锯齿与粒子 shader | [HorizonShaders.metal](../../Horizon/Features/Horizon/Rendering/HorizonShaders.metal) |
+| 共享点集与降级 | [HorizonParticlePass.swift](../../Horizon/Features/Horizon/Rendering/HorizonParticlePass.swift) |
+| 地理数据与来源 | [NaturalEarth-NOTICE.txt](../../Horizon/Features/Horizon/Resources/NaturalEarth-NOTICE.txt) |
+| 地球互动 | [HorizonGlobeInteraction.swift](../../Horizon/Features/Horizon/Rendering/HorizonGlobeInteraction.swift) |
+| 欢迎布局 | [HorizonWelcomeView.swift](../../Horizon/Features/Horizon/HorizonWelcomeView.swift) |
+| 品牌原创笔画 | [HorizonWelcomeWordmark.swift](../../Horizon/Features/Horizon/Components/HorizonWelcomeWordmark.swift) |
+| Guide 布局 | [HorizonGuideView.swift](../../Horizon/Features/Horizon/HorizonGuideView.swift) |
+| Guide 文案 | [HorizonGuideStep.swift](../../Horizon/Features/Horizon/HorizonGuideStep.swift) |
+| Guide 场景绘制 | [HorizonGuideScene.swift](../../Horizon/Features/Horizon/Components/HorizonGuideScene.swift) |
+| Guide 模型 / 相机 / 粒子 | [HorizonGuideGeometry.swift](../../Horizon/Features/Horizon/Rendering/HorizonGuideGeometry.swift) |
+| Guide 节点树 | [HorizonGuideNodeTree.swift](../../Horizon/Features/Horizon/Rendering/HorizonGuideNodeTree.swift) |
+| Guide 屏幕图表 | [HorizonGuideTrafficDisplay.swift](../../Horizon/Features/Horizon/Rendering/HorizonGuideTrafficDisplay.swift) |
+| Guide 原生速率文字 | [HorizonGuideTrafficReadout.swift](../../Horizon/Features/Horizon/Components/HorizonGuideTrafficReadout.swift) |
+| Guide 手势状态 / 限制 | [HorizonGuidePullState.swift](../../Horizon/Features/Horizon/Rendering/HorizonGuidePullState.swift)、[HorizonGuidePullMotion.swift](../../Horizon/Features/Horizon/Rendering/HorizonGuidePullMotion.swift) |
+| 小球亮度与坐标变换 | [HorizonRenderFrame.swift](../../Horizon/Features/Horizon/Rendering/HorizonRenderFrame.swift) |
+| 桥接投影与 viewport | [HorizonGuideTransition.swift](../../Horizon/Features/Horizon/Rendering/HorizonGuideTransition.swift) |
+| 结尾墙构建与真实状态 | [HorizonIntroduction.swift](../../Horizon/Features/Horizon/Rendering/HorizonIntroduction.swift) |
+| 设备姿态 / 静止归中 | [GuideDeviceMotion.swift](../../Horizon/Services/GuideDeviceMotion.swift)、[GuideTiltFilter.swift](../../Horizon/Services/GuideTiltFilter.swift) |
+| 手动相机偏移 | [HorizonIntroCamera.swift](../../Horizon/Features/Horizon/Rendering/HorizonIntroCamera.swift) |
+| 曲线 UI / 数值 | [TrafficChartView.swift](../../Horizon/Features/Home/Components/TrafficChartView.swift) |
+| 曲线持续滚动 | [ScrollingTrafficPlot.swift](../../Horizon/Features/Home/Components/ScrollingTrafficPlot.swift) |
+| 曲线圆润、刻度数学 | [TrafficPlotGeometry.swift](../../Horizon/Features/Home/Components/TrafficPlotGeometry.swift) |
+| 首页 Ping | [HomePingView.swift](../../Horizon/Features/Home/Components/HomePingView.swift) |
+| 节点选择反馈 | [NodeSelectionRowView.swift](../../Horizon/Features/Nodes/Components/NodeSelectionRowView.swift) |
+| 节点独立测试 | [NodePingButton.swift](../../Horizon/Components/NodePingButton.swift) |
+| 订阅行 | [SubscriptionRowView.swift](../../Horizon/Features/Subscriptions/Components/SubscriptionRowView.swift) |
+| 导入确认 / 保存 | [ImportConfirmationView.swift](../../Horizon/Features/Configuration/ImportConfirmationView.swift) |
+| info 展示 | [InformationSheetView.swift](../../Horizon/Components/InformationSheetView.swift) |
+| 灵动岛布局 | [HorizonLiveActivity.swift](../../LiveActivityExtension/HorizonLiveActivity.swift) |
+| 灵动岛 Ping | [VPNActivityPingButton.swift](../../LiveActivityExtension/Components/VPNActivityPingButton.swift) |
+
+## 19. 维护这份设计规范
+
+后续修改默认尺寸、字重、颜色、时长、相机模型或手势阈值时，同步更新本文对应表格。参数来源优先级：当前源码 → 当前真机验收 → 本文 → 旧截图与旧讨论。
+
+将“风格要求”与“业务实现”分开：真实节点协议、配置兼容范围和网络权限策略另有文档；这里只规定它们如何被表达以及如何与展示生命周期协调。
+
+另一个项目复现 Horizon 时，可以替换文案、业务图标和场景隐喻，但若改变纯黑与白线层级、原生玻璃的使用范围、持续时钟、局部反馈和空间连续性，就已经改变了这套风格的关键部分。

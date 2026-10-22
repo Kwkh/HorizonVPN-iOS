@@ -1,0 +1,6 @@
+proxies:
+  - {name: OBFS, type: ss, server: node.example.invalid, port: 443, cipher: aes-128-gcm, password: FICTIONAL-ONLY, plugin: obfs, plugin-opts: {mode: tls, host: cdn.example.invalid}}
+  - {name: WS, type: ss, server: node.example.invalid, port: 443, cipher: aes-128-gcm, password: FICTIONAL-ONLY, plugin: v2ray-plugin, plugin-opts: {mode: websocket, tls: true, skip-cert-verify: true, host: cdn.example.invalid, path: /ws}}
+proxy-groups:
+  - {name: BALANCE, type: load-balance, strategy: round-robin, proxies: [OBFS, WS]}
+rules: ['MATCH,BALANCE']

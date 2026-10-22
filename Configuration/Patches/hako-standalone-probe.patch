@@ -1,0 +1,93 @@
+--- a/adapter/adapter.go
++++ b/adapter/adapter.go
+@@ -258,6 +258,9 @@
+ 	}()
+ 
+ 	unifiedDelay := UnifiedDelay.Load()
++	if override, ok := ctx.Value(urlTestModeKey{}).(bool); ok {
++		unifiedDelay = override
++	}
+ 
+ 	addr, err := urlToMetadata(url)
+ 	if err != nil {
+@@ -396,3 +399,10 @@
+ 	err = addr.SetRemoteAddress(net.JoinHostPort(u.Hostname(), port))
+ 	return
+ }
++
++// WithURLTestMode isolates the timing policy of one standalone probe.
++type urlTestModeKey struct{}
++
++func WithURLTestMode(ctx context.Context, unified bool) context.Context {
++	return context.WithValue(ctx, urlTestModeKey{}, unified)
++}
+--- a/bind/hako/outbound_diagnostics.go
++++ b/bind/hako/outbound_diagnostics.go
+@@ -1,10 +1,15 @@
+ package hako
+ 
+ import (
++	"context"
+ 	"crypto/sha256"
+ 	"encoding/hex"
++	"encoding/json"
++	"github.com/TokenPLS/Hako/adapter"
++	"io"
+ 	"net/netip"
+ 	"strings"
++	"time"
+ 
+ 	"go.yaml.in/yaml/v3"
+ )
+@@ -50,3 +55,51 @@
+ 	}
+ 	return "hostname"
+ }
++
++// TestStandalone creates exactly one outbound adapter. It starts no tunnel,
++// controller listener, provider scheduler, rule engine or persistent cache.
++// Swift supplies an already validated effective node and explicit TLS consent.
++// Admission and cancellation are shared with CancellableURLTests.
++func (b *CancellableURLTests) TestStandalone(nodeJSON, url string, timeoutMillis int32, unified bool) int32 {
++	if len(nodeJSON) > 65536 || timeoutMillis < 1 || timeoutMillis > 10000 {
++		return -1
++	}
++	select {
++	case <-b.ctx.Done():
++		return -2
++	case privateBatchSlots <- struct{}{}:
++	}
++	defer func() { <-privateBatchSlots }()
++	if b.ctx.Err() != nil {
++		return -2
++	}
++	var mapping map[string]any
++	if json.Unmarshal([]byte(nodeJSON), &mapping) != nil {
++		return -1
++	}
++	proxy, err := adapter.ParseProxy(mapping)
++	if err != nil {
++		return -1
++	}
++	if closer, ok := proxy.Adapter().(io.Closer); ok {
++		defer closer.Close()
++	}
++	ctx, cancel := context.WithTimeout(b.ctx, time.Duration(timeoutMillis)*time.Millisecond)
++	defer cancel()
++	ctx = adapter.WithURLTestMode(ctx, unified)
++	tester, ok := proxy.(adapter.URLTestOutcomeProvider)
++	if !ok {
++		return -1
++	}
++	outcome, err := tester.URLTestOutcome(ctx, url, urlTestExpectedStatus)
++	if b.ctx.Err() != nil {
++		return -2
++	}
++	if ctx.Err() == context.DeadlineExceeded {
++		return -3
++	}
++	if err != nil || ctx.Err() != nil || !outcome.Satisfied || outcome.Delay == 0 {
++		return -1
++	}
++	return int32(outcome.Delay)
++}

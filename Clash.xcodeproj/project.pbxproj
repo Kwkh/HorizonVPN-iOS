@@ -1,0 +1,914 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C1A500000000000000000001 /* PacketTunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C1A500000000000000000002 /* PacketTunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C1A600000000000000000001 /* .build/artifacts/Hako.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A600000000000000000003 /* .build/artifacts/Hako.xcframework */; };
+		C1A600000000000000000002 /* .build/artifacts/Hako.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A600000000000000000003 /* .build/artifacts/Hako.xcframework */; };
+		C1A600000000000000000004 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A600000000000000000005 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift */; };
+		C1A600000000000000000006 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A600000000000000000007 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift */; };
+		C1A600000000000000000008 /* .build/artifacts/CoreLicenses in Resources */ = {isa = PBXBuildFile; fileRef = C1A600000000000000000009 /* .build/artifacts/CoreLicenses */; };
+		C1A700000000000000000001 /* HorizonLiveActivity.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C1A700000000000000000002 /* HorizonLiveActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C1A700000000000000000003 /* Shared/LiveActivity/VPNActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A700000000000000000004 /* Shared/LiveActivity/VPNActivityAttributes.swift */; };
+		C1A700000000000000000011 /* Clash/Services/PingCurrentNodeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A700000000000000000012 /* Clash/Services/PingCurrentNodeIntent.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5A69B0C7306E95BF008D9BC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A69B0AF306E95BE008D9BC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A69B0B6306E95BE008D9BC4;
+			remoteInfo = Clash;
+		};
+		5A69B0D1306E95BF008D9BC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A69B0AF306E95BE008D9BC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A69B0B6306E95BE008D9BC4;
+			remoteInfo = Clash;
+		};
+		C1A500000000000000000004 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A69B0AF306E95BE008D9BC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C1A500000000000000000005;
+			remoteInfo = PacketTunnel;
+		};
+		C1A700000000000000000006 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A69B0AF306E95BE008D9BC4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C1A700000000000000000007;
+			remoteInfo = HorizonLiveActivity;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C1A500000000000000000003 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C1A500000000000000000001 /* PacketTunnel.appex in Embed App Extensions */,
+				C1A700000000000000000001 /* HorizonLiveActivity.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		5A69B0B7306E95BE008D9BC4 /* Clash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A69B0C6306E95BF008D9BC4 /* ClashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A69B0D0306E95BF008D9BC4 /* ClashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1A500000000000000000002 /* PacketTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PacketTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1A600000000000000000003 /* .build/artifacts/Hako.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = .build/artifacts/Hako.xcframework; sourceTree = SOURCE_ROOT; };
+		C1A600000000000000000005 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ".build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift"; sourceTree = SOURCE_ROOT; };
+		C1A600000000000000000007 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ".build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift"; sourceTree = SOURCE_ROOT; };
+		C1A600000000000000000009 /* .build/artifacts/CoreLicenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .build/artifacts/CoreLicenses; sourceTree = SOURCE_ROOT; };
+		C1A700000000000000000002 /* HorizonLiveActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; path = HorizonLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1A700000000000000000004 /* Shared/LiveActivity/VPNActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/LiveActivity/VPNActivityAttributes.swift; sourceTree = SOURCE_ROOT; };
+		C1A700000000000000000012 /* Clash/Services/PingCurrentNodeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clash/Services/PingCurrentNodeIntent.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		5A69B0B9306E95BE008D9BC4 /* Clash */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Clash;
+			sourceTree = "<group>";
+		};
+		5A69B0C9306E95BF008D9BC4 /* ClashTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ClashTests;
+			sourceTree = "<group>";
+		};
+		5A69B0D3306E95BF008D9BC4 /* ClashUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ClashUITests;
+			sourceTree = "<group>";
+		};
+		C1A500000000000000000006 /* PacketTunnel */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PacketTunnel;
+			sourceTree = "<group>";
+		};
+		C1A500000000000000000007 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C1A700000000000000000005 /* LiveActivityExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LiveActivityExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5A69B0B4306E95BE008D9BC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1A600000000000000000001 /* .build/artifacts/Hako.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A69B0C3306E95BF008D9BC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A69B0CD306E95BF008D9BC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1A500000000000000000008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1A600000000000000000002 /* .build/artifacts/Hako.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1A70000000000000000000A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5A69B0AE306E95BE008D9BC4 = {
+			isa = PBXGroup;
+			children = (
+				C1A600000000000000000009 /* .build/artifacts/CoreLicenses */,
+				C1A600000000000000000003 /* .build/artifacts/Hako.xcframework */,
+				C1A600000000000000000005 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift */,
+				C1A600000000000000000007 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift */,
+				5A69B0B9306E95BE008D9BC4 /* Clash */,
+				C1A700000000000000000005 /* LiveActivityExtension */,
+				C1A700000000000000000004 /* Shared/LiveActivity/VPNActivityAttributes.swift */,
+				C1A500000000000000000006 /* PacketTunnel */,
+				C1A500000000000000000007 /* Shared */,
+				5A69B0C9306E95BF008D9BC4 /* ClashTests */,
+				5A69B0D3306E95BF008D9BC4 /* ClashUITests */,
+				5A69B0B8306E95BE008D9BC4 /* Products */,
+				5AA82BB330729FDF00A17E29 /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+		5A69B0B8306E95BE008D9BC4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A69B0B7306E95BE008D9BC4 /* Clash.app */,
+				C1A700000000000000000002 /* HorizonLiveActivity.appex */,
+				C1A500000000000000000002 /* PacketTunnel.appex */,
+				5A69B0C6306E95BF008D9BC4 /* ClashTests.xctest */,
+				5A69B0D0306E95BF008D9BC4 /* ClashUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5AA82BB330729FDF00A17E29 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				C1A700000000000000000012 /* Clash/Services/PingCurrentNodeIntent.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5A69B0B6306E95BE008D9BC4 /* Clash */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A69B0DA306E95BF008D9BC4 /* Build configuration list for PBXNativeTarget "Clash" */;
+			buildPhases = (
+				5A69B0B3306E95BE008D9BC4 /* Sources */,
+				5A69B0B4306E95BE008D9BC4 /* Frameworks */,
+				5A69B0B5306E95BE008D9BC4 /* Resources */,
+				C1A500000000000000000003 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C1A50000000000000000000B /* PBXTargetDependency */,
+				C1A700000000000000000008 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5A69B0B9306E95BE008D9BC4 /* Clash */,
+				C1A500000000000000000007 /* Shared */,
+			);
+			name = Clash;
+			packageProductDependencies = (
+			);
+			productName = Clash;
+			productReference = 5A69B0B7306E95BE008D9BC4 /* Clash.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5A69B0C5306E95BF008D9BC4 /* ClashTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A69B0DD306E95BF008D9BC4 /* Build configuration list for PBXNativeTarget "ClashTests" */;
+			buildPhases = (
+				5A69B0C2306E95BF008D9BC4 /* Sources */,
+				5A69B0C3306E95BF008D9BC4 /* Frameworks */,
+				5A69B0C4306E95BF008D9BC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A69B0C8306E95BF008D9BC4 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5A69B0C9306E95BF008D9BC4 /* ClashTests */,
+			);
+			name = ClashTests;
+			packageProductDependencies = (
+			);
+			productName = ClashTests;
+			productReference = 5A69B0C6306E95BF008D9BC4 /* ClashTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5A69B0CF306E95BF008D9BC4 /* ClashUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A69B0E0306E95BF008D9BC4 /* Build configuration list for PBXNativeTarget "ClashUITests" */;
+			buildPhases = (
+				5A69B0CC306E95BF008D9BC4 /* Sources */,
+				5A69B0CD306E95BF008D9BC4 /* Frameworks */,
+				5A69B0CE306E95BF008D9BC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A69B0D2306E95BF008D9BC4 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5A69B0D3306E95BF008D9BC4 /* ClashUITests */,
+			);
+			name = ClashUITests;
+			packageProductDependencies = (
+			);
+			productName = ClashUITests;
+			productReference = 5A69B0D0306E95BF008D9BC4 /* ClashUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		C1A500000000000000000005 /* PacketTunnel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1A50000000000000000000C /* Build configuration list for PBXNativeTarget "PacketTunnel" */;
+			buildPhases = (
+				C1A50000000000000000000A /* Sources */,
+				C1A500000000000000000008 /* Frameworks */,
+				C1A500000000000000000009 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C1A500000000000000000006 /* PacketTunnel */,
+				C1A500000000000000000007 /* Shared */,
+			);
+			name = PacketTunnel;
+			packageProductDependencies = (
+			);
+			productName = PacketTunnel;
+			productReference = C1A500000000000000000002 /* PacketTunnel.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		C1A700000000000000000007 /* HorizonLiveActivity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1A70000000000000000000C /* Build configuration list for PBXNativeTarget "HorizonLiveActivity" */;
+			buildPhases = (
+				C1A700000000000000000009 /* Sources */,
+				C1A70000000000000000000A /* Frameworks */,
+				C1A70000000000000000000B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C1A700000000000000000005 /* LiveActivityExtension */,
+			);
+			name = HorizonLiveActivity;
+			productName = HorizonLiveActivity;
+			productReference = C1A700000000000000000002 /* HorizonLiveActivity.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5A69B0AF306E95BE008D9BC4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2650;
+				LastUpgradeCheck = 2650;
+				TargetAttributes = {
+					5A69B0B6306E95BE008D9BC4 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					5A69B0C5306E95BF008D9BC4 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 5A69B0B6306E95BE008D9BC4;
+					};
+					5A69B0CF306E95BF008D9BC4 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 5A69B0B6306E95BE008D9BC4;
+					};
+				};
+			};
+			buildConfigurationList = 5A69B0B2306E95BE008D9BC4 /* Build configuration list for PBXProject "Clash" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5A69B0AE306E95BE008D9BC4;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5A69B0B8306E95BE008D9BC4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C1A700000000000000000007 /* HorizonLiveActivity */,
+				5A69B0B6306E95BE008D9BC4 /* Clash */,
+				C1A500000000000000000005 /* PacketTunnel */,
+				5A69B0C5306E95BF008D9BC4 /* ClashTests */,
+				5A69B0CF306E95BF008D9BC4 /* ClashUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5A69B0B5306E95BE008D9BC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1A600000000000000000008 /* .build/artifacts/CoreLicenses in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A69B0C4306E95BF008D9BC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A69B0CE306E95BF008D9BC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1A500000000000000000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1A70000000000000000000B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5A69B0B3306E95BE008D9BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A69B0C2306E95BF008D9BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A69B0CC306E95BF008D9BC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1A50000000000000000000A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1A600000000000000000004 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/PacketFlowBridge.swift in Sources */,
+				C1A600000000000000000006 /* .build/core-sources/Hako-Adapter/Sources/HakoAdapter/ProviderLifecycle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1A700000000000000000009 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1A700000000000000000003 /* Shared/LiveActivity/VPNActivityAttributes.swift in Sources */,
+				C1A700000000000000000011 /* Clash/Services/PingCurrentNodeIntent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5A69B0C8306E95BF008D9BC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A69B0B6306E95BE008D9BC4 /* Clash */;
+			targetProxy = 5A69B0C7306E95BF008D9BC4 /* PBXContainerItemProxy */;
+		};
+		5A69B0D2306E95BF008D9BC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A69B0B6306E95BE008D9BC4 /* Clash */;
+			targetProxy = 5A69B0D1306E95BF008D9BC4 /* PBXContainerItemProxy */;
+		};
+		C1A50000000000000000000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C1A500000000000000000005 /* PacketTunnel */;
+			targetProxy = C1A500000000000000000004 /* PBXContainerItemProxy */;
+		};
+		C1A700000000000000000008 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C1A700000000000000000007 /* HorizonLiveActivity */;
+			targetProxy = C1A700000000000000000006 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5A69B0D8306E95BF008D9BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5A69B0D9306E95BF008D9BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5A69B0DB306E95BF008D9BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Clash.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/Clash-Info.plist";
+				INFOPLIST_KEY_SharedKeychainGroup = "$(AppIdentifierPrefix)Kenote.Clash";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5A69B0DC306E95BF008D9BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Clash.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/Clash-Info.plist";
+				INFOPLIST_KEY_SharedKeychainGroup = "$(AppIdentifierPrefix)Kenote.Clash";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5A69B0DE306E95BF008D9BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.ClashTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clash.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Clash";
+			};
+			name = Debug;
+		};
+		5A69B0DF306E95BF008D9BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.ClashTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clash.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Clash";
+			};
+			name = Release;
+		};
+		5A69B0E1306E95BF008D9BC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.ClashUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Clash;
+			};
+			name = Debug;
+		};
+		5A69B0E2306E95BF008D9BC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.ClashUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Clash;
+			};
+			name = Release;
+		};
+		C1A50000000000000000000D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Configuration/PacketTunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/PacketTunnel-Info.plist";
+				INFOPLIST_KEY_SharedKeychainGroup = "$(AppIdentifierPrefix)Kenote.Clash";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash.PacketTunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C1A50000000000000000000E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Configuration/PacketTunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/PacketTunnel-Info.plist";
+				INFOPLIST_KEY_SharedKeychainGroup = "$(AppIdentifierPrefix)Kenote.Clash";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash.PacketTunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C1A70000000000000000000D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/LiveActivity-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = HORIZON;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash.LiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) HORIZON_WIDGET";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C1A70000000000000000000E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 23;
+				DEVELOPMENT_TEAM = 68WND8JR7P;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/LiveActivity-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = HORIZON;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Kenote.Clash.LiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) HORIZON_WIDGET";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5A69B0B2306E95BE008D9BC4 /* Build configuration list for PBXProject "Clash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A69B0D8306E95BF008D9BC4 /* Debug */,
+				5A69B0D9306E95BF008D9BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A69B0DA306E95BF008D9BC4 /* Build configuration list for PBXNativeTarget "Clash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A69B0DB306E95BF008D9BC4 /* Debug */,
+				5A69B0DC306E95BF008D9BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A69B0DD306E95BF008D9BC4 /* Build configuration list for PBXNativeTarget "ClashTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A69B0DE306E95BF008D9BC4 /* Debug */,
+				5A69B0DF306E95BF008D9BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A69B0E0306E95BF008D9BC4 /* Build configuration list for PBXNativeTarget "ClashUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A69B0E1306E95BF008D9BC4 /* Debug */,
+				5A69B0E2306E95BF008D9BC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C1A50000000000000000000C /* Build configuration list for PBXNativeTarget "PacketTunnel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1A50000000000000000000D /* Debug */,
+				C1A50000000000000000000E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C1A70000000000000000000C /* Build configuration list for PBXNativeTarget "HorizonLiveActivity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1A70000000000000000000D /* Debug */,
+				C1A70000000000000000000E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5A69B0AF306E95BE008D9BC4 /* Project object */;
+}

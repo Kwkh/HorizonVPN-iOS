@@ -1,0 +1,23 @@
+mode: rule
+proxies:
+  - name: TEST-HY2
+    type: hysteria2
+    server: node.example.invalid
+    port: 443
+    password: TEST-ONLY-PASSWORD
+    sni: tls.example.invalid
+    obfs: salamander
+    obfs-password: TEST-ONLY-OBFS
+    up: 10
+    down: 50
+proxy-groups:
+  - name: TEST-SELECT
+    type: select
+    proxies: [TEST-HY2]
+rules: ["MATCH,TEST-SELECT"]
+profile: {store-selected: true, store-fake-ip: true}
+external-ui: 'fictional-ui'
+redir-port: 7893
+tcp-concurrent: true
+find-process-mode: off
+dns: {nameserver: ['1.1.1.1:53'], default-nameserver: ['1.1.1.1']}

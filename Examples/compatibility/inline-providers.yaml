@@ -1,0 +1,13 @@
+proxy-providers:
+  example:
+    type: inline
+    payload:
+      - {name: EXAMPLE-A, type: hysteria2, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+rule-providers:
+  example:
+    type: inline
+    behavior: domain
+    payload: ['+.example.invalid']
+proxy-groups:
+  - {name: SELECT, type: select, use: [example]}
+rules: ['RULE-SET,example,DIRECT', 'MATCH,SELECT']

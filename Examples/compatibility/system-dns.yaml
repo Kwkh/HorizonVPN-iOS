@@ -1,0 +1,5 @@
+proxies:
+  - {name: EXAMPLE, type: hysteria2, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+proxy-groups:
+  - {name: SELECT, type: select, proxies: [EXAMPLE]}
+rules: ['MATCH,SELECT']

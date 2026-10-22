@@ -1,0 +1,428 @@
+--- a/adapter/provider/override.go
++++ b/adapter/provider/override.go
+@@ -3,6 +3,9 @@
+ import (
+ 	"encoding"
+ 	"fmt"
++	"github.com/TokenPLS/Hako/common/structure"
++	"strings"
++	"time"
+ 
+ 	"github.com/dlclark/regexp2"
+ )
+@@ -96,3 +99,128 @@
+ 
+ 	return nil
+ }
++
++// ResolveMappingsForIOS materializes an immutable iOS provider snapshot. Ordering,
++// raw-type exclusion, pre-override name matching and mutation order deliberately
++// follow NewProxiesParser. Overrides use the very same Apply implementation.
++// No adapter or provider is started here; the caller validates effective nodes.
++func ResolveMappingsForIOS(options map[string]any, nodes []map[string]any) ([]map[string]any, error) {
++	fail := fmt.Errorf("invalid provider policy")
++	if len(nodes) == 0 || len(nodes) > 512 {
++		return nil, fail
++	}
++	var schema struct {
++		Filter        string         `provider:"filter,omitempty"`
++		ExcludeFilter string         `provider:"exclude-filter,omitempty"`
++		ExcludeType   string         `provider:"exclude-type,omitempty"`
++		Override      overrideSchema `provider:"override,omitempty"`
++	}
++	if err := structure.NewDecoder(structure.Option{TagName: "provider"}).Decode(options, &schema); err != nil {
++		return nil, fail
++	}
++	deadline := time.Now().Add(2 * time.Second)
++	compile := func(text string) ([]*regexp2.Regexp, error) {
++		if len(text) > 2048 || len(strings.Split(text, "`")) > 16 {
++			return nil, fail
++		}
++		regs := []*regexp2.Regexp{}
++		for _, part := range strings.Split(text, "`") {
++			r, e := regexp2.Compile(part, regexp2.None)
++			if e != nil {
++				return nil, fail
++			}
++			r.MatchTimeout = 10 * time.Millisecond
++			regs = append(regs, r)
++		}
++		return regs, nil
++	}
++	filters, err := compile(schema.Filter)
++	if err != nil {
++		return nil, fail
++	}
++	excludes, err := compile(schema.ExcludeFilter)
++	if err != nil {
++		return nil, fail
++	}
++	if len(schema.Override.ProxyName) > 16 {
++		return nil, fail
++	}
++	for _, p := range schema.Override.ProxyName {
++		if p.Pattern == nil {
++			return nil, fail
++		}
++		p.Pattern.MatchTimeout = 10 * time.Millisecond
++	}
++	match := func(r *regexp2.Regexp, name string) (bool, error) {
++		if time.Now().After(deadline) || len(name) > 1024 {
++			return false, fail
++		}
++		return r.MatchString(name)
++	}
++	result := []map[string]any{}
++	seen := map[string]bool{}
++	for _, filter := range filters {
++	LOOP:
++		for _, node := range nodes {
++			name, ok := node["name"].(string)
++			if !ok {
++				return nil, fail
++			}
++			kind, ok := node["type"].(string)
++			if !ok {
++				return nil, fail
++			}
++			if schema.ExcludeType != "" {
++				for _, t := range strings.Split(schema.ExcludeType, "|") {
++					if strings.EqualFold(t, kind) {
++						continue LOOP
++					}
++				}
++			}
++			if schema.ExcludeFilter != "" {
++				for _, r := range excludes {
++					m, e := match(r, name)
++					if e != nil {
++						return nil, fail
++					}
++					if m {
++						continue LOOP
++					}
++				}
++			}
++			if schema.Filter != "" {
++				m, e := match(filter, name)
++				if e != nil {
++					return nil, fail
++				}
++				if !m {
++					continue
++				}
++			}
++			if seen[name] {
++				continue
++			}
++			if time.Now().After(deadline) {
++				return nil, fail
++			}
++			if err := schema.Override.Apply(node); err != nil {
++				return nil, fail
++			}
++			seen[name] = true
++			// Freeze each result; native adapters retain the value at this point even if
++			// a later backtick expression matches the newly renamed source mapping.
++			frozen := map[string]any{}
++			for k, v := range node {
++				frozen[k] = v
++			}
++			result = append(result, frozen)
++			if len(result) > 512 {
++				return nil, fail
++			}
++		}
++	}
++	if len(result) == 0 {
++		return nil, fail
++	}
++	return result, nil
++}
+--- a/adapter/outboundgroup/groupbase.go
++++ b/adapter/outboundgroup/groupbase.go
+@@ -22,6 +22,8 @@
+ )
+ 
+ type GroupBase struct {
++	iosPolicyDeadline time.Time
++	iosPolicyError    error
+ 	*outbound.Base
+ 	hidden            bool
+ 	icon              string
+@@ -35,8 +37,8 @@
+ 	failedTesting     atomic.Bool
+ 	testTimeout       int
+ 	maxFailedTimes    int
+-	lastSilentCheck atomic.TypedValue[time.Time]
+-	emptyFallback   C.Proxy
++	lastSilentCheck   atomic.TypedValue[time.Time]
++	emptyFallback     C.Proxy
+ 
+ 	// for GetProxies
+ 	getProxiesMutex  sync.Mutex
+@@ -157,7 +159,7 @@
+ 			for _, filterReg := range gb.filterRegs {
+ 				for _, p := range pd.Proxies() {
+ 					name := p.Name()
+-					if mat, _ := filterReg.MatchString(name); mat {
++					if mat, _ := gb.iosPolicyMatch(filterReg, name); mat {
+ 						if _, ok := proxiesSet[name]; !ok {
+ 							proxiesSet[name] = struct{}{}
+ 							newProxies = append(newProxies, p)
+@@ -178,7 +180,7 @@
+ 		for _, filterReg := range gb.filterRegs {
+ 			for _, p := range proxies {
+ 				name := p.Name()
+-				if mat, _ := filterReg.MatchString(name); mat {
++				if mat, _ := gb.iosPolicyMatch(filterReg, name); mat {
+ 					if _, ok := proxiesSet[name]; !ok {
+ 						proxiesSet[name] = struct{}{}
+ 						newProxies = append(newProxies, p)
+@@ -202,7 +204,7 @@
+ 		for _, p := range proxies {
+ 			name := p.Name()
+ 			for _, excludeFilterReg := range gb.excludeFilterRegs {
+-				if mat, _ := excludeFilterReg.MatchString(name); mat {
++				if mat, _ := gb.iosPolicyMatch(excludeFilterReg, name); mat {
+ 					continue LOOP1
+ 				}
+ 			}
+@@ -350,3 +352,174 @@
+ 		gb.failedTimes = 0
+ 	}
+ }
++
++// Snapshot-only descriptors avoid creating adapters or starting health checks.
++type IOSPolicyNode struct {
++	Name string `json:"name"`
++	Type string `json:"type"`
++}
++type IOSPolicyProvider struct {
++	Compatible bool            `json:"compatible"`
++	Nodes      []IOSPolicyNode `json:"nodes"`
++}
++
++var iosPolicyTypes = map[string]C.AdapterType{"ss": C.Shadowsocks, "hysteria2": C.Hysteria2, "hy2": C.Hysteria2, "tuic": C.Tuic, "vmess": C.Vmess, "vless": C.Vless, "trojan": C.Trojan, "select": C.Selector, "url-test": C.URLTest, "fallback": C.Fallback, "DIRECT": C.Direct, "REJECT": C.Reject, "REJECT-DROP": C.RejectDrop}
++
++type iosPolicyProxy struct {
++	C.Proxy
++	node IOSPolicyNode
++}
++
++func (p iosPolicyProxy) Name() string        { return p.node.Name }
++func (p iosPolicyProxy) Type() C.AdapterType { return iosPolicyTypes[p.node.Type] }
++
++type iosPolicyProvider struct {
++	P.ProxyProvider
++	data IOSPolicyProvider
++}
++
++func (p iosPolicyProvider) Version() uint32 { return 1 }
++func (p iosPolicyProvider) VehicleType() P.VehicleType {
++	if p.data.Compatible {
++		return P.Compatible
++	}
++	return P.Inline
++}
++func (p iosPolicyProvider) Proxies() []C.Proxy {
++	r := []C.Proxy{}
++	for _, n := range p.data.Nodes {
++		r = append(r, iosPolicyProxy{node: n})
++	}
++	return r
++}
++
++// MatchNamesForIOS uses the pinned regexp2 engine, including lookaround and
++// backtick expression ordering. A failure/timeout never becomes a silent miss.
++func MatchNamesForIOS(pattern string, names []string) ([][]bool, error) {
++	regs, err := iosPolicyRegex(pattern)
++	if err != nil {
++		return nil, err
++	}
++	if len(names) > 576 {
++		return nil, errors.New("too many names")
++	}
++	deadline := time.Now().Add(2 * time.Second)
++	result := [][]bool{}
++	for _, r := range regs {
++		row := []bool{}
++		for _, name := range names {
++			if len(name) > 1024 || time.Now().After(deadline) {
++				return nil, errors.New("policy budget")
++			}
++			m, e := r.MatchString(name)
++			if e != nil {
++				return nil, errors.New("policy regex")
++			}
++			row = append(row, m)
++		}
++		result = append(result, row)
++	}
++	return result, nil
++}
++func iosPolicyRegex(pattern string) ([]*regexp2.Regexp, error) {
++	parts := strings.Split(pattern, "`")
++	if len(pattern) > 2048 || len(parts) > 16 {
++		return nil, errors.New("policy limit")
++	}
++	result := []*regexp2.Regexp{}
++	for _, part := range parts {
++		r, e := regexp2.Compile(part, regexp2.None)
++		if e != nil {
++			return nil, errors.New("policy regex")
++		}
++		r.MatchTimeout = 10 * time.Millisecond
++		result = append(result, r)
++	}
++	return result, nil
++}
++func ResolveMembersForIOS(options map[string]any, providers []IOSPolicyProvider) ([]string, error) {
++	fail := errors.New("invalid group policy")
++	if len(providers) > 33 {
++		return nil, fail
++	}
++	text := func(key string) (string, error) {
++		v, ok := options[key]
++		if !ok {
++			return "", nil
++		}
++		s, ok := v.(string)
++		if !ok {
++			return "", fail
++		}
++		return s, nil
++	}
++	filter, e := text("filter")
++	if e != nil {
++		return nil, fail
++	}
++	exclude, e := text("exclude-filter")
++	if e != nil {
++		return nil, fail
++	}
++	types, e := text("exclude-type")
++	if e != nil {
++		return nil, fail
++	}
++	names := []string{}
++	pds := []P.ProxyProvider{}
++	for _, p := range providers {
++		pds = append(pds, iosPolicyProvider{data: p})
++		for _, n := range p.Nodes {
++			if _, ok := iosPolicyTypes[n.Type]; !ok {
++				return nil, fail
++			}
++			names = append(names, n.Name)
++		}
++	}
++	if len(names) > 576 {
++		return nil, fail
++	}
++	for _, name := range names {
++		if len(name) > 1024 {
++			return nil, fail
++		}
++	}
++	if _, e = iosPolicyRegex(filter); e != nil {
++		return nil, fail
++	}
++	if _, e = iosPolicyRegex(exclude); e != nil {
++		return nil, fail
++	}
++	gb := NewGroupBase(GroupBaseOption{Name: "IOS", Providers: pds, Filter: filter, ExcludeFilter: exclude, ExcludeType: types})
++	for _, r := range append(gb.filterRegs, gb.excludeFilterRegs...) {
++		r.MatchTimeout = 10 * time.Millisecond
++	}
++	gb.iosPolicyDeadline = time.Now().Add(2 * time.Second)
++	values := gb.GetProxies(false)
++	if gb.iosPolicyError != nil {
++		return nil, fail
++	}
++	result := []string{}
++	for _, v := range values {
++		if v == nil {
++			return nil, fail
++		}
++		result = append(result, v.Name())
++	}
++	if len(result) == 0 {
++		return nil, fail
++	}
++	return result, nil
++}
++
++func (gb *GroupBase) iosPolicyMatch(r *regexp2.Regexp, name string) (bool, error) {
++	if !gb.iosPolicyDeadline.IsZero() && time.Now().After(gb.iosPolicyDeadline) {
++		gb.iosPolicyError = errors.New("policy budget")
++		return false, gb.iosPolicyError
++	}
++	m, e := r.MatchString(name)
++	if !gb.iosPolicyDeadline.IsZero() && e != nil {
++		gb.iosPolicyError = e
++	}
++	return m, e
++}
+--- a/bind/hako/config_projection_export.go
++++ b/bind/hako/config_projection_export.go
+@@ -1,4 +1,11 @@
+ package hako
++
++import (
++	"encoding/json"
++	"errors"
++	"github.com/TokenPLS/Hako/adapter/outboundgroup"
++	"github.com/TokenPLS/Hako/adapter/provider"
++)
+ 
+ func ConfigProjectionJSON(configContent, kind, packagesJSON string) (*StringBox, error) {
+ 	doc, err := NewConfigDocument(configContent)
+@@ -6,6 +13,46 @@
+ 		return nil, bridgeSafeError(err)
+ 	}
+ 	defer doc.Close()
+-	bridgedValue0, bridgedErr := doc.ProjectionJSON(kind, packagesJSON)
+-	return bridgedValue0, bridgeSafeError(bridgedErr)
++	value, err := doc.ProjectionJSON(kind, packagesJSON)
++	return value, bridgeSafeError(err)
+ }
++
++// ResolvePolicyForIOS never opens a service or fetches a resource. Secret-bearing
++// mappings are returned only to the caller; errors deliberately contain no input.
++func ResolvePolicyForIOS(input string) (*StringBox, error) {
++	fail := errors.New("invalid or excessive selection policy")
++	if len(input) > 3*1024*1024 {
++		return nil, fail
++	}
++	var request struct {
++		Operation string                            `json:"operation"`
++		Options   map[string]any                    `json:"options"`
++		Nodes     []map[string]any                  `json:"nodes"`
++		Pattern   string                            `json:"pattern"`
++		Names     []string                          `json:"names"`
++		Providers []outboundgroup.IOSPolicyProvider `json:"providers"`
++	}
++	if json.Unmarshal([]byte(input), &request) != nil {
++		return nil, fail
++	}
++	var result any
++	var err error
++	switch request.Operation {
++	case "provider":
++		result, err = provider.ResolveMappingsForIOS(request.Options, request.Nodes)
++	case "matches":
++		result, err = outboundgroup.MatchNamesForIOS(request.Pattern, request.Names)
++	case "group":
++		result, err = outboundgroup.ResolveMembersForIOS(request.Options, request.Providers)
++	default:
++		return nil, fail
++	}
++	if err != nil {
++		return nil, fail
++	}
++	data, err := json.Marshal(result)
++	if err != nil {
++		return nil, fail
++	}
++	return &StringBox{Value: string(data)}, nil
++}

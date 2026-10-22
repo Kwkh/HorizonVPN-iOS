@@ -1,0 +1,42 @@
+DEFINE SCHEMA
+
+// Used only in the user's private database, zone PersonalSubscriptionsV1.
+// No URL, credentials, node name or subscription title is indexed or plaintext.
+RECORD TYPE HorizonSubscriptionV1 (
+    payload ENCRYPTED BYTES,
+    "___createTime" TIMESTAMP,
+    "___createdBy" REFERENCE,
+    "___etag" STRING,
+    "___modTime" TIMESTAMP,
+    "___modifiedBy" REFERENCE,
+    "___recordID" REFERENCE,
+    GRANT READ, WRITE TO "_creator",
+    GRANT CREATE TO "_icloud"
+);
+
+RECORD TYPE HorizonAssetV1 (
+    digest ENCRYPTED STRING,
+    bytes ENCRYPTED INT64,
+    file ASSET,
+    "___createTime" TIMESTAMP,
+    "___createdBy" REFERENCE,
+    "___etag" STRING,
+    "___modTime" TIMESTAMP,
+    "___modifiedBy" REFERENCE,
+    "___recordID" REFERENCE,
+    GRANT READ, WRITE TO "_creator",
+    GRANT CREATE TO "_icloud"
+);
+
+// Preserve the built-in Users definition exported from this container.
+    RECORD TYPE Users (
+        "___createTime" TIMESTAMP,
+        "___createdBy"  REFERENCE,
+        "___etag"       STRING,
+        "___modTime"    TIMESTAMP,
+        "___modifiedBy" REFERENCE,
+        "___recordID"   REFERENCE,
+        roles           LIST<INT64>,
+        GRANT WRITE TO "_creator",
+        GRANT READ TO "_world"
+    );

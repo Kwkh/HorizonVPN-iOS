@@ -1,0 +1,7 @@
+proxies:
+  - {name: EXAMPLE-Z, type: hysteria2, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+  - {name: EXAMPLE-A, type: hysteria2, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+proxy-groups:
+  - {name: SELECT, type: select, include-all-proxies: true, expected-status: 204}
+rules: ['MATCH,SELECT']
+dns: {listen: ':1053', nameserver: ['1.1.1.1']}

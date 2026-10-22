@@ -1,0 +1,18 @@
+# Synthetic shape only. No functioning node or private credentials.
+# Import through the app to attach the packaged GeoIP snapshot; raw preflight requires that snapshot.
+proxies:
+  - {name: EXAMPLE, type: hysteria2, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+proxy-groups:
+  - {name: SELECT, type: select, proxies: [EXAMPLE]}
+rules: ['MATCH,SELECT']
+geodata-mode: false
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  prefer-h3: false
+  nameserver: [223.5.5.5]
+  default-nameserver: [1.1.1.1]
+  fallback: ['https://1.1.1.1/dns-query']
+  fallback-filter:
+    geoip: true
+    geoip-code: CN

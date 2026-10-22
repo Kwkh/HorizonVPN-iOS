@@ -1,0 +1,17 @@
+.DS_Store
+DerivedData/
+build/
+.build/
+*.xcuserstate
+xcuserdata/
+.xcodebuildmcp/
+__pycache__/
+*.py[cod]
+# All real profiles, credentials and signing exports stay local.
+LocalSecrets/
+*.mobileprovision
+*.p12
+*.p8
+*.ipa
+*.xcarchive
+*.xcresult

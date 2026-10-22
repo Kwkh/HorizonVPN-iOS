@@ -1,0 +1,15 @@
+proxies:
+  - {name: EXAMPLE, type: trojan, server: node.example.invalid, port: 443, password: FICTIONAL-ONLY}
+proxy-groups:
+  - {name: SELECT, type: select, proxies: [EXAMPLE]}
+rules: ['MATCH,SELECT']
+hosts: {host.example.invalid: [192.0.2.5, '2001:db8::5']}
+rule-providers:
+  domains: {type: inline, behavior: domain, payload: ['+.example.invalid']}
+dns:
+  nameserver: ['1.1.1.1']
+  default-nameserver: ['1.1.1.1']
+  use-hosts: true
+  nameserver-policy:
+    'rule-set:domains': ['https://1.1.1.1/dns-query#SELECT']
+    '+.local.invalid': system

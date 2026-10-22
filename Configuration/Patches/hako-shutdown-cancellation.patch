@@ -1,0 +1,23 @@
+--- a/bind/hako/service.go
++++ b/bind/hako/service.go
+@@ -543,6 +543,12 @@
+ }
+ 
+ func shutdownCore() {
++	// Stop admitting new flows before cancelling shared DNS work. Rule matching
++	// can hold the configuration read lock while resolving an address; waiting
++	// for UpdateProxies/UpdateRules first would postpone cancellation until the
++	// DNS deadline. This affects shutdown only, never a caller's normal query.
++	tunnel.OnSuspend()
++	resolver.CloseQueries()
+ 	inner.CloseTCPConnections()
+ 	CloseAllConnections()
+ 
+@@ -554,7 +560,6 @@
+ 
+ 	executor.Shutdown()
+ 	resolver.ResetConnection()
+-	resolver.CloseQueries()
+ 
+ 	for _, current := range providers {
+ 		if closer, ok := any(current).(io.Closer); ok {
